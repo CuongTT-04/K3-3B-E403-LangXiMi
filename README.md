@@ -8,10 +8,10 @@
 
 | Họ và Tên | Mã Học Viên | Vai trò chính | Phần việc đảm nhiệm trong dự án |
 |---|---|---|---|
-| Trần Đình Hinh | 2A202602399 | Nhóm trưởng |  |
-| Trần Tuấn Cường | 2A202602717 | Thành viên | ttuancuong2810@gmail.com |
-|  |  |  |  |
-|  |  |  |  |
+| Trần Tuấn Cường | 2A202602717 | Nhóm trưởng |  |
+| Trần Đình Hinh | 2A202602399 | Thành viên |  |
+| Lê Như Ý | 2A202602715 | Thành viên |  |
+| Lê Thị Châm Anh | 2A202602846 | Thành viên |  |
 
 > Nhóm copy nguyên file README này về repo của mình, rồi điền bảng trên. Cột **Phần việc đảm nhiệm** ghi càng cụ thể càng tốt.
 
