@@ -444,14 +444,14 @@
     <!-- Banner -->
     <div class="banner">
       <h1>Khắc phục hổng kiến thức từ câu hỏi trắc nghiệm sai</h1>
-      <p>Bản mẫu tương tác (Interactive Mockup) chứng minh luồng người dùng và 4 đường đi trải nghiệm (Happy path, Low-confidence, No-grounding, Correction) theo bộ nguyên tắc HAX/PAIR.</p>
+      <p>Bản mẫu tương tác (Interactive Mockup) chứng minh luồng người dùng và 4 đường đi trải nghiệm (Thuận lợi, Chưa rõ nguyên nhân, Thiếu tài liệu đối chiếu, Đính chính/Bỏ qua).</p>
       <div class="banner-tags">
         <span class="tag">Mức: Mock</span>
-        <span class="tag">Cost-of-Error: Conditional</span>
-        <span class="tag">HAX G10 (Scope-down)</span>
-        <span class="tag">HAX G11 (Explainability)</span>
-        <span class="tag">HAX G8 (Dismiss)</span>
-        <span class="tag">HAX G9 (Correction)</span>
+        <span class="tag">Cơ chế: Conditional</span>
+        <span class="tag">Thu hẹp khi nghi ngờ</span>
+        <span class="tag">Trích nguồn minh bạch</span>
+        <span class="tag">Gạt bỏ dễ dàng</span>
+        <span class="tag">Người học đính chính</span>
       </div>
     </div>
 
@@ -557,21 +557,20 @@
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
               <div class="ai-badge">✦ AI Chẩn đoán & Củng cố (Remediation)</div>
               <div style="display: flex; gap: 6px;">
-                <span class="hax-badge" title="G11: Giải thích rõ vì sao">HAX G11</span>
-                <span class="hax-badge" title="G10: Thu hẹp phạm vi khi nghi ngờ">HAX G10</span>
-                <span class="hax-badge" title="G8 & G9: Gạt bỏ và sửa đổi dễ dàng">HAX G8 & G9</span>
+                <span class="hax-badge" title="Có trích dẫn nguồn">Trích dẫn chính xác</span>
+                <span class="hax-badge" title="Quyền kiểm soát thuộc học viên">Quyền kiểm soát người học</span>
               </div>
             </div>
 
             <!-- CHUYỂN ĐỔI 4 ĐƯỜNG TRẢI NGHIỆM ĐỂ TEST -->
             <div style="margin: 12px 0 6px 0; font-size: 12px; font-weight: 700; color: var(--slate-700);">
-              CHẾ ĐỘ MINH HỌA 4 ĐƯỜNG TRẢI NGHIỆM (SPEC §6):
+              CHẾ ĐỘ MINH HỌA 4 ĐƯỜNG TRẢI NGHIỆM:
             </div>
             <div class="path-selector">
-              <button class="path-btn active" onclick="switchPath('happy', this)">1. Happy Path (Tự tin cao)</button>
-              <button class="path-btn" onclick="switchPath('low-conf', this)">2. Low-confidence (Lớp ② - G10)</button>
-              <button class="path-btn" onclick="switchPath('no-grounding', this)">3. No-grounding (Lớp ① - G10)</button>
-              <button class="path-btn" onclick="switchPath('correction', this)">4. User Correction (G8 & G9)</button>
+              <button class="path-btn active" onclick="switchPath('happy', this)">1. Thuận lợi (Tự tin cao)</button>
+              <button class="path-btn" onclick="switchPath('low-conf', this)">2. Chưa rõ nguyên nhân (Low-confidence)</button>
+              <button class="path-btn" onclick="switchPath('no-grounding', this)">3. Không có căn cứ (No-grounding)</button>
+              <button class="path-btn" onclick="switchPath('correction', this)">4. Đính chính / Bỏ qua (User Control)</button>
             </div>
 
             <!-- PATH 1: HAPPY PATH CONTENT -->
@@ -585,7 +584,7 @@
 
               <!-- Grounding verbatim quote -->
               <div class="grounding-quote">
-                <span class="grounding-tag">Căn cứ trích dẫn Transcript bài giảng [T01-042] (HAX G11):</span><br>
+                <span class="grounding-tag">Căn cứ trích dẫn Transcript bài giảng [T01-042]:</span><br>
                 <em>"Muốn mô hình nhớ kiến thức mới có tính biến động hàng ngày thì tuyệt đối không mang đi Fine-tuning vì chi phí huấn luyện lại rất lớn và dễ bị quên kiến thức cũ (catastrophic forgetting). Với dữ liệu cập nhật theo giờ hoặc theo ngày, các bạn bắt buộc phải dùng RAG để inject ngữ cảnh tại thời điểm truy vấn."</em>
               </div>
 
@@ -607,7 +606,7 @@
                 </div>
                 <div style="margin-top: 12px; display: flex; gap: 8px;">
                   <button class="btn btn-primary" style="padding: 6px 14px; font-size: 12px;" onclick="checkRemedyAnswer()">Kiểm tra củng cố</button>
-                  <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="dismissRemedy()">Bỏ qua (HAX G8)</button>
+                  <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="dismissRemedy()">Bỏ qua</button>
                 </div>
                 <div id="remedy-toast" class="toast"></div>
               </div>
@@ -617,7 +616,7 @@
             <div id="path-low-conf-content" style="display: none;">
               <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 14px;">
                 <div style="font-weight: 700; font-size: 13.5px; color: #1e40af; margin-bottom: 6px;">
-                  🔍 AI nhận diện độ tự tin thấp (HAX G10 - Thu hẹp phạm vi khi nghi ngờ):
+                  🔍 AI nhận diện độ tự tin thấp (Cần xác nhận nguyên nhân):
                 </div>
                 <p style="font-size: 13px; color: var(--slate-700); margin-bottom: 10px;">
                   Hệ thống nhận thấy có 2 khả năng khiến bạn chọn phương án này. Hãy cho biết nguyên nhân của bạn để AI hỗ trợ chính xác nhất:
@@ -638,7 +637,7 @@
             <div id="path-no-grounding-content" style="display: none;">
               <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 8px; padding: 14px;">
                 <div style="font-weight: 700; font-size: 13.5px; color: #92400e; margin-bottom: 6px;">
-                  ⚠️ Không tìm thấy căn cứ bài giảng trực tiếp (Failure/No-grounding - Lớp ① & HAX G10):
+                  ⚠️ Chưa có căn cứ bài giảng trực tiếp:
                 </div>
                 <p style="font-size: 13px; color: #78350f; margin-bottom: 12px;">
                   Để tránh hiện tượng ảo giác (hallucination) và đảm bảo tính học thuật, <b>AI từ chối tự sinh câu hỏi mới khi không tìm thấy đoạn trích dẫn tương ứng trong bài giảng</b>.
@@ -658,17 +657,17 @@
             <div id="path-correction-content" style="display: none;">
               <div style="background: #f8fafc; border: 1.5px solid var(--slate-300); border-radius: 8px; padding: 14px;">
                 <div style="font-weight: 700; font-size: 13.5px; color: var(--slate-800); margin-bottom: 6px;">
-                  🛠️ Quyền kiểm soát & Chỉnh sửa của người dùng (HAX G8 & G9):
+                  🛠️ Quyền kiểm soát & Đính chính của người học:
                 </div>
                 <p style="font-size: 13px; color: var(--slate-600); margin-bottom: 12px;">
                   Bạn có toàn quyền bác bỏ hoặc điều chỉnh nhận định của AI:
                 </p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                   <button class="btn btn-outline-danger" style="font-size: 12px;" onclick="correctAI('misclick')">
-                    ✕ "Tôi chỉ bấm nhầm nút chứ đã hiểu bài này" (HAX G9)
+                    ✕ "Tôi chỉ bấm nhầm nút chứ đã hiểu bài này"
                   </button>
                   <button class="btn btn-secondary" style="font-size: 12px;" onclick="correctAI('dismiss')">
-                    Bỏ qua & Kết thúc lượt ôn (HAX G8)
+                    Bỏ qua & Kết thúc lượt ôn
                   </button>
                 </div>
                 <div id="correction-toast" class="toast toast-success" style="margin-top: 12px;"></div>
@@ -766,10 +765,10 @@
       }
     }
 
-    // Dismiss câu củng cố (HAX G8)
+    // Bỏ qua câu củng cố
     function dismissRemedy() {
       document.getElementById('remedy-quiz-box').style.display = 'none';
-      alert('Đã gạt bỏ câu củng cố (HAX G8). Học viên hoàn tất buổi ôn tập mà không bị ép buộc.');
+      alert('Đã bỏ qua câu củng cố. Học viên hoàn tất buổi ôn tập.');
     }
 
     // Low confidence reason choice
@@ -783,14 +782,14 @@
       }
     }
 
-    // User correction (HAX G9)
+    // Người học đính chính kết quả
     function correctAI(type) {
       const toast = document.getElementById('correction-toast');
       toast.style.display = 'block';
       if (type === 'misclick') {
-        toast.innerHTML = '✓ <b>Đã cập nhật (HAX G9):</b> Hệ thống ghi nhận bạn làm sai do thao tác nhầm. Hồ sơ học tập được giữ nguyên không đánh dấu hổng kiến thức.';
+        toast.innerHTML = '✓ <b>Đã cập nhật:</b> Hệ thống ghi nhận bạn làm sai do thao tác nhầm. Hồ sơ học tập được giữ nguyên không đánh dấu hổng kiến thức.';
       } else {
-        toast.innerHTML = '✓ <b>Đã gạt bỏ (HAX G8):</b> Bạn đã kết thúc lượt ôn tập.';
+        toast.innerHTML = '✓ <b>Đã kết thúc:</b> Bạn đã hoàn thành lượt ôn tập.';
       }
     }
   </script>

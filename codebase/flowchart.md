@@ -8,34 +8,34 @@ Tài liệu thiết kế hành trình người dùng và luồng quyết định
 
 ```mermaid
 flowchart TD
-    Start([Học viên hoàn thành bài Quiz trên VLearn]) --> Submit[Bấm Nộp bài]
-    Submit --> ShowResult[Hiển thị Màn hình kết quả tổng quan<br/>Điểm số, câu đúng, câu sai]
+    Start(["Học viên hoàn thành bài Quiz trên VLearn"]) --> Submit["Bấm Nộp bài"]
+    Submit --> ShowResult["Hiển thị Màn hình kết quả tổng quan<br/>Điểm số, câu đúng, câu sai"]
     
-    ShowResult --> CheckWrong{Có câu trả lời sai không?}
-    CheckWrong -- Không có câu sai --> Perfect([Chúc mừng! Nắm vững toàn bộ kiến thức])
-    CheckWrong -- Có câu sai --> TriggerAI[Kích hoạt AI Remediation Engine]
+    ShowResult --> CheckWrong{"Có câu trả lời sai không?"}
+    CheckWrong -- "Không có câu sai" --> Perfect(["Chúc mừng! Nắm vững toàn bộ kiến thức"])
+    CheckWrong -- "Có câu sai" --> TriggerAI["Kích hoạt AI Remediation Engine"]
     
-    TriggerAI --> Retrieve[Truy xuất Transcript bài giảng gốc qua RAG]
-    Retrieve --> CheckConfidence{Độ tin cậy & căn cứ tài liệu?}
+    TriggerAI --> Retrieve["Truy xuất Transcript bài giảng gốc qua RAG"]
+    Retrieve --> CheckConfidence{"Độ tin cậy & căn cứ tài liệu?"}
     
     %% Đường 1: Happy Path
-    CheckConfidence -- "Độ tương đồng >= 0.75 (Tự tin cao)" --> HappyPath[1. Happy Path:<br/>Chẩn đoán nguyên nhân hiểu nhầm<br/>+ Trích dẫn Transcript Tag [Txx-xxx]<br/>+ Sinh câu hỏi trắc nghiệm củng cố]
+    CheckConfidence -- "Độ tương đồng >= 0.75 (Tự tin cao)" --> HappyPath["1. Happy Path:<br/>Chẩn đoán nguyên nhân hiểu nhầm<br/>+ Trích dẫn Transcript Tag (Txx-xxx)<br/>+ Sinh câu hỏi trắc nghiệm củng cố"]
     
-    HappyPath --> UserChoice{Học viên hành động}
-    UserChoice -- "Làm câu củng cố" --> SolveQuestion[Chọn đáp án & Bấm Kiểm tra]
-    SolveQuestion --> QuestionResult[Phản hồi đúng/sai tức thì & Hoàn thành]
+    HappyPath --> UserChoice{"Học viên hành động"}
+    UserChoice -- "Làm câu củng cố" --> SolveQuestion["Chọn đáp án & Bấm Kiểm tra"]
+    SolveQuestion --> QuestionResult["Phản hồi đúng/sai tức thì & Hoàn thành"]
     
     %% Nguyên tắc HAX G8 & G9
-    UserChoice -- "G8: Gạt bỏ dễ dàng" --> Dismiss([Bấm 'Bỏ qua câu củng cố' / Hoàn thành bài])
-    UserChoice -- "G9: Sửa sai hiệu quả" --> FixAI([Bấm 'Tôi bấm nhầm chứ không phải hiểu sai'<br/>AI hủy củng cố])
+    UserChoice -- "G8: Gạt bỏ dễ dàng" --> Dismiss(["Bấm 'Bỏ qua câu củng cố' / Hoàn thành bài"])
+    UserChoice -- "G9: Sửa sai hiệu quả" --> FixAI(["Bấm 'Tôi bấm nhầm chứ không phải hiểu sai'<br/>AI hủy củng cố"])
     
     %% Đường 2: Low-confidence Path
-    CheckConfidence -- "Mơ hồ / Có nhiều nguyên nhân hiểu nhầm" --> LowConf[2. Low-Confidence Path G10:<br/>AI đưa ra 2 giả thuyết nhầm lẫn<br/>Học viên chọn đúng tình huống của mình]
+    CheckConfidence -- "Mơ hồ / Có nhiều nguyên nhân hiểu nhầm" --> LowConf["2. Low-Confidence Path G10:<br/>AI đưa ra 2 giả thuyết nhầm lẫn<br/>Học viên chọn đúng tình huống của mình"]
     LowConf --> HappyPath
     
     %% Đường 3: No-grounding Path
-    CheckConfidence -- "Không tìm thấy căn cứ trong bài giảng" --> NoGround[3. Failure / No-grounding Path G10:<br/>Từ chối sinh câu hỏi ảo<br/>Hiện tóm tắt lý thuyết chung + Nút 'Hỏi TA']
-    NoGround --> EndFallback([Kết thúc / Gửi ticket TA])
+    CheckConfidence -- "Không tìm thấy căn cứ trong bài giảng" --> NoGround["3. Failure / No-grounding Path G10:<br/>Từ chối sinh câu hỏi ảo<br/>Hiện tóm tắt lý thuyết chung + Nút 'Hỏi TA'"]
+    NoGround --> EndFallback(["Kết thúc / Gửi ticket TA"])
 ```
 
 ---
