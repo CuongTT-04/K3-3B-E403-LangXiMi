@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RemediationResponse",
+  "type": "object",
+  "properties": {
+    "has_grounding": { "type": "boolean" },
+    "confidence_level": { "type": "string", "enum": ["high", "medium", "low"] },
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "student_selected_option": { "type": "string" },
+        "misconception_core": { "type": "string" },
+        "detailed_explanation": { "type": "string" }
+      },
+      "required": ["student_selected_option", "misconception_core", "detailed_explanation"]
+    },
+    "grounding": {
+      "type": "object",
+      "properties": {
+        "transcript_tag": { "type": ["string", "null"] },
+        "verbatim_quote": { "type": ["string", "null"] }
+      },
+      "required": ["transcript_tag", "verbatim_quote"]
+    },
+    "remediation_quiz": {
+      "type": ["object", "null"],
+      "properties": {
+        "scenario_question": { "type": "string" },
+        "options": {
+          "type": "object",
+          "properties": {
+            "A": { "type": "string" },
+            "B": { "type": "string" },
+            "C": { "type": "string" },
+            "D": { "type": "string" }
+          },
+          "required": ["A", "B", "C", "D"]
+        },
+        "correct_answer": { "type": "string", "enum": ["A", "B", "C", "D"] },
+        "quick_feedback": { "type": "string" }
+      },
+      "required": ["scenario_question", "options", "correct_answer", "quick_feedback"]
+    }
+  },
+  "required": ["has_grounding", "confidence_level", "diagnosis", "grounding", "remediation_quiz"]
+}
