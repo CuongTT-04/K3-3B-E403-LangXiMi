@@ -4,14 +4,14 @@
 
 ## 👥 Thành viên nhóm & Phân công vai trò
 
-**Lớp:** 3B · **Phòng:** E403 · **Cụm:** ____ · **Track:** ____
+**Lớp:** 3B · **Phòng:** E403 · **Cụm:** C4 · **Track:** ____
 
 | Họ và Tên | Mã Học Viên | Vai trò chính | Phần việc đảm nhiệm trong dự án |
 |---|---|---|---|
-| Trần Tuấn Cường | 2A202602717 | Nhóm trưởng |  |
-| Trần Đình Hinh | 2A202602399 | Thành viên |  |
-| Lê Như Ý | 2A202602715 | Thành viên |  |
-| Lê Thị Châm Anh | 2A202602846 | Thành viên |  |
+| Trần Tuấn Cường | 2A202602717 | Nhóm trưởng | spec, thiết kế luồng sư phạm, system prompt (chẩn đoán lỗi sai & sinh câu hỏi trắc nghiệm củng cố), output contract. |
+| Trần Đình Hinh | 2A202602399 | Thành viên | Mining bằng chứng số liệu chatlog/transcript, chuẩn bị Fixture mini-quiz Day 01, xây dựng Golden Set (20 case) và bộ tiêu chí đánh giá (quality bar). |
+| Lê Như Ý | 2A202602715 | Thành viên | Xây dựng pipeline RAG truy xuất đoạn transcript [Txx-NNN], gọi LLM API, output validator và xử lý các ca lỗi/fallback. |
+| Lê Thị Châm Anh | 2A202602846 | Thành viên | Xây dựng giao diện web (làm quiz → nộp bài → hiển thị giải thích & câu hỏi củng cố ở màn hình kết quả), điều phối user test với ≥5 học viên trong lớp. |
 
 > Nhóm copy nguyên file README này về repo của mình, rồi điền bảng trên. Cột **Phần việc đảm nhiệm** ghi càng cụ thể càng tốt.
 
