@@ -5,12 +5,21 @@ Loại: [x] Tối ưu tính năng có sẵn (Màn hình kết quả Quiz VLearn)
 ---
 
 ## §1. User & Job
-- Job executor + workflow (đính kèm worksheet JTBD / ảnh sơ đồ):
-- Core JTBD (không tên sản phẩm/AI trong câu):
-- Problem statement (KHÔNG chữ AI):
-- Evidence (chuẩn A và/hoặc B — log đầy đủ trong repo):
-  - Số liệu mining / kết quả khảo sát (n = ?, % xác nhận):
-  - ≥5 quote/ví dụ nguyên văn + nguồn:
+- **Job executor + workflow:** Học viên vừa nộp bài một bộ quiz trắc nghiệm ôn tập trên VLearn (có $\ge 1$ câu trả lời sai), đang xem màn hình kết quả cuối bài.
+- **Core JTBD:** Khắc phục ngay các lỗ hổng kiến thức từ các câu hỏi làm sai trước khi kết thúc phiên học, mà không phải tự lật tìm thủ công hàng chục trang slide.
+- **Problem statement:** Sau khi nộp bài quiz, hệ thống chỉ hiển thị tổng điểm và danh sách đúng/sai chung chung; người học không biết mình hiểu nhầm ở khái niệm nào và ngại lật lại hàng trăm trang tài liệu để tìm kiếm, dẫn đến việc hổng kiến thức vẫn còn nguyên và tiếp tục lặp lại lỗi sai ở các bài kiểm tra sau.
+- **Evidence (Chuẩn B — kiểm chứng qua script `eval/mine_evidence.py` trên `tutor_turns.csv`):**
+  - **Số liệu mining:**
+    - Tổng số lượt tương tác trong chatlog: **13.494 lượt**.
+    - Trường `understanding_level` (mức độ hiểu bài) bị bỏ trống tới **13.474 / 13.494 lượt (99,85%)**.
+    - Nước đi sư phạm đào sâu kiểm tra hiểu bài (`ask_probing_question`) chỉ xuất hiện **28 / 13.494 lượt (0,21%)**.
+    - Nhu cầu đòi làm bài tập/quiz ôn tập củng cố kiến thức: **196 lượt** trong chatlog, nhưng hệ thống gia sư hiện tại không thể sinh câu hỏi củng cố thích ứng.
+  - **≥5 quote nguyên văn + nguồn:**
+    1. Turn `T00261`: *"dựa vào tài liệu này bạn hãy cho tôi bộ quizz liên quan"* $\rightarrow$ Tutor từ chối: *"Hiện tại tôi không có bộ câu hỏi kiểm tra (quiz) đính kèm trong tài liệu bài giảng..."*
+    2. Turn `T00633`: *"tóm tắt những ý chính, chi tiết để tôi có thể làm quiz kahoot cuối giờ"* $\rightarrow$ Tutor từ chối do không truy xuất được dạng bài kiểm tra.
+    3. Turn `T00804`: *"TẠO QUIZ ĐỂ TÔI HIỂU RÕ VÀ ÔN LẠI TOÀN BỘ SLIDE NÀY"* $\rightarrow$ Tutor chỉ trả lời lý thuyết, không sinh được bài tập tương tác.
+    4. Turn `T01520`: *"hiện tại vlearn đã có quiz ôn tập ch"* $\rightarrow$ Nhu cầu thực tế học viên tìm kiếm tính năng quiz trên nền tảng.
+    5. Transcript 04 (`[T04-092]`): *"Cần tính năng quiz cá nhân hoá để ôn bài theo điểm yếu, chứ làm sai xong trôi qua luôn không nhớ mình sai vì sao."*
 
 ## §2. Impact & quyết định chọn
 - Bảng impact ≥3 ứng viên (bao nhiêu người · tần suất · tốn gì mỗi lần · khả thi):
@@ -62,11 +71,27 @@ Loại: [x] Tối ưu tính năng có sẵn (Màn hình kết quả Quiz VLearn)
 4. **Correction path (Đường người dùng can thiệp sửa):**
    - Học viên bấm nút *"Tôi chỉ bấm nhầm nút chứ đã nắm rõ kiến thức này"* $\rightarrow$ AI ghi nhận, hủy khối câu hỏi củng cố và cập nhật lại trạng thái hoàn thành.
 
-# §7. Kiểm thử
-- Chiều chất lượng + định nghĩa kiểm chứng được:
-- Golden set (≥20 case theo cơ cấu trong guide §2.6, file trong eval/):
-- Quality bar (chốt từ hạn chốt spec của khoá, giữ nguyên sau đó): "Đạt khi ≥ ___% qua bộ, và ___"
-- Kết quả các lượt chạy (bảng % — cập nhật đến trước CP6):
+## §7. Kiểm thử & Đánh giá chất lượng (Eval)
+- **Chiều chất lượng + định nghĩa kiểm chứng được:**
+  1. **D1 · Diagnosis Accuracy:** PASS nếu AI chỉ ra đúng giả định/concept sai của lựa chọn; FAIL nếu chỉ phán chung chung "bạn làm sai rồi".
+  2. **D2 · Citation Groundedness (Zero-tolerance):** PASS nếu trích dẫn `[Txx-xxx]` có thật trong transcript và đối chiếu đúng kiến thức; FAIL nếu bịa trích dẫn ảo (Hallucination).
+  3. **D3 · Reinforcement Question Quality:** PASS nếu câu hỏi củng cố mới có tình huống thực tế, đủ 4 lựa chọn, duy nhất 1 đáp án đúng, không lộ đáp án trong đề.
+  4. **D4 · Tone & Graceful Fallback:** PASS nếu giọng văn nâng đỡ sư phạm; khi gặp case thiếu nguồn (Lớp ①) hoặc ngoài phạm vi (Lớp ③) phải từ chối lịch sự và hướng dẫn xem tài liệu.
+- **Golden set:** Bộ 20 case chuẩn hóa lưu tại `eval/golden_set.json` (chi tiết tiêu chí tại `eval/quality_bar.md`):
+  - 8 case phủ đủ 4 lớp chỗ khó (Lớp ① Nguồn sự thật, Lớp ② Mơ hồ, Lớp ③ Ngoài phạm vi, Lớp ④ Hiểu nhầm domain tinh tế).
+  - 10 case thường (Happy path bám sát bộ câu hỏi Day 01).
+  - 2 case hiếm (Sai toàn bộ 4/4 câu hoặc Đúng toàn bộ 4/4 câu).
+  - $\ge 10$ case trích xuất và phát triển trực tiếp từ chatlog thật.
+- **Quality bar (chốt cứng trước CP4, giữ nguyên sau đó):**
+  - **Đạt khi $\ge 80\%$ (16/20 case)** vượt qua toàn bộ 4 chiều chất lượng.
+  - **$100\%$ (20/20 case)** đạt tiêu chuẩn **Citation Groundedness** (Tuyệt đối không bịa số hiệu trích dẫn).
+  - **$100\%$ case ngoài phạm vi** từ chối thành công và giữ đúng vai trò sư phạm.
+- **Kết quả các lượt chạy:**
+
+| Lượt chạy | Ngày đo | Mô hình / Phiên bản | Tỷ lệ Đạt tổng | Grounded Citation | Ghi chú / Nguyên nhân chính |
+|---|---|---|---|---|---|
+| Lượt 1 (Baseline CP3) | 18/9 | Gemini 1.5 Flash (Prompt v1) | *Đang cập nhật tại CP3* | *Đang cập nhật* | Baseline đo lường đầu tiên |
+| Lượt 2 | 18/9 | Prompt v2 + RAG reranking | *Chạy sau khi tối ưu* | *Đang cập nhật* | Cải thiện các case lớp ② và ④ |
 
 ## §8. Phân công & kế hoạch
 - Phân công có tên: spec / evidence / prompt / code / demo
