@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VLearn Focus - học lại từ những câu trả lời sai">
+  <title>VLearn Focus — Kết quả bài ôn tập</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="VLearn trang chủ"><span class="brand-mark">V</span><span>VLearn</span></a>
+    <div class="course"><span class="course-label">Khoá học</span><strong>AI Cơ bản · Day 01</strong></div>
+    <div class="top-actions"><button class="icon-btn" aria-label="Thông báo">🔔</button><div class="avatar">AN</div></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <a class="back" href="#">← Quay lại bài học</a>
+        <div class="eyebrow"><span>✓</span> Đã hoàn thành</div>
+        <h1>Bạn đã hoàn thành bài ôn tập!</h1>
+        <p>Khá tốt! Hãy dành vài phút xem lại những câu chưa đúng để lấp đầy lỗ hổng kiến thức.</p>
+      </div>
+      <div class="score-card" aria-label="Điểm số 7 trên 10">
+        <div class="score-ring"><div><strong>7</strong><span>/ 10</span></div></div>
+        <div><span class="score-label">Kết quả của bạn</span><strong class="score-message">Làm tốt lắm!</strong><span class="score-note">Bạn đã nắm được phần lớn nội dung.</span></div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Thống kê bài làm">
+      <div class="stat"><span class="stat-icon correct">✓</span><div><strong>7</strong><span>Câu trả lời đúng</span></div></div>
+      <div class="stat"><span class="stat-icon wrong">×</span><div><strong>3</strong><span>Câu cần xem lại</span></div></div>
+      <div class="stat"><span class="stat-icon time">◷</span><div><strong>08:42</strong><span>Thời gian làm bài</span></div></div>
+      <div class="stat"><span class="stat-icon target">◎</span><div><strong>70%</strong><span>Độ chính xác</span></div></div>
+    </section>
+
+    <section class="review-section">
+      <div class="section-heading">
+        <div><span class="section-kicker">HỌC TỪ LỖI SAI</span><h2>3 câu bạn cần xem lại</h2><p>AI đã phân tích bài làm và tìm thấy 2 chủ đề bạn có thể đang hiểu nhầm.</p></div>
+        <div class="progress-label"><span>Tiến độ xem lại</span><strong id="progressText">0/3</strong><div class="mini-progress"><i id="progressBar"></i></div></div>
+      </div>
+
+      <div class="layout">
+        <aside class="topic-nav" aria-label="Danh sách chủ đề">
+          <button class="topic active" data-filter="all"><span class="topic-symbol">✦</span><span><strong>Tất cả câu sai</strong><small>3 câu hỏi</small></span><b>3</b></button>
+          <button class="topic" data-filter="attention"><span class="topic-symbol purple">01</span><span><strong>Cơ chế Attention</strong><small>2 câu hỏi</small></span><b>2</b></button>
+          <button class="topic" data-filter="prompt"><span class="topic-symbol cyan">02</span><span><strong>Prompt Engineering</strong><small>1 câu hỏi</small></span><b>1</b></button>
+          <div class="ai-note"><span>✦</span><strong>Gợi ý từ AI</strong><p>Bạn nên xem lại <b>cách tính trọng số Attention</b> trước khi luyện tập.</p></div>
+        </aside>
+
+        <div class="questions">
+          <article class="question-card" data-topic="attention" data-id="1">
+            <div class="question-top"><div><span class="number">CÂU 3 / 10</span><span class="tag">Cơ chế Attention</span></div><span class="status">Chưa xem lại</span></div>
+            <h3>Trong cơ chế Self-Attention, vai trò chính của vector Query (Q) là gì?</h3>
+            <div class="answer wrong-answer"><span>✕</span><div><small>Bạn đã chọn</small><p>Đại diện cho toàn bộ thông tin đầu vào cần được lưu trữ.</p></div></div>
+            <div class="answer right-answer"><span>✓</span><div><small>Đáp án đúng</small><p>Đại diện cho thông tin mà một token đang “tìm kiếm” ở các token khác.</p></div></div>
+            <button class="explain-toggle" aria-expanded="false">✦ Xem AI giải thích lỗi sai <span>⌄</span></button>
+            <div class="explanation">
+              <div class="diagnosis"><span>!</span><div><strong>Có thể bạn đang nhầm lẫn</strong><p>Query không phải nơi “lưu trữ” dữ liệu. Nó giống như một câu hỏi mà token hiện tại dùng để đo mức liên quan với các Key của token khác.</p></div></div>
+              <div class="analogy"><strong>Hiểu nhanh qua ví dụ</strong><p>Trong thư viện, <b>Query</b> là điều bạn muốn tìm, <b>Key</b> là nhãn trên gáy sách, còn <b>Value</b> là nội dung cuốn sách bạn nhận được.</p></div>
+              <a class="source" href="#lesson"><span>▤</span><span><small>Nguồn từ bài học</small><strong>Day 01 · Transformer cơ bản — đoạn [T01-042]</strong></span><b>↗</b></a>
+            </div>
+            <button class="reviewed-btn">Đánh dấu đã hiểu ✓</button>
+          </article>
+
+          <article class="question-card" data-topic="attention" data-id="2">
+            <div class="question-top"><div><span class="number">CÂU 6 / 10</span><span class="tag">Cơ chế Attention</span></div><span class="status">Chưa xem lại</span></div>
+            <h3>Phép toán Softmax trong Attention được dùng để làm gì?</h3>
+            <div class="answer wrong-answer"><span>✕</span><div><small>Bạn đã chọn</small><p>Loại bỏ hoàn toàn các token có điểm số thấp.</p></div></div>
+            <div class="answer right-answer"><span>✓</span><div><small>Đáp án đúng</small><p>Chuẩn hoá điểm số thành các trọng số có tổng bằng 1.</p></div></div>
+            <button class="explain-toggle" aria-expanded="false">✦ Xem AI giải thích lỗi sai <span>⌄</span></button>
+            <div class="explanation"><div class="diagnosis"><span>!</span><div><strong>Điểm cần lưu ý</strong><p>Softmax không xoá token. Nó chuyển điểm tương quan thành phân phối trọng số, vì vậy token ít liên quan vẫn có thể nhận một trọng số rất nhỏ.</p></div></div><a class="source" href="#lesson"><span>▤</span><span><small>Nguồn từ bài học</small><strong>Day 01 · Attention weights — đoạn [T01-057]</strong></span><b>↗</b></a></div>
+            <button class="reviewed-btn">Đánh dấu đã hiểu ✓</button>
+          </article>
+
+          <article class="question-card" data-topic="prompt" data-id="3">
+            <div class="question-top"><div><span class="number">CÂU 9 / 10</span><span class="tag cyan-tag">Prompt Engineering</span></div><span class="status">Chưa xem lại</span></div>
+            <h3>Yếu tố nào giúp một prompt tạo ra kết quả ổn định hơn?</h3>
+            <div class="answer wrong-answer"><span>✕</span><div><small>Bạn đã chọn</small><p>Viết prompt càng dài càng tốt.</p></div></div>
+            <div class="answer right-answer"><span>✓</span><div><small>Đáp án đúng</small><p>Nêu rõ bối cảnh, nhiệm vụ và định dạng đầu ra mong muốn.</p></div></div>
+            <button class="explain-toggle" aria-expanded="false">✦ Xem AI giải thích lỗi sai <span>⌄</span></button>
+            <div class="explanation"><div class="diagnosis"><span>!</span><div><strong>Độ dài không quyết định chất lượng</strong><p>Một prompt tốt cần đủ rõ, có bối cảnh và tiêu chí đầu ra. Nội dung dài nhưng mơ hồ vẫn tạo kết quả thiếu ổn định.</p></div></div><a class="source" href="#lesson"><span>▤</span><span><small>Nguồn từ bài học</small><strong>Day 01 · Cấu trúc prompt — đoạn [T01-086]</strong></span><b>↗</b></a></div>
+            <button class="reviewed-btn">Đánh dấu đã hiểu ✓</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="practice" id="practice">
+      <div><span class="practice-icon">↗</span><div><span class="section-kicker light">LUYỆN TẬP CỦNG CỐ</span><h2>Sẵn sàng kiểm tra lại kiến thức?</h2><p>3 câu hỏi ngắn được tạo dựa trên đúng những nội dung bạn vừa trả lời sai.</p></div></div>
+      <button id="startPractice">Bắt đầu luyện tập <span>→</span></button>
+    </section>
+    <div class="finish"><button class="finish-btn" id="finishBtn">Kết thúc bài</button><p>Bạn có thể quay lại xem phần giải thích bất cứ lúc nào.</p></div>
+  </main>
+
+  <div class="modal" id="practiceModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" aria-label="Đóng">×</button><span class="section-kicker">CÂU CỦNG CỐ 1 / 3</span><h2>Query tương tác với thành phần nào để tạo điểm Attention?</h2><div class="options"><button>Value</button><button class="correct-option">Key</button><button>Softmax</button></div><p class="modal-hint">Chọn một đáp án để kiểm tra kiến thức.</p></div></div>
+  <div class="toast" id="toast" role="status">✓ Đã lưu tiến độ của bạn</div>
+  <script src="script.js"></script>
+</body>
+</html>
