@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VLearn Adaptive Quiz - Prototype CP02 (Nhóm LangXiMi)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      color: var(--slate-800);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      background: linear-gradient(135deg, var(--primary), #818cf8);
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--slate-900);
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--slate-600);
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+
+    /* Banners & Meta */
+    .banner {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: white;
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .banner h1 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .banner p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .banner-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.2);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Card Box */
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Question Item */
+    .question-box {
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .question-header {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 14px;
+      color: var(--slate-900);
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .option-label:hover {
+      background: var(--slate-50);
+      border-color: var(--slate-300);
+    }
+
+    .option-label input[type="radio"] {
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .option-label.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border: 1px solid var(--slate-300);
+    }
+
+    .btn-secondary:hover {
+      background: var(--slate-200);
+    }
+
+    .btn-outline-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+
+    .btn-outline-danger:hover {
+      background: var(--danger-light);
+    }
+
+    .btn-quick {
+      background: #fdf2f8;
+      color: #be185d;
+      border: 1px dashed #f472b6;
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Results Screen */
+    #results-view {
+      display: none;
+    }
+
+    .score-summary {
+      background: #f8fafc;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .score-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #fee2e2;
+      color: var(--danger);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0 auto 12px auto;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .badge-correct {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .badge-wrong {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    /* AI Remediation Component */
+    .ai-remediation-box {
+      border: 2px solid #818cf8;
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 16px;
+      position: relative;
+      box-shadow: 0 8px 24px -4px rgba(79, 70, 229, 0.15);
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .hax-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #e0e7ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+    }
+
+    /* Path Selector for Demo */
+    .path-selector {
+      background: #f1f5f9;
+      padding: 8px;
+      border-radius: 8px;
+      display: flex;
+      gap: 6px;
+      margin-bottom: 18px;
+      overflow-x: auto;
+    }
+
+    .path-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate-600);
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .path-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      font-weight: 700;
+    }
+
+    /* Grounding quote block */
+    .grounding-quote {
+      background: #f8fafc;
+      border-left: 4px solid #6366f1;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13.5px;
+      margin: 12px 0;
+      color: var(--slate-700);
+    }
+
+    .grounding-tag {
+      display: inline-block;
+      font-weight: 700;
+      color: #4f46e5;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    /* Remediation Mini Quiz */
+    .remedy-quiz {
+      background: #faf5ff;
+      border: 1.5px solid #d8b4fe;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .toast {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .toast-success {
+      background: var(--success-light);
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .toast-warning {
+      background: var(--warning-light);
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">V</div>
+      <div>
+        <div class="brand-title">VLearn Adaptive Quiz Engine</div>
+        <div class="brand-sub">Nhóm LangXiMi · Lớp 3B · Cụm C4 · Track D2</div>
+      </div>
+    </div>
+    <div>
+      <span class="hax-badge">CP02 Clickable Prototype</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Banner -->
+    <div class="banner">
+      <h1>Khắc phục hổng kiến thức từ câu hỏi trắc nghiệm sai</h1>
+      <p>Bản mẫu tương tác (Interactive Mockup) chứng minh luồng người dùng và 4 đường đi trải nghiệm (Thuận lợi, Chưa rõ nguyên nhân, Thiếu tài liệu đối chiếu, Đính chính/Bỏ qua).</p>
+      <div class="banner-tags">
+        <span class="tag">Mức: Mock</span>
+        <span class="tag">Cơ chế: Conditional</span>
+        <span class="tag">Thu hẹp khi nghi ngờ</span>
+        <span class="tag">Trích nguồn minh bạch</span>
+        <span class="tag">Gạt bỏ dễ dàng</span>
+        <span class="tag">Người học đính chính</span>
+      </div>
+    </div>
+
+    <!-- VIEW 1: QUIZ VIEW -->
+    <div id="quiz-view" class="card">
+      <div class="card-title">
+        <span>Bài ôn tập Day 01: Kiến trúc RAG & Kỹ thuật Prompt</span>
+        <button class="btn btn-quick" onclick="autoFillMock()">⚡ Điền nhanh bài làm (Sai câu 2 để test)</button>
+      </div>
+
+      <!-- Question 1 -->
+      <div class="question-box">
+        <div class="question-header">Câu 1: Mục đích chính của System Prompt trong các mô hình ngôn ngữ lớn (LLM) là gì?</div>
+        <div class="options-list">
+          <label class="option-label" id="opt-1-a">
+            <input type="radio" name="q1" value="A"> A. Là câu hỏi trực tiếp từ người dùng trong phiên chat.
+          </label>
+          <label class="option-label" id="opt-1-b">
+            <input type="radio" name="q1" value="B"> B. Thiết lập persona, quy tắc hành vi, định dạng đầu ra và ranh giới an toàn cho mô hình.
+          </label>
+          <label class="option-label" id="opt-1-c">
+            <input type="radio" name="q1" value="C"> C. Cập nhật lại vĩnh viễn trọng số tham số bên trong mô hình.
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 2 (Target error question) -->
+      <div class="question-box" style="border-color: #cbd5e1;">
+        <div class="question-header">Câu 2: Một doanh nghiệp cần chatbot trả lời chính xác thông tin bảng giá sản phẩm biến động hàng ngày. Đâu là giải pháp phù hợp nhất?</div>
+        <div class="options-list">
+          <label class="option-label" id="opt-2-a">
+            <input type="radio" name="q2" value="A"> A. Fine-tuning lại mô hình nền tảng mỗi ngày để cập nhật bảng giá.
+          </label>
+          <label class="option-label" id="opt-2-b">
+            <input type="radio" name="q2" value="B"> B. Kiến trúc RAG (Retrieval-Augmented Generation) kết nối với cơ sở dữ liệu bảng giá.
+          </label>
+          <label class="option-label" id="opt-2-c">
+            <input type="radio" name="q2" value="C"> C. Đào tạo một Foundation Model mới từ đầu cho doanh nghiệp.
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="question-box">
+        <div class="question-header">Câu 3: Đâu là hiện tượng mô hình AI tạo ra thông tin nghe có vẻ hợp lý nhưng hoàn toàn bịa đặt, không có căn cứ?</div>
+        <div class="options-list">
+          <label class="option-label" id="opt-3-a">
+            <input type="radio" name="q3" value="A"> A. Hallucination (Ảo giác AI).
+          </label>
+          <label class="option-label" id="opt-3-b">
+            <input type="radio" name="q3" value="B"> B. Overfitting (Quá khớp dữ liệu).
+          </label>
+          <label class="option-label" id="opt-3-c">
+            <input type="radio" name="q3" value="C"> C. Quantization (Lượng tử hóa mô hình).
+          </label>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <span style="font-size: 13px; color: var(--slate-600);">* Nhấp chọn hoặc dùng nút "Điền nhanh" để nộp bài.</span>
+        <button class="btn btn-primary" onclick="submitQuiz()">Nộp bài thi →</button>
+      </div>
+    </div>
+
+    <!-- VIEW 2: RESULTS VIEW WITH AI REMEDIATION -->
+    <div id="results-view">
+      <div class="card">
+        <div class="card-title">
+          <span>Kết quả bài làm của bạn</span>
+          <button class="btn btn-secondary" onclick="resetQuiz()">← Làm lại bài quiz</button>
+        </div>
+
+        <div class="score-summary">
+          <div class="score-circle">2/3</div>
+          <h3 style="font-size: 18px; margin-bottom: 4px;">Bạn đạt 6.7 / 10 điểm (Đạt 2/3 câu)</h3>
+          <p style="font-size: 14px; color: var(--slate-600);">Hệ thống phát hiện bạn có 1 câu trả lời sai ở phần kiến thức RAG vs Fine-tuning.</p>
+        </div>
+
+        <!-- Question 1 Result (Correct) -->
+        <div class="question-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <strong>Câu 1: Mục đích chính của System Prompt</strong>
+            <span class="badge-status badge-correct">✓ Đúng</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--slate-600);">Đáp án của bạn: <b>B. Thiết lập persona, quy tắc hành vi...</b></p>
+        </div>
+
+        <!-- Question 2 Result (Wrong) + AI REMEDIATION ENGINE -->
+        <div class="question-box" style="border: 2px solid #fca5a5; background: #fffcfc;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <strong>Câu 2: Doanh nghiệp cần chatbot cập nhật bảng giá hàng ngày</strong>
+            <span class="badge-status badge-wrong">✗ Bạn chọn sai</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--slate-700);">
+            Phương án bạn đã chọn: <b style="color: var(--danger);">A. Fine-tuning lại mô hình nền tảng mỗi ngày</b>
+          </p>
+          <p style="font-size: 13.5px; color: var(--slate-700); margin-top: 4px;">
+            Đáp án đúng: <b style="color: var(--success);">B. Kiến trúc RAG (Retrieval-Augmented Generation)</b>
+          </p>
+
+          <!-- KHỐI AI CỦNG CỐ KIẾN THỨC -->
+          <div class="ai-remediation-box">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+              <div class="ai-badge">✦ AI Chẩn đoán & Củng cố (Remediation)</div>
+              <div style="display: flex; gap: 6px;">
+                <span class="hax-badge" title="Có trích dẫn nguồn">Trích dẫn chính xác</span>
+                <span class="hax-badge" title="Quyền kiểm soát thuộc học viên">Quyền kiểm soát người học</span>
+              </div>
+            </div>
+
+            <!-- CHUYỂN ĐỔI 4 ĐƯỜNG TRẢI NGHIỆM ĐỂ TEST -->
+            <div style="margin: 12px 0 6px 0; font-size: 12px; font-weight: 700; color: var(--slate-700);">
+              CHẾ ĐỘ MINH HỌA 4 ĐƯỜNG TRẢI NGHIỆM:
+            </div>
+            <div class="path-selector">
+              <button class="path-btn active" onclick="switchPath('happy', this)">1. Thuận lợi (Tự tin cao)</button>
+              <button class="path-btn" onclick="switchPath('low-conf', this)">2. Chưa rõ nguyên nhân (Low-confidence)</button>
+              <button class="path-btn" onclick="switchPath('no-grounding', this)">3. Không có căn cứ (No-grounding)</button>
+              <button class="path-btn" onclick="switchPath('correction', this)">4. Đính chính / Bỏ qua (User Control)</button>
+            </div>
+
+            <!-- PATH 1: HAPPY PATH CONTENT -->
+            <div id="path-happy-content">
+              <div style="font-size: 14px; font-weight: 700; color: var(--slate-900); margin-bottom: 6px;">
+                Chẩn đoán lỗi hiểu nhầm:
+              </div>
+              <p style="font-size: 13.5px; color: var(--slate-700);">
+                Bạn đã chọn Fine-tuning khi dữ liệu thay đổi hàng ngày. Đây là hiểu nhầm phổ biến: <b>Fine-tuning dùng để học phong cách, giọng văn hoặc định dạng chuyên biệt</b>, nhưng lại vô cùng tốn kém chi phí tính toán và mất thời gian training lại nếu dữ liệu thay đổi liên tục. Khi cần dữ liệu động thời gian thực (bảng giá, tồn kho), <b>RAG mới là giải pháp tối ưu</b>.
+              </p>
+
+              <!-- Grounding verbatim quote -->
+              <div class="grounding-quote">
+                <span class="grounding-tag">Căn cứ trích dẫn Transcript bài giảng [T01-042]:</span><br>
+                <em>"Muốn mô hình nhớ kiến thức mới có tính biến động hàng ngày thì tuyệt đối không mang đi Fine-tuning vì chi phí huấn luyện lại rất lớn và dễ bị quên kiến thức cũ (catastrophic forgetting). Với dữ liệu cập nhật theo giờ hoặc theo ngày, các bạn bắt buộc phải dùng RAG để inject ngữ cảnh tại thời điểm truy vấn."</em>
+              </div>
+
+              <!-- Remediation Mini-Question -->
+              <div class="remedy-quiz" id="remedy-quiz-box">
+                <div style="font-size: 13.5px; font-weight: 700; color: #6b21a8; margin-bottom: 8px;">
+                  🎯 Câu hỏi củng cố ngay (Luyện tập để nắm vững):
+                </div>
+                <p style="font-size: 13.5px; margin-bottom: 10px;">
+                  Một phòng khám y tế muốn chatbot luôn trả lời đúng lịch trực thay đổi mỗi ca của các bác sĩ. Họ nên áp dụng phương pháp nào?
+                </p>
+                <div class="options-list" style="gap: 8px;">
+                  <label class="option-label" style="padding: 8px 12px; font-size: 13px;">
+                    <input type="radio" name="remedy_q" value="wrong"> A. Fine-tuning mô hình sau mỗi ca trực
+                  </label>
+                  <label class="option-label" style="padding: 8px 12px; font-size: 13px;">
+                    <input type="radio" name="remedy_q" value="correct"> B. Dùng RAG truy vấn bảng lịch trực từ CSDL thời gian thực
+                  </label>
+                </div>
+                <div style="margin-top: 12px; display: flex; gap: 8px;">
+                  <button class="btn btn-primary" style="padding: 6px 14px; font-size: 12px;" onclick="checkRemedyAnswer()">Kiểm tra củng cố</button>
+                  <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="dismissRemedy()">Bỏ qua</button>
+                </div>
+                <div id="remedy-toast" class="toast"></div>
+              </div>
+            </div>
+
+            <!-- PATH 2: LOW-CONFIDENCE CONTENT -->
+            <div id="path-low-conf-content" style="display: none;">
+              <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: #1e40af; margin-bottom: 6px;">
+                  🔍 AI nhận diện độ tự tin thấp (Cần xác nhận nguyên nhân):
+                </div>
+                <p style="font-size: 13px; color: var(--slate-700); margin-bottom: 10px;">
+                  Hệ thống nhận thấy có 2 khả năng khiến bạn chọn phương án này. Hãy cho biết nguyên nhân của bạn để AI hỗ trợ chính xác nhất:
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <button class="btn btn-secondary" style="text-align: left; justify-content: flex-start; font-size: 13px;" onclick="chooseLowConfReason(1)">
+                    1. Mình chưa phân biệt rõ bản chất: khi nào dùng RAG vs khi nào cần Fine-tuning.
+                  </button>
+                  <button class="btn btn-secondary" style="text-align: left; justify-content: flex-start; font-size: 13px;" onclick="chooseLowConfReason(2)">
+                    2. Mình đọc lướt vội nên bỏ sót từ khoá "biến động hàng ngày".
+                  </button>
+                </div>
+                <div id="low-conf-feedback" class="toast toast-success" style="margin-top: 12px;"></div>
+              </div>
+            </div>
+
+            <!-- PATH 3: NO-GROUNDING CONTENT -->
+            <div id="path-no-grounding-content" style="display: none;">
+              <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 8px; padding: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: #92400e; margin-bottom: 6px;">
+                  ⚠️ Chưa có căn cứ bài giảng trực tiếp:
+                </div>
+                <p style="font-size: 13px; color: #78350f; margin-bottom: 12px;">
+                  Để tránh hiện tượng ảo giác (hallucination) và đảm bảo tính học thuật, <b>AI từ chối tự sinh câu hỏi mới khi không tìm thấy đoạn trích dẫn tương ứng trong bài giảng</b>.
+                </p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button class="btn btn-primary" style="font-size: 12px; padding: 8px 14px;" onclick="alert('Đã gửi câu hỏi số 2 và phương án của bạn đến kênh hỗ trợ của Trợ giảng (TA) trên Discord!')">
+                    📩 Gửi câu hỏi này cho Trợ giảng (TA)
+                  </button>
+                  <a href="#slide" class="btn btn-secondary" style="font-size: 12px; padding: 8px 14px; text-decoration: none;" onclick="alert('Mở Slide Bài giảng Day 01 - Trang 28')">
+                    📖 Xem Slide Bài giảng Day 01 (Trang 28)
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- PATH 4: USER CORRECTION CONTENT -->
+            <div id="path-correction-content" style="display: none;">
+              <div style="background: #f8fafc; border: 1.5px solid var(--slate-300); border-radius: 8px; padding: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--slate-800); margin-bottom: 6px;">
+                  🛠️ Quyền kiểm soát & Đính chính của người học:
+                </div>
+                <p style="font-size: 13px; color: var(--slate-600); margin-bottom: 12px;">
+                  Bạn có toàn quyền bác bỏ hoặc điều chỉnh nhận định của AI:
+                </p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button class="btn btn-outline-danger" style="font-size: 12px;" onclick="correctAI('misclick')">
+                    ✕ "Tôi chỉ bấm nhầm nút chứ đã hiểu bài này"
+                  </button>
+                  <button class="btn btn-secondary" style="font-size: 12px;" onclick="correctAI('dismiss')">
+                    Bỏ qua & Kết thúc lượt ôn
+                  </button>
+                </div>
+                <div id="correction-toast" class="toast toast-success" style="margin-top: 12px;"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Question 3 Result (Correct) -->
+        <div class="question-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <strong>Câu 3: Hiện tượng AI tạo ra thông tin bịa đặt</strong>
+            <span class="badge-status badge-correct">✓ Đúng</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--slate-600);">Đáp án của bạn: <b>A. Hallucination (Ảo giác AI)</b></p>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-secondary" onclick="resetQuiz()">Làm lại từ đầu</button>
+          <button class="btn btn-primary" onclick="alert('Đã lưu kết quả học tập và cập nhật hồ sơ cá nhân hoá!')">Hoàn tất buổi ôn tập ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Điền nhanh bài thi mẫu (Cố tình làm sai câu 2 để kích hoạt AI Remediation)
+    function autoFillMock() {
+      document.querySelector('input[name="q1"][value="B"]').checked = true;
+      document.querySelector('input[name="q2"][value="A"]').checked = true; // Câu sai
+      document.querySelector('input[name="q3"][value="A"]').checked = true;
+
+      document.querySelectorAll('.option-label').forEach(el => el.classList.remove('selected'));
+      document.getElementById('opt-1-b').classList.add('selected');
+      document.getElementById('opt-2-a').classList.add('selected');
+      document.getElementById('opt-3-a').classList.add('selected');
+    }
+
+    // Nộp bài
+    function submitQuiz() {
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      if (!q2) {
+        alert('Vui lòng chọn đáp án hoặc bấm "Điền nhanh" để tiếp tục!');
+        return;
+      }
+      document.getElementById('quiz-view').style.display = 'none';
+      document.getElementById('results-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Reset quiz
+    function resetQuiz() {
+      document.getElementById('quiz-view').style.display = 'block';
+      document.getElementById('results-view').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Chuyển đổi 4 đường trải nghiệm trên prototype
+    function switchPath(pathKey, btn) {
+      document.querySelectorAll('.path-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('path-happy-content').style.display = 'none';
+      document.getElementById('path-low-conf-content').style.display = 'none';
+      document.getElementById('path-no-grounding-content').style.display = 'none';
+      document.getElementById('path-correction-content').style.display = 'none';
+
+      if (pathKey === 'happy') {
+        document.getElementById('path-happy-content').style.display = 'block';
+      } else if (pathKey === 'low-conf') {
+        document.getElementById('path-low-conf-content').style.display = 'block';
+      } else if (pathKey === 'no-grounding') {
+        document.getElementById('path-no-grounding-content').style.display = 'block';
+      } else if (pathKey === 'correction') {
+        document.getElementById('path-correction-content').style.display = 'block';
+      }
+    }
+
+    // Kiểm tra câu hỏi củng cố trong Happy Path
+    function checkRemedyAnswer() {
+      const ans = document.querySelector('input[name="remedy_q"]:checked');
+      const toast = document.getElementById('remedy-toast');
+      if (!ans) {
+        alert('Vui lòng chọn 1 đáp án củng cố!');
+        return;
+      }
+      toast.style.display = 'block';
+      if (ans.value === 'correct') {
+        toast.className = 'toast toast-success';
+        toast.innerHTML = '🎉 <b>Chính xác tuyệt đối!</b> Bạn đã hiểu rõ: Dữ liệu ca trực biến động liên tục thì dùng RAG để inject context chứ không mang đi Fine-tuning.';
+      } else {
+        toast.className = 'toast toast-warning';
+        toast.innerHTML = '⚠️ Chưa chính xác. Fine-tuning sau mỗi ca trực là bất khả thi vì tốn kém thời gian và chi phí tính toán.';
+      }
+    }
+
+    // Bỏ qua câu củng cố
+    function dismissRemedy() {
+      document.getElementById('remedy-quiz-box').style.display = 'none';
+      alert('Đã bỏ qua câu củng cố. Học viên hoàn tất buổi ôn tập.');
+    }
+
+    // Low confidence reason choice
+    function chooseLowConfReason(num) {
+      const fb = document.getElementById('low-conf-feedback');
+      fb.style.display = 'block';
+      if (num === 1) {
+        fb.innerHTML = '✓ Đã ghi nhận: AI sẽ cung cấp bảng so sánh trực quan RAG vs Fine-tuning trong 30 giây.';
+      } else {
+        fb.innerHTML = '✓ Đã ghi nhận: AI sẽ đánh dấu nổi bật các từ khoá bẫy trong các câu hỏi sau.';
+      }
+    }
+
+    // Người học đính chính kết quả
+    function correctAI(type) {
+      const toast = document.getElementById('correction-toast');
+      toast.style.display = 'block';
+      if (type === 'misclick') {
+        toast.innerHTML = '✓ <b>Đã cập nhật:</b> Hệ thống ghi nhận bạn làm sai do thao tác nhầm. Hồ sơ học tập được giữ nguyên không đánh dấu hổng kiến thức.';
+      } else {
+        toast.innerHTML = '✓ <b>Đã kết thúc:</b> Bạn đã hoàn thành lượt ôn tập.';
+      }
+    }
+  </script>
+</body>
+</html>
