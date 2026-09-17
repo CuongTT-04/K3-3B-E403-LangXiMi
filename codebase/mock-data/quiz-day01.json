@@ -1,0 +1,160 @@
+{
+  "quiz_id": "day01",
+  "title": "Bài 01 - Ôn tập AI cơ bản: Prompt Engineering, RAG, Tool Calling, Đánh giá LLM",
+  "questions": [
+    {
+      "id": "q01",
+      "stem": "Kỹ thuật nào yêu cầu mô hình trình bày các bước suy luận trước khi đưa ra câu trả lời cuối cùng?",
+      "options": {
+        "A": "Zero-shot prompting",
+        "B": "Chain-of-thought",
+        "C": "Few-shot prompting",
+        "D": "Prompt injection"
+      },
+      "answer": "B",
+      "concept": "prompt_engineering",
+      "source_ids": ["T01-004", "T01-002"],
+      "misconception_hint": "Học viên dễ nhầm chain-of-thought (yêu cầu suy luận từng bước) với few-shot prompting (cho ví dụ mẫu)."
+    },
+    {
+      "id": "q02",
+      "stem": "Để giảm rủi ro nội dung bên ngoài ghi đè chỉ dẫn gốc của hệ thống, người thiết kế prompt cần đề phòng điều gì?",
+      "options": {
+        "A": "Temperature quá cao",
+        "B": "Prompt injection",
+        "C": "Re-ranking sai",
+        "D": "Hallucination"
+      },
+      "answer": "B",
+      "concept": "prompt_engineering",
+      "source_ids": ["T01-006", "T01-005"],
+      "misconception_hint": "Nhầm prompt injection (rủi ro do dữ liệu ghi đè chỉ dẫn) với hallucination (mô hình tự bịa thông tin)."
+    },
+    {
+      "id": "q03",
+      "stem": "RAG (Retrieval-Augmented Generation) giúp mô hình ngôn ngữ giảm hiện tượng gì và bằng cách nào?",
+      "options": {
+        "A": "Giảm hallucination bằng cách cung cấp đoạn tài liệu liên quan tại thời điểm trả lời",
+        "B": "Giảm chi phí tính toán bằng cách bỏ qua embedding",
+        "C": "Giảm độ dài prompt bằng cách xoá system prompt",
+        "D": "Giảm số lượng tham số của mô hình"
+      },
+      "answer": "A",
+      "concept": "rag",
+      "source_ids": ["T01-009", "T01-013"],
+      "misconception_hint": "Học viên nhầm RAG là kỹ thuật giảm chi phí/tham số mô hình, thực chất RAG là truy xuất tài liệu để giảm bịa đặt thông tin."
+    },
+    {
+      "id": "q04",
+      "stem": "Khi hệ thống RAG không tìm được đoạn tài liệu nào liên quan đủ tin cậy, cách xử lý an toàn nhất là gì?",
+      "options": {
+        "A": "Tự bịa ra một đoạn trích dẫn hợp lý",
+        "B": "Trả lời rằng chưa có căn cứ trong tài liệu (fallback)",
+        "C": "Tăng temperature để mô hình sáng tạo hơn",
+        "D": "Bỏ qua câu hỏi của người dùng"
+      },
+      "answer": "B",
+      "concept": "rag",
+      "source_ids": ["T01-016", "T01-014"],
+      "misconception_hint": "Học viên nghĩ mô hình nên cố trả lời bằng mọi giá, thay vì áp dụng chiến lược fallback có kiểm soát khi thiếu căn cứ."
+    },
+    {
+      "id": "q05",
+      "stem": "Trong một vòng lặp gọi công cụ (tool calling) điển hình, sau khi công cụ được thực thi, kết quả sẽ được xử lý như thế nào?",
+      "options": {
+        "A": "Kết quả bị bỏ qua hoàn toàn",
+        "B": "Kết quả được trả lại cho mô hình để tiếp tục sinh câu trả lời hoặc gọi công cụ khác",
+        "C": "Kết quả được lưu vào embedding vector",
+        "D": "Kết quả thay thế toàn bộ system prompt"
+      },
+      "answer": "B",
+      "concept": "tool_calling",
+      "source_ids": ["T01-019", "T01-017"],
+      "misconception_hint": "Học viên nhầm lẫn tool calling với RAG, nghĩ kết quả công cụ được lưu thành embedding thay vì đưa lại vào hội thoại."
+    },
+    {
+      "id": "q06",
+      "stem": "Để mô hình gọi đúng công cụ trong nhiều lựa chọn, hệ thống cần chuẩn bị điều gì cho mỗi công cụ?",
+      "options": {
+        "A": "Một schema khai báo tên, mô tả và tham số rõ ràng",
+        "B": "Một đoạn transcript bài giảng liên quan",
+        "C": "Một golden set để chấm điểm",
+        "D": "Một giá trị temperature riêng cho công cụ"
+      },
+      "answer": "A",
+      "concept": "tool_calling",
+      "source_ids": ["T01-018", "T01-020"],
+      "misconception_hint": "Nhầm việc khai báo schema công cụ với các khái niệm đánh giá như golden set."
+    },
+    {
+      "id": "q07",
+      "stem": "Golden set trong đánh giá mô hình ngôn ngữ dùng để làm gì?",
+      "options": {
+        "A": "Làm tập dữ liệu chuẩn có câu trả lời đúng để so sánh với đầu ra mô hình",
+        "B": "Làm tập vector lưu trữ embedding của tài liệu",
+        "C": "Làm danh sách công cụ mà mô hình có thể gọi",
+        "D": "Làm tham số điều chỉnh độ ngẫu nhiên"
+      },
+      "answer": "A",
+      "concept": "llm_evaluation",
+      "source_ids": ["T01-026", "T01-025"],
+      "misconception_hint": "Nhầm golden set (chuẩn đánh giá) với vector store dùng trong RAG."
+    },
+    {
+      "id": "q08",
+      "stem": "Validator trong hệ thống có vai trò gì trước khi trả kết quả cho người dùng?",
+      "options": {
+        "A": "Tăng temperature để câu trả lời đa dạng hơn",
+        "B": "Kiểm tra đầu ra theo quy tắc cứng (ví dụ trích dẫn có tồn tại hay không) và chuyển sang fallback nếu sai",
+        "C": "Chia tài liệu gốc thành các chunk nhỏ",
+        "D": "Gọi công cụ bên ngoài để lấy dữ liệu"
+      },
+      "answer": "B",
+      "concept": "llm_evaluation",
+      "source_ids": ["T01-031", "T01-028"],
+      "misconception_hint": "Nhầm vai trò validator (kiểm tra & fallback) với retriever (chia chunk) hoặc tool calling."
+    },
+    {
+      "id": "q09",
+      "stem": "Bước chuyển mỗi đoạn văn bản thành một vector số học để lưu trữ và tìm kiếm theo ngữ nghĩa được gọi là gì?",
+      "options": {
+        "A": "Chunking",
+        "B": "Embedding",
+        "C": "Re-ranking",
+        "D": "Fine-tuning"
+      },
+      "answer": "B",
+      "concept": "vector_embedding_scaling",
+      "source_ids": ["T99-905", "T99-906"],
+      "misconception_hint": "Học viên có thể nhầm lẫn bước tạo embedding với bước chia chunk hoặc re-ranking."
+    },
+    {
+      "id": "q10",
+      "stem": "Trong một pipeline triển khai mô hình lên Kubernetes, bước nào nên thực hiện trước khi rollout canary?",
+      "options": {
+        "A": "Chạy health check / readiness probe",
+        "B": "Xoá toàn bộ log hệ thống",
+        "C": "Tăng temperature của mô hình",
+        "D": "Bỏ qua toàn bộ kiểm thử"
+      },
+      "answer": "A",
+      "concept": "kubernetes_deployment_pipeline",
+      "source_ids": ["T99-909", "T99-910"],
+      "misconception_hint": "Khái niệm này không có trong bài giảng Day 01 -- dùng để minh hoạ đường đi no_grounding."
+    },
+    {
+      "id": "q11",
+      "stem": "Kỹ thuật kết hợp tìm kiếm theo vector và tìm kiếm theo từ khoá để tăng độ chính xác truy xuất được gọi là gì?",
+      "options": {
+        "A": "Chunking",
+        "B": "Hybrid search",
+        "C": "Prompt chaining",
+        "D": "Temperature scaling"
+      },
+      "answer": "B",
+      "concept": "hybrid_search_optimization",
+      "source_ids": ["T99-911", "T99-912"],
+      "misconception_hint": "Học viên có thể nhầm hybrid search (kết hợp vector + từ khoá) với các kỹ thuật tối ưu khác không liên quan đến truy xuất."
+    }
+  ]
+}
