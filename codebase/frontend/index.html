@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VLearn Adaptive Quiz - Ôn tập AI cơ bản</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-logo">V</div>
+      <div>
+        <div class="brand-title">VLearn Adaptive Quiz Engine</div>
+        <div class="brand-sub">Nhóm LangXiMi · Ôn tập AI cơ bản</div>
+      </div>
+    </div>
+    <span class="hax-badge">Nối API thật</span>
+  </header>
+
+  <div class="container">
+    <!-- Man 1: Quiz -->
+    <section id="screen-quiz" class="card">
+      <div class="card-title">
+        <span id="quiz-title">Đang tải bài ôn tập...</span>
+        <button class="btn btn-quick" id="btn-autofill">⚡ Điền nhanh bài làm</button>
+      </div>
+      <div id="quiz-questions"></div>
+      <div class="action-bar">
+        <span class="hint-text">* Nhấp chọn hoặc dùng nút "Điền nhanh" để nộp bài.</span>
+        <button class="btn btn-primary" id="btn-submit" disabled>Nộp bài thi →</button>
+      </div>
+    </section>
+
+    <!-- Man 2: Ket qua -->
+    <section id="screen-result" class="card hidden">
+      <div class="card-title">
+        <span>Kết quả bài làm của bạn</span>
+        <button class="btn btn-secondary" id="btn-retry-from-result">← Làm lại bài quiz</button>
+      </div>
+      <div class="score-summary">
+        <div class="score-circle" id="score-circle">0/0</div>
+        <h3 id="score-title"></h3>
+        <p class="muted-text" id="score-detail"></p>
+      </div>
+      <div id="result-list"></div>
+      <div class="action-bar">
+        <button class="btn btn-secondary" id="btn-skip">Bỏ qua / Kết thúc bài</button>
+        <button class="btn btn-primary" id="btn-view-remediation">Xem giải thích &amp; luyện lại</button>
+      </div>
+    </section>
+
+    <!-- Man 3: Giai thich -->
+    <section id="screen-remediation" class="hidden">
+      <div id="remediation-list"></div>
+      <div class="card action-bar">
+        <button class="btn btn-secondary" id="btn-retry">← Làm lại bài quiz</button>
+        <button class="btn btn-primary" id="btn-finish">Hoàn tất buổi ôn tập ✓</button>
+      </div>
+    </section>
+
+    <!-- Man 4: Tom tat -->
+    <section id="screen-summary" class="card hidden">
+      <div class="card-title"><span>Tóm tắt buổi ôn tập</span></div>
+      <div id="summary-content"></div>
+      <div class="action-bar">
+        <button class="btn btn-primary" id="btn-summary-retry">Làm lại từ đầu</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal: xem transcript goc -->
+  <div id="transcript-modal" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <h3 id="transcript-modal-title"></h3>
+      <p id="transcript-modal-text"></p>
+      <button class="btn btn-secondary" id="btn-close-transcript">Đóng</button>
+    </div>
+  </div>
+
+  <!-- Modal: gui cau hoi cho TA -->
+  <div id="ta-modal" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <h3>Gửi câu hỏi cho Trợ giảng (TA)</h3>
+      <p>Mô tả ngắn điều bạn chưa hiểu, TA sẽ xem lại và giải đáp.</p>
+      <textarea id="ta-note" placeholder="Ví dụ: mình chưa hiểu vì sao câu này không có căn cứ trong bài giảng..."></textarea>
+      <div class="action-bar">
+        <button class="btn btn-secondary" id="btn-cancel-ta">Huỷ</button>
+        <button class="btn btn-primary" id="btn-send-ta">Gửi cho TA</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="global-toast" class="toast"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

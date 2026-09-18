@@ -1,0 +1,114 @@
+[
+  {
+    "case_id": "case-01",
+    "wrong_question_ids": ["q01"],
+    "expected_concepts": ["prompt_engineering"],
+    "expected_source_ids_any": ["T01-004", "T01-002"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-02",
+    "wrong_question_ids": ["q02"],
+    "expected_concepts": ["prompt_engineering"],
+    "expected_source_ids_any": ["T01-006", "T01-005"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-03",
+    "wrong_question_ids": ["q03"],
+    "expected_concepts": ["rag"],
+    "expected_source_ids_any": ["T01-009", "T01-013"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-04",
+    "wrong_question_ids": ["q04"],
+    "expected_concepts": ["rag"],
+    "expected_source_ids_any": ["T01-016", "T01-014"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-05",
+    "wrong_question_ids": ["q05"],
+    "expected_concepts": ["tool_calling"],
+    "expected_source_ids_any": ["T01-019", "T01-017"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-06",
+    "wrong_question_ids": ["q06"],
+    "expected_concepts": ["tool_calling"],
+    "expected_source_ids_any": ["T01-018", "T01-020"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-07",
+    "wrong_question_ids": ["q07"],
+    "expected_concepts": ["llm_evaluation"],
+    "expected_source_ids_any": ["T01-026", "T01-025"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-08",
+    "wrong_question_ids": ["q08"],
+    "expected_concepts": ["llm_evaluation"],
+    "expected_source_ids_any": ["T01-031", "T01-028"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-09",
+    "wrong_question_ids": ["q01", "q03"],
+    "expected_concepts": ["prompt_engineering", "rag"],
+    "expected_source_ids_any": ["T01-004", "T01-009"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-10",
+    "wrong_question_ids": ["qx-unknown-01"],
+    "expected_concepts": ["neural_architecture_search"],
+    "expected_source_ids_any": [],
+    "expect_fallback": true,
+    "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-11",
+    "wrong_question_ids": ["qx-unknown-02"],
+    "expected_concepts": ["quantum_computing_basics"],
+    "expected_source_ids_any": [],
+    "expect_fallback": true,
+    "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-12",
+    "wrong_question_ids": ["q09"],
+    "expected_concepts": ["vector_embedding_scaling"],
+    "expected_source_ids_any": ["T01-011"],
+    "expect_fallback": false,
+    "expect_path": "low_confidence"
+  },
+  {
+    "case_id": "case-13",
+    "wrong_question_ids": ["q11"],
+    "expected_concepts": ["hybrid_search_optimization"],
+    "expected_source_ids_any": ["T01-012"],
+    "expect_fallback": false,
+    "expect_path": "low_confidence"
+  },
+  {
+    "case_id": "case-14",
+    "wrong_question_ids": ["q10"],
+    "expected_concepts": ["kubernetes_deployment_pipeline"],
+    "expected_source_ids_any": [],
+    "expect_fallback": true,
+    "expect_path": "no_grounding"
+  }
+]
