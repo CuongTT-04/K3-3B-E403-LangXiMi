@@ -102,7 +102,10 @@ Loại: [x] Tối ưu tính năng có sẵn (Màn hình kết quả Quiz VLearn)
 |---|---|---|
 | 17/9 | `pytest` (39 pass, 0 skip) + `run_eval.py`, `LLM_MODE=mock`, golden set 14 case | `eval pass=14/14 fallback_ok=3/3 low_conf_ok=2/2 citations_invalid=0` |
 | 18/9 · mock · 21/21 pass · fallback_ok 7/7 · low_conf_ok 7/7 · citations_invalid 0 | `LLM_MODE=mock`, golden set 21 case (hồ sơ #03) | `eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0` |
-| ⏳ Gemini thật (chưa có key) | `LLM_MODE=gemini` | ⏳ chưa đo được — thiếu `GEMINI_API_KEY` (câu hỏi mở ở `plan.md` §5) |
+| 18/9 · Gemini thật (gemini-3.5/3.6-flash, xoay model, 20 req/ngày/model) · 18/21 pass · fallback_ok 7/7 · low_conf_ok 7/7 · citations_invalid 0 · 3 case rớt do validator chặn trích dẫn không khớp (an toàn) | `LLM_MODE=gemini`, golden set 21 case (hồ sơ #04, `run_eval.py --llm-stats --verbose --sleep 2`) | `eval pass=18/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0` |
+| 18/9 · Groq thật (openai/gpt-oss-120b→20b, qwen3.8-27b) · 21/21 pass · fallback_ok 7/7 · low_conf_ok 7/7 · citations_invalid 0 | `LLM_MODE=groq`, golden set 21 case (hồ sơ #04, `run_eval.py --llm-stats --verbose --sleep 1`) | `eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0` |
+
+Thứ tự provider khi `LLM_MODE=gemini`: Gemini (xoay model theo `GEMINI_MODELS`) → Groq (xoay model theo `GROQ_MODELS`, dự phòng khi Gemini cạn quota) → Mock (an toàn cuối); mọi kết quả thật (Gemini hoặc Groq) được cache trên đĩa (`backend/.runtime/llm-cache.json`, khoá không phân biệt provider) để demo/eval không phụ thuộc mạng hay tốn thêm quota.
 
 ## §8. Phân công & kế hoạch
 - Phân công có tên (theo `canvas.md` dòng 7), xem bảng dưới đây.
@@ -124,4 +127,5 @@ Loại: [x] Tối ưu tính năng có sẵn (Màn hình kết quả Quiz VLearn)
 | 17/9 CP2 | Thêm §4b (nguyên tắc HAX/PAIR đã áp dụng) + §6 (4 đường đi trải nghiệm); dựng prototype mock bấm được (`codebase/index.html`, `codebase/flowchart.md`) | Mốc CP2 yêu cầu cho thấy luồng hoạt động trước khi gọi AI thật |
 | 17/9 hồ sơ #02 | Nối API 4 đường đi (`happy`/`low_confidence`/`no_grounding`/correction) vào frontend thật, thêm `POST /api/correction`, `POST /api/ta-ticket`, hook `LLM_MODE=gemini` | spec §4 đã chốt gọi trực tiếp Gemini API tại CP3; cần chạy end-to-end trước khi đo số (`planning/02_2026-09-17_frontend-api-wiring/plan.md`) |
 | 18/9 hồ sơ #03 | Điền §1, §2, §3, §5, §7, §8, §9; khoá Quality bar ("≥90% case golden set đúng path, `citations_invalid=0`, 0 item `no_grounding` có trích dẫn") | CP4 yêu cầu khoá chuẩn "đạt" lúc 21:00 hôm nay, trước khi thấy kết quả cuối cùng (`README.md` mục CP4) |
+| 18/9 hồ sơ #04 | số đo AI thật + video CP3 | vì CP3 |
 ```

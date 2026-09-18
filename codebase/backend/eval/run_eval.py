@@ -11,7 +11,7 @@ With ``--verbose``, prints one extra line per case before the summary:
 With ``--llm-stats``, resets ``app.llm.STATS`` before the run and prints one
 extra line right before the summary:
 
-    llm gemini=<n> cache=<n> mock_fallback=<n> model=<last_model or "-">
+    llm gemini=<n> groq=<n> cache=<n> mock_fallback=<n> model=<last_model or "-">
 
 ``--sleep <seconds>`` (default 0) sleeps between golden-set cases -- useful
 with LLM_MODE=gemini to stay under the API's requests-per-minute limit.
@@ -217,8 +217,9 @@ def format_case_line(case_result: dict) -> str:
 
 def format_llm_stats_line(stats: Dict[str, int], last_model: Optional[str]) -> str:
     return (
-        f"llm gemini={stats['gemini']} cache={stats['cache']} "
-        f"mock_fallback={stats['mock_fallback']} model={last_model or '-'}"
+        f"llm gemini={stats['gemini']} groq={stats.get('groq', 0)} "
+        f"cache={stats['cache']} mock_fallback={stats['mock_fallback']} "
+        f"model={last_model or '-'}"
     )
 
 

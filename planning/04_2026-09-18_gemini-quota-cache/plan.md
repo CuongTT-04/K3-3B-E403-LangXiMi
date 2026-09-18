@@ -1,7 +1,7 @@
 # Kế hoạch #04 — Gemini thật cho CP3: xoay model khi hết quota, cache LLM, validator bỏ dấu, số đo thật
 
 ## 1. Metadata
-- Trạng thái: 🚀 ĐANG PHÓNG (2026-09-18) · Loại: PATCH v0.2.2 (ngoại lệ §3.2.5: chỉ `plan.md`)
+- Trạng thái: ✅ ĐÃ HOÀN THÀNH (2026-09-18 14:35:00) · Loại: PATCH v0.2.2 (ngoại lệ §3.2.5: chỉ `plan.md`)
 - SO: super orchestrator (Fable) · Worker: 🟠 Sonnet · Base: `a33e73f`
 - Phạm vi: `codebase/backend/app/{llm.py,validator.py}` · `codebase/backend/eval/run_eval.py` · `codebase/backend/tests/**` · `codebase/.env.example` · `docs/backend.md` · `spec.md` §7 (số đo) · `brain4agent/**` (đồng bộ cuối)
 - CẤM chạm: `schemas.py` · `codebase/mock-data/**` · `codebase/frontend/**` · `.env` (chứa key thật, gitignored)
@@ -27,7 +27,7 @@
 | WP3 | Điền số thật vào spec §7 + đồng bộ não + bump v0.2.2 | 🟢 | tay SO / worker | `--check` exit 0 |
 
 ## 4. Checklist thực thi
-- [x] WP1 (R01 ✅, 63 test, Gemini thật 18/21) · [x] WP2 (video Chrome 23,4s + 8 ảnh: `evidence/demo/`) · [ ] WP3
+- [x] WP1 (R01 ✅, 63 test, Gemini thật 18/21) · [x] WP1b (R02 ✅, 75 test, Groq thật 21/21) · [x] WP2 (video Chrome 23,4s + 8 ảnh: `evidence/demo/`) · [x] WP3 (R03: `groq=` trong `run_eval.py --llm-stats`, số thật vào `spec.md` §7/§9, não đồng bộ 6 điểm, bump v0.2.2)
 
 ## 5. Câu hỏi mở (cần người)
 - Key Gemini đã dán vào chat ⇒ nên xoay key sau hackathon.

@@ -33,3 +33,21 @@ Tổng hợp các lỗi khó, các lưu ý dị biệt hoặc cách workaround �
   ⇒ trải nghiệm demo lẫn dấu/không dấu khi item rơi vào `no_grounding`.
   Biết trước để không ngạc nhiên khi thấy UI; sửa nằm ngoài phạm vi thi
   công không đổi hành vi mã (đã đưa vào Idea Vault ở `roadmap.md`).
+- **Gemini free tier = 20 request/NGÀY cho MỖI model riêng** (không chia sẻ
+  quota giữa các model), và model `gemini-2.x` đã bị Google gỡ (404 "no
+  longer available") — đừng hardcode 1 model, luôn dùng danh sách xoay
+  vòng `GEMINI_MODELS` trong `.env`/`llm.py` (hồ sơ #04). Khi đo eval thật
+  nhiều lần trong 1 ngày, model đầu danh sách gần như chắc chắn đã cạn từ
+  request trước — đây là hành vi bình thường, không phải lỗi rotation.
+- Response JSON của Gemini 3.x có thể xen phần tử `parts[i].thoughtSignature`
+  TRƯỚC phần tử chứa `text` thật sự trong `candidates[0].content.parts`
+  ⇒ không được lấy cứng `parts[0]`, phải quét tìm phần tử có key `text`
+  (`llm._extract_text`, hồ sơ #04). Lấy nhầm `parts[0]` sẽ KeyError/parse
+  JSON rỗng, bị hiểu nhầm là model trả lỗi trong khi thực ra gọi thành công.
+- Groq (`GroqLLM`) trên tài khoản dự án KHÔNG có model `llama-3.3-70b-
+  versatile` (dùng `openai/gpt-oss-120b`/`qwen/qwen3.8-27b`/
+  `openai/gpt-oss-20b` thay thế); giới hạn đo được 1000 request/NGÀY (chung,
+  không chia theo model như Gemini) + 8000 token/PHÚT — khi chạy
+  `run_eval.py --llm-stats` với `LLM_MODE=groq` (hay `gemini`/`chain`) nên
+  luôn kèm `--sleep 1` để không vượt giới hạn request/phút giữa các case
+  (hồ sơ #04).

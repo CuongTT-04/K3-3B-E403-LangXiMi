@@ -2,6 +2,46 @@
 
 Tất cả các quyết định kiến trúc và lịch sử nâng cấp phiên bản của dự án.
 
+## [v0.2.2] - 2026-09-18: Gemini Thật CP3 — Xoay Model, Groq Dự Phòng, Cache Đĩa, Số Đo Thật
+### Added
+- `llm.py`: `GEMINI_MODELS` (danh sách xoay vòng, mặc định 6 model
+  `gemini-3.x`, `GEMINI_MODEL` cũ được đưa lên đầu nếu đặt) — 429/404/503/
+  JSON hỏng chuyển model kế NGAY, timeout retry đúng 1 lần cùng model.
+- `GroqLLM` (API kiểu OpenAI, `GROQ_MODELS` mặc định
+  `openai/gpt-oss-120b,qwen/qwen3.8-27b,openai/gpt-oss-20b`, KHÔNG retry
+  cùng model kể cả timeout) + `ChainLLM` nối Gemini → Groq → Mock
+  (`LLM_MODE=gemini/chain` dùng cả 2 key, `LLM_MODE=groq` chỉ Groq→Mock).
+- Cache LLM trên đĩa `backend/.runtime/llm-cache.json` (khoá sha1 gồm
+  prompt version + question id + chosen + chunk ids, KHÔNG chứa tên
+  provider — Gemini/Groq dùng chung cache); `LLM_CACHE=off`/
+  `LLM_CACHE_PATH` để tắt/đổi đường dẫn.
+- `llm.STATS` (`gemini`/`groq`/`cache`/`mock_fallback`) + `reset_stats()`;
+  `run_eval.py --llm-stats` in thêm dòng `llm gemini=<n> groq=<n>
+  cache=<n> mock_fallback=<n> model=<…>` trước dòng tổng; `--sleep <giây>`
+  nghỉ giữa các case để tránh vượt giới hạn request/phút.
+- `validator._fold`/`quote_matches`: so trích dẫn bỏ dấu tiếng Việt (NFD +
+  bỏ category `Mn` + `đ/Đ`→`d` + lower) sau khi chuẩn hoá khoảng trắng —
+  vẫn từ chối khi đổi hẳn một TỪ; `run_eval.py` dùng lại đúng hàm này khi
+  tự đếm `citations_invalid` để không báo sai trích dẫn hợp lệ.
+### Changed
+- `spec.md` §7: điền số đo AI thật thay cho dòng `⏳ Gemini thật (chưa có
+  key)` — Gemini `pass=18/21`, Groq `pass=21/21`, cả hai
+  `citations_invalid=0`; thêm dòng ghi thứ tự provider + cache đĩa. §9
+  thêm mốc hồ sơ #04.
+### Notes
+- Số đo thật (hồ sơ #04, `.env` có `GEMINI_API_KEY`+`GROQ_API_KEY`):
+  `pytest backend -q` → 75 passed/0 skip (hồ sơ #03 có 49); eval mock
+  `pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0`; eval
+  Gemini thật (`gemini-3.5/3.6-flash` xoay, cache) `pass=18/21
+  fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0` (3 case rớt do
+  validator chặn trích dẫn không khớp — an toàn, không phải bug); eval
+  Groq thật `pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0`.
+- Video demo Chrome (23,4s) + 8 ảnh màn hình quay với Gemini thật qua
+  cache đĩa, lưu tại `planning/04_2026-09-18_gemini-quota-cache/evidence/demo/`.
+- Quota miễn phí: Gemini 20 request/NGÀY/MODEL (không chia sẻ giữa các
+  model); Groq 1000 request/ngày (chung, không theo model) + 8000
+  token/phút.
+
 ## [v0.2.1] - 2026-09-18: CP4 Spec Hardening — Chẩn Đoán Theo `chosen` + Golden Set 21 Case
 ### Added
 - `codebase/mock-data/golden-set.json`: mở rộng 14 → 21 case (10 `happy`,

@@ -13,7 +13,7 @@ Khi nhận nhiệm vụ, Agent tra cứu bảng này để đọc **chính xác*
 | **Ký ức nóng phiên gần nhất** | [`memory/hot/today.md`](memory/hot/today.md) & [`state.json`](memory/hot/state.json) | Trạng thái máy (JSON), nhật ký làm việc theo phiên và kết quả benchmark gần nhất. |
 | **Khởi động / Quy tắc chung** | [`memory-distill.txt`](memory-distill.txt) | Kernel hiện trạng, Startup Protocol, Tech stack cốt lõi. |
 | **Tổng quan dự án** | [`project-intro.md`](project-intro.md) | Mục tiêu, kiến trúc tổng thể. |
-| **Kế hoạch nâng cấp & RFCs** | [`planning/`](../planning/) | Thư mục chứa các bản kế hoạch theo chuẩn `[STT]_[YYYY-MM-DD]_[Ten-Ngan]`; hồ sơ gần nhất `planning/03_2026-09-18_cp4-spec-hardening/` (Done). |
+| **Kế hoạch nâng cấp & RFCs** | [`planning/`](../planning/) | Thư mục chứa các bản kế hoạch theo chuẩn `[STT]_[YYYY-MM-DD]_[Ten-Ngan]`; hồ sơ gần nhất `planning/04_2026-09-18_gemini-quota-cache/` (Done). |
 | **Lỗi khó / Cạm bẫy / Gotchas** | [`-known-gotchas.md`](-known-gotchas.md) | Tổng hợp các bẫy kỹ thuật và lỗi dị biệt đã gặp. |
 | **Kiến trúc dữ liệu & Data Flow** | [`-data-architecture.md`](-data-architecture.md) | Cấu trúc dữ liệu, cơ chế lưu trữ và State Flow. |
 | **Lộ trình nâng cấp & Ý tưởng** | [`roadmap.md`](roadmap.md) | Active tasks, Kho Ý Tưởng (Idea Vault) và các mốc đã hoàn thành. |
@@ -60,16 +60,18 @@ project-root/
 ├── planning/                         # [QUẢN LÝ KẾ HOẠCH NÂNG CẤP] Chứa các bản kế hoạch RFCs
 │   ├── 01_2026-09-17_mock-data-mvp/  # Hồ sơ #01: backend FastAPI + mock-data + validator (Done)
 │   ├── 02_2026-09-17_frontend-api-wiring/ # Hồ sơ #02: nối frontend nhóm vào API + 4 đường đi (Done)
-│   └── 03_2026-09-18_cp4-spec-hardening/  # Hồ sơ #03: chốt spec.md + gia cố chẩn đoán/Gemini + golden set ≥20 (Done)
-│       ├── handoffs/                 # H01–H05: bàn giao tự chứa cho từng worker
-│       ├── reports/                  # R01–R05: số đo + phán quyết ✅/🔁/⛔ của từng handoff
-│       └── evidence/                 # output máy nguyên văn (pytest/eval/break-test), CẤM sửa tay
+│   ├── 03_2026-09-18_cp4-spec-hardening/  # Hồ sơ #03: chốt spec.md + gia cố chẩn đoán/Gemini + golden set ≥20 (Done)
+│   └── 04_2026-09-18_gemini-quota-cache/  # Hồ sơ #04: Gemini xoay model + Groq dự phòng + cache đĩa + số đo thật (Done)
+│       ├── handoffs/                 # H01–H03: bàn giao tự chứa cho từng worker
+│       ├── reports/                  # R01–R03: số đo + phán quyết ✅ của từng handoff
+│       └── evidence/                 # output máy nguyên văn (pytest/eval/demo video+ảnh), CẤM sửa tay
 ├── .agents/skills/                   # [WORKSPACE SKILLS] Kỹ năng chuyên dụng cục bộ dự án
 ├── docs/                             # [MODULE DOCS] Tài liệu kỹ thuật chi tiết
-│   └── backend.md                    # API table, schema RemediationItem.path, env, cách bật Gemini
+│   └── backend.md                    # API table, schema RemediationItem.path, env, provider chain Gemini→Groq→Mock
 └── codebase/                         # [MÃ NGUỒN SẢN PHẨM] Quiz Remediation MVP (Python 3.13 FastAPI + vanilla JS)
-    ├── backend/app/                  # main.py, schemas.py, data.py, retriever.py, llm.py, validator.py, service.py
-    ├── backend/tests/ + backend/eval/ # pytest + run_eval.py (golden-set, in 1 dòng báo cáo)
+    ├── backend/app/                  # main.py, schemas.py, data.py, retriever.py, llm.py (Mock/Gemini/Groq/Chain), validator.py, service.py
+    ├── backend/tests/ + backend/eval/ # pytest (gồm test_llm_gemini.py, test_llm_groq.py) + run_eval.py (golden-set, --llm-stats/--sleep)
+    ├── backend/.runtime/             # gitignored: events.jsonl, llm-cache.json (Gemini), llm-cache-groq.json (Groq)
     ├── mock-data/                    # lessons.json, quiz-day01.json, golden-set.json (21 case, toàn bộ MOCK)
     ├── frontend/                     # index.html/app.js/style.css thuần, không build step — sản phẩm thật đang dùng
     ├── index.html                    # [PROTOTYPE CP2] bản clickable gốc của nhóm, KHÔNG sửa (nguồn port UI)

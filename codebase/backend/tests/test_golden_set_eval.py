@@ -60,12 +60,14 @@ def test_non_verbose_report_prints_only_the_summary_line():
 
 
 def test_format_llm_stats_line_shape():
-    line = format_llm_stats_line({"gemini": 3, "cache": 2, "mock_fallback": 1}, "gemini-3.5-flash")
-    assert line == "llm gemini=3 cache=2 mock_fallback=1 model=gemini-3.5-flash"
-
-    assert format_llm_stats_line({"gemini": 0, "cache": 0, "mock_fallback": 0}, None) == (
-        "llm gemini=0 cache=0 mock_fallback=0 model=-"
+    line = format_llm_stats_line(
+        {"gemini": 3, "groq": 4, "cache": 2, "mock_fallback": 1}, "gemini-3.5-flash"
     )
+    assert line == "llm gemini=3 groq=4 cache=2 mock_fallback=1 model=gemini-3.5-flash"
+
+    assert format_llm_stats_line(
+        {"gemini": 0, "groq": 0, "cache": 0, "mock_fallback": 0}, None
+    ) == ("llm gemini=0 groq=0 cache=0 mock_fallback=0 model=-")
 
 
 def test_report_with_llm_stats_line_sits_before_the_summary():
@@ -91,7 +93,7 @@ def test_main_with_llm_stats_flag_prints_provider_counts_line(
 
     captured = capsys.readouterr()
     lines = captured.out.strip().splitlines()
-    assert "llm gemini=0 cache=0 mock_fallback=0 model=-" in lines
+    assert "llm gemini=0 groq=0 cache=0 mock_fallback=0 model=-" in lines
     # The unchanged summary line is still the very last line printed.
     assert lines[-1] == format_summary(run_golden_set())
 

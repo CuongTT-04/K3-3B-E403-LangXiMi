@@ -21,6 +21,13 @@ Tài liệu thiết kế về cấu trúc dữ liệu, cơ chế lưu trữ bề
   khi cần, gitignored (`codebase/.gitignore`). Mỗi dòng một JSON
   `{"ts", "type": "correction"|"ta_ticket", ...body request}`, ghi bởi
   `POST /api/correction` và `POST /api/ta-ticket` trong `main.py`.
+- **`codebase/backend/.runtime/llm-cache*.json`** (gitignored) — cache kết
+  quả LLM THẬT (Gemini hoặc Groq, không cache mock fallback) trên đĩa, dict
+  khoá = sha1(`prompt version + question id + chosen + sorted chunk ids`,
+  KHÔNG chứa tên provider nên 1 entry phục vụ cả 2 provider). Mặc định
+  `llm-cache.json`; đè đường dẫn qua `LLM_CACHE_PATH` (dùng
+  `llm-cache-groq.json` khi eval riêng Groq để không ghi đè cache Gemini);
+  `LLM_CACHE=off` tắt hẳn cache.
 - **Không có DB** — toàn bộ state của một lượt làm bài sống trong request/
   response (stateless) + state phía trình duyệt (`frontend/app.js`).
 
@@ -36,10 +43,13 @@ mock-data/*.json --data.py--> main.py (FastAPI)
                                       confidence < LOW_CONF_MIN hoặc
                                         chunks=[] -> path=no_grounding
                                         (validator.fallback_item)
-                                      else -> llm.generate(..., chosen=chosen)
+                                      else -> get_llm() (ChainLLM: Gemini ->
+                                        Groq -> Mock, cache đĩa dùng chung)
+                                        .generate(..., chosen=chosen)
                                         -> validator.validate() (so
                                         citations[].quote NGUYÊN VĂN chunk
-                                        sau khi chuẩn hoá khoảng trắng)
+                                        sau khi chuẩn hoá khoảng trắng + bỏ
+                                        dấu tiếng Việt)
                                         validate() reject -> path=no_grounding
                                         confidence >= HIGH_CONF_MIN -> path=happy
                                         else -> path=low_confidence (+2 hypotheses,
@@ -51,6 +61,9 @@ mock-data/*.json --data.py--> main.py (FastAPI)
   GET /api/transcript/{id}      -> chunk gốc (mở khi bấm badge [T01-NNN])
 ```
 Validator (`app/validator.py`) là chốt cứng cuối trên MỌI nhánh: citation
-phải là chuỗi con nguyên văn của chunk, mọi câu củng cố phải trỏ về citation
-đã duyệt — sai một trong hai thì hạ về fallback (`path=no_grounding`,
-`citations=[]`), không bao giờ trả trích dẫn bịa.
+phải là chuỗi con nguyên văn của chunk (so sánh bỏ dấu tiếng Việt + hoa/
+thường sau khi chuẩn hoá khoảng trắng — `validator.quote_matches`, dùng
+chung bởi `run_eval.py` — nhưng vẫn từ chối nếu đổi hẳn một từ), mọi câu
+củng cố phải trỏ về citation đã duyệt — sai một trong hai thì hạ về
+fallback (`path=no_grounding`, `citations=[]`), không bao giờ trả trích
+dẫn bịa.
