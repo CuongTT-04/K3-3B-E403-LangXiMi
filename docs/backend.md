@@ -77,6 +77,14 @@ confidence, fallback, fallback_note, path, hypotheses[{id, label}]`.
 `hypotheses` luôn đúng 2 phần tử khi `path="low_confidence"`, `[]` mọi
 trường hợp khác. Mọi field cũ của hồ sơ #01 giữ nguyên tên/kiểu.
 
+`misconception` nay được chẩn đoán dựa trên phương án học viên **đã chọn**
+(`chosen`, luồn từ `results` → `service._remediate_one` →
+`LLM.generate(question, chunks, distractor_pool, chosen=...)`): LLM (Mock
+hoặc Gemini) nhận cả `stem`/`options`/đáp án đúng/`chosen` và trả về field
+`"misconception"` nói rõ vì sao phương án đã chọn sai; `validator.py` giữ
+nguyên giá trị này nếu là chuỗi không rỗng, chỉ rơi về `misconception_hint`
+tĩnh khi LLM không trả field đó (ví dụ item fallback).
+
 ## Env (`.env.example`)
 
 `LLM_MODE=mock|real|gemini` · `GEMINI_API_KEY` · `GEMINI_MODEL` (mặc định
@@ -89,9 +97,15 @@ trường hợp khác. Mọi field cũ của hồ sơ #01 giữ nguyên tên/ki�
 `https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent`
 qua `httpx.Client`, parse JSON từ `candidates[0].content.parts[0].text`
 (tự gỡ fence ```` ```json ```` nếu có). Thiếu `GEMINI_API_KEY` →
-`logging.warning` rồi tự rơi về `MockLLM`, không bao giờ crash demo. Test
-(`tests/test_llm_gemini.py`) monkeypatch `httpx.Client.post`, không gọi
-mạng thật.
+`logging.warning` rồi tự rơi về `MockLLM`, không bao giờ crash demo.
+
+`GeminiLLM.generate` không bao giờ raise: lỗi mạng/HTTP/parse (`httpx.HTTPError`,
+`ValueError`, `KeyError`, `IndexError`, `TypeError`) đều bị bắt. Nếu lỗi là
+`httpx.TimeoutException` hoặc status 429/5xx thì **retry đúng 1 lần**; nếu
+lần 2 vẫn lỗi (hoặc lỗi ban đầu không thuộc diện retry) thì `logger.warning`
+rồi rơi về `MockLLM().generate(...)` với cùng input (kể cả `chosen`), để demo
+không bao giờ trả 500. Test (`tests/test_llm_gemini.py`) monkeypatch
+`httpx.Client.post`, không gọi mạng thật.
 
 ## Sự kiện (`backend/.runtime/events.jsonl`)
 

@@ -8,11 +8,16 @@ from __future__ import annotations
 from typing import Dict
 
 
+def _norm(s: str) -> str:
+    """Collapse all whitespace runs to a single space for quote comparison."""
+    return " ".join(s.split())
+
+
 def _citation_is_valid(citation: dict, lessons_by_id: Dict[str, dict]) -> bool:
     chunk = lessons_by_id.get(citation.get("id"))
     if chunk is None:
         return False
-    return citation.get("quote", "") in chunk["text"]
+    return _norm(citation.get("quote", "")) in _norm(chunk["text"])
 
 
 def _fallback_item(question: dict) -> dict:
@@ -57,11 +62,18 @@ def validate(question: dict, raw_item: dict, lessons_by_id: Dict[str, dict]) -> 
         if item.get("source_id") not in valid_ids:
             return _fallback_item(question)
 
+    raw_misconception = raw_item.get("misconception")
+    if isinstance(raw_misconception, str) and raw_misconception.strip():
+        misconception = raw_misconception
+    else:
+        misconception = question.get("misconception_hint") or (
+            f"Hieu nham ve khai niem '{question.get('concept', '')}'."
+        )
+
     return {
         "question_id": question["id"],
         "concept": question.get("concept", ""),
-        "misconception": question.get("misconception_hint")
-        or f"Hieu nham ve khai niem '{question.get('concept', '')}'.",
+        "misconception": misconception,
         "explanation": raw_item.get("explanation", ""),
         "citations": citations,
         "reinforcement": raw_item.get("reinforcement", []),

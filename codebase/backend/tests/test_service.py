@@ -69,3 +69,53 @@ def test_confirm_hypothesis_returns_happy_item_with_reinforcement():
 def test_confirm_hypothesis_unknown_question_raises_keyerror():
     with pytest.raises(KeyError):
         service.confirm_hypothesis(QUIZ, "qxx-unknown", "h1", LESSONS, LESSONS_BY_ID)
+
+
+def test_misconception_mentions_chosen_option():
+    # q01: correct answer is B ("Chain-of-thought"); learner picked A.
+    wrong = {"qid": "q01", "chosen": "A", "correct": "B", "is_correct": False}
+    remediation = service.remediate(QUIZ, [wrong], LESSONS, LESSONS_BY_ID)
+    item = remediation["items"][0]
+    assert "A" in item["misconception"]
+    assert "Chain-of-thought" in item["misconception"]
+    assert "Zero-shot prompting" in item["misconception"]
+
+
+def test_reinforcement_answer_position_varies_and_matches_source_chunk():
+    from app.llm import _first_sentence
+
+    wrong_results = [
+        {"qid": q["id"], "chosen": None, "correct": "", "is_correct": False}
+        for q in QUIZ["questions"]
+    ]
+    remediation = service.remediate(QUIZ, wrong_results, LESSONS, LESSONS_BY_ID)
+
+    answers_seen = set()
+    checked_any = False
+    for item in remediation["items"]:
+        for reinf in item["reinforcement"]:
+            checked_any = True
+            answers_seen.add(reinf["answer"])
+            source_chunk = LESSONS_BY_ID[reinf["source_id"]]
+            assert reinf["options"][reinf["answer"]] == _first_sentence(
+                source_chunk["text"]
+            )
+
+    assert checked_any
+    assert len(answers_seen) >= 2
+
+
+def test_confirm_hypothesis_branches_explanation_by_hypothesis_id():
+    item_h1 = service.confirm_hypothesis(QUIZ, "q09", "h1", LESSONS, LESSONS_BY_ID)
+    item_h2 = service.confirm_hypothesis(QUIZ, "q09", "h2", LESSONS, LESSONS_BY_ID)
+
+    assert item_h1["path"] == "happy"
+    assert item_h2["path"] == "happy"
+    assert item_h1["explanation"] != item_h2["explanation"]
+    assert item_h1["citations"] == item_h2["citations"]
+    assert item_h1["explanation"].startswith(
+        "Nguyên nhân bạn xác nhận: nhầm lẫn khái niệm. "
+    )
+    assert item_h2["explanation"].startswith(
+        "Nguyên nhân bạn xác nhận: đọc lướt bỏ sót từ khoá. "
+    )

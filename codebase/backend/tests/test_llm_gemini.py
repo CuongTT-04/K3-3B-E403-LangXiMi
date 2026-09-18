@@ -85,3 +85,33 @@ def test_gemini_llm_generate_strips_markdown_fences(monkeypatch):
     instance = llm_module.GeminiLLM("fake-key", "gemini-2.5-flash")
     result = instance.generate(QUESTION, CHUNKS)
     assert result["confidence"] == 0.5
+
+
+def _assert_has_remediation_shape(result: dict) -> None:
+    assert isinstance(result, dict)
+    for key in ("explanation", "citations", "reinforcement", "confidence"):
+        assert key in result
+
+
+def test_gemini_llm_generate_never_raises_on_connection_error(monkeypatch):
+    def fake_post(self, url, params=None, json=None, **kwargs):
+        raise httpx.ConnectError("boom")
+
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
+
+    instance = llm_module.GeminiLLM("fake-key", "gemini-2.5-flash")
+    result = instance.generate(QUESTION, CHUNKS)
+    _assert_has_remediation_shape(result)
+
+
+def test_gemini_llm_generate_never_raises_on_malformed_json_body(monkeypatch):
+    payload = _fake_gemini_payload("nay khong phai la JSON hop le {")
+
+    def fake_post(self, url, params=None, json=None, **kwargs):
+        return _FakeResponse(payload)
+
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
+
+    instance = llm_module.GeminiLLM("fake-key", "gemini-2.5-flash")
+    result = instance.generate(QUESTION, CHUNKS)
+    _assert_has_remediation_shape(result)

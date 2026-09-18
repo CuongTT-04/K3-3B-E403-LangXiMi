@@ -60,7 +60,10 @@ def _hypotheses_for(question: dict) -> List[dict]:
 
 
 def _remediate_one(
-    question: dict, lessons_by_id: Dict[str, dict], lessons: List[dict]
+    question: dict,
+    lessons_by_id: Dict[str, dict],
+    lessons: List[dict],
+    chosen: Optional[str] = None,
 ) -> dict:
     chunks, confidence = retrieve_with_confidence(
         question.get("concept", ""),
@@ -76,7 +79,7 @@ def _remediate_one(
         return item
 
     llm_instance = get_llm()
-    raw = llm_instance.generate(question, chunks, distractor_pool=lessons)
+    raw = llm_instance.generate(question, chunks, distractor_pool=lessons, chosen=chosen)
     item = validator.validate(question, raw, lessons_by_id)
 
     if item["fallback"]:
@@ -119,9 +122,19 @@ def remediate(
         question = question_index.get(qid)
         if question is None:
             question = {**_UNKNOWN_QUESTION, "id": qid}
-        items.append(_remediate_one(question, lessons_by_id, lessons))
+        items.append(
+            _remediate_one(
+                question, lessons_by_id, lessons, chosen=result.get("chosen")
+            )
+        )
 
     return {"items": items, "skipped": False}
+
+
+_HYPOTHESIS_PREFIXES = {
+    "h1": "Nguyên nhân bạn xác nhận: nhầm lẫn khái niệm. ",
+    "h2": "Nguyên nhân bạn xác nhận: đọc lướt bỏ sót từ khoá. ",
+}
 
 
 def confirm_hypothesis(
@@ -133,9 +146,10 @@ def confirm_hypothesis(
 ) -> dict:
     """Learner picked a low_confidence hypothesis -- return the full item.
 
-    ``hypothesis_id`` is accepted but does not branch the explanation for
-    this MVP: confirming either cause is enough signal to unlock the same
-    full (happy-shaped) explanation + reinforcement quiz.
+    ``hypothesis_id`` unlocks the same full (happy-shaped) explanation +
+    reinforcement quiz for either candidate cause, but the explanation is
+    prefixed with which root-cause the learner confirmed (``h1``/``h2``);
+    an unknown ``hypothesis_id`` leaves the explanation unprefixed.
 
     Raises ``KeyError`` if ``question_id`` isn't in ``quiz``.
     """
@@ -166,4 +180,7 @@ def confirm_hypothesis(
     item = validator.validate(question, raw, lessons_by_id)
     item["path"] = "no_grounding" if item["fallback"] else "happy"
     item["hypotheses"] = []
+    prefix = _HYPOTHESIS_PREFIXES.get(hypothesis_id)
+    if prefix and not item["fallback"]:
+        item["explanation"] = prefix + item["explanation"]
     return item
