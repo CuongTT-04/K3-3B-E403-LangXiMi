@@ -71,3 +71,5 @@ Cộng thêm 1 file mới `brain4agent/memory/archive/2026-09-17.md` (chép nguy
 ⏸ Chưa làm: quay video CP3, chuẩn bị slide PDF CP5, xoá `frontend/` root, merge/push nhánh `lenq` — đều cần quyết định/tay người, ngoài phạm vi WP5.
 
 Chờ phán quyết SO.
+
+✅ DUYỆT — SO đo lại 2026-09-18: `init_brain.js --check` exit 0 · `pytest backend -q` 49 passed/0 skip · eval `pass=21/21 citations_invalid=0` · diff 011b8b9..HEAD không chạm codebase/docs/AGENTS/CLAUDE · `state.json` 0.2.1 · kernel 41 dòng · ⏳=5. Head thật của WP5: 729aef7. Hồ sơ #03 ĐÓNG; evidence UI smoke (jsdom + uvicorn, exit 0) commit kèm.

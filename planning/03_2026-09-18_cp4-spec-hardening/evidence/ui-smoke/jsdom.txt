@@ -1,0 +1,18 @@
+# UI smoke — codebase/frontend/app.js chạy trong jsdom 30.1.0, nối uvicorn 127.0.0.1:8000, HEAD 011b8b9, 2026-09-18 10:26:56
+# Lý do không dùng browser thật: Tabbit Browser chưa cài (chỉ có tabbit-cli, exit 69), ego-browser CLI chưa cài.
+$ node smoke.cjs
+{
+ "questions": 11,
+ "score": "Bạn đạt 7 / 11 câu đúng",
+ "paths": [
+  "Kỹ thuật→happy",
+  "Bước chu→low_confidence",
+  "Trong mộ→no_grounding",
+  "Kỹ thuật→low_confidence"
+ ],
+ "miscSample": "Có thể bạn đang hiểu nhầm: Bạn chọn A ('Zero-shot prompting'",
+ "afterConfirm": "Nguyên nhân bạn xác nhận: đọc lướt bỏ sót từ khoá. Cau hoi n",
+ "rfToast": "🎉 Chính xác! Bạn đã củng cố vững kiến thức này.",
+ "summary": "Số câu sai4 | Số câu đã củng cố đúng1 | Số câu bỏ qua0 | Số câu đã gửi Trợ giảng (TA)1"
+}
+exit=0
