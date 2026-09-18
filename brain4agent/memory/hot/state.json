@@ -3,8 +3,8 @@
   "brain_template_version": "1.7.1",
   "system_status": "initialized",
   "last_verification": {
-    "timestamp": "2026-09-17T13:55:00.000Z",
-    "grade": "Grade A Verified"
+    "timestamp": "2026-09-18T19:46:57.6227818+07:00",
+    "grade": "CP4 spec verified: 39 tests pass; mock eval 20/20; live-provider 18/20 with safe 429 fallback"
   },
   "active_plans_completed": 2,
   "engine_sha": "0c1ac09f2181206e841c2dd5bfc23c78a13cabfd",

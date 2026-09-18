@@ -104,7 +104,8 @@ Thư mục `.runtime/` được `codebase/.gitignore` bỏ qua, tự tạo nếu
 
 - `mock-data/` — `lessons.json` (32 chunk `[T01-NNN]`), `quiz-day01.json`
   (11 câu, q09/q10/q11 gài sẵn cho low_confidence/no_grounding),
-  `golden-set.json` (14 case, có field `expect_path`).
+  `golden-set.json` (**20 case**, có field `expect_path`: 13 `happy`,
+  2 `low_confidence`, 5 `no_grounding`).
 - `backend/app/` — `main.py` (endpoints + serve frontend tĩnh),
   `schemas.py`, `data.py`, `retriever.py` (chunk + confidence),
   `llm.py` (Mock/Real/Gemini), `validator.py`, `service.py` (map path).

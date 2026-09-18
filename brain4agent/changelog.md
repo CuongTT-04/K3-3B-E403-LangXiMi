@@ -2,6 +2,24 @@
 
 Tất cả các quyết định kiến trúc và lịch sử nâng cấp phiên bản của dự án.
 
+## [CP4 documentation freeze] - 2026-09-18
+### Changed
+- Hoàn thiện `spec.md` theo §1–§9 và khóa quality bar: tối thiểu 16/20 case
+  pass toàn bộ D1–D4, 0 citation ID/quote không hợp lệ, và 100% case ngoài
+  phạm vi fallback an toàn.
+- Sửa tài liệu backend theo golden set hiện tại 20 case (13 happy, 2
+  low-confidence, 5 no-grounding); đây là thay đổi tài liệu, không đổi API.
+- Thêm `validation/user-validation-template.md`: mẫu trống R6 cho 5 người
+  ngoài nhóm, có task, quote nguyên văn, điểm kẹt và quyết định sau test.
+### Verified
+- `pytest backend -q`: 39 pass, 0 skip (1 cảnh báo deprecation).
+- `LLM_MODE=mock python backend/eval/run_eval.py`: 20/20, fallback 5/5,
+  low-confidence 2/2, invalid citation 0.
+- Provider thật hiện trả 18/20 do HTTP 429 ở q08; hệ thống fallback an toàn.
+### Known limits
+- Runner chỉ đo proxy path/citation cấu trúc; chưa thay thế rubric chấm ngữ
+  nghĩa D1–D4 hoặc validation ngoài nhóm.
+
 ## [v0.2.0] - 2026-09-17: Frontend API Wiring + 4 Experience Paths
 ### Added
 - `RemediationItem.path` (`happy`/`low_confidence`/`no_grounding`) và

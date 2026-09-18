@@ -20,4 +20,5 @@ giảng/quiz là MOCK, không dùng nội dung khoá học thật.
   mock); `RealLLM` là stub cho provider khác trong tương lai.
 - **Data Persistence:** JSON tĩnh trong `codebase/mock-data/` (không DB);
   `codebase/backend/.runtime/events.jsonl` append-only cho log sự kiện
-  người dùng (correction/ta-ticket).
+  người dùng (correction/ta-ticket). `validation/` chỉ chứa nhật ký đánh giá
+  thủ công sau CP5; không phải dữ liệu runtime và không được điền dữ liệu giả.

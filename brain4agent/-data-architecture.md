@@ -12,7 +12,7 @@ Tài liệu thiết kế về cấu trúc dữ liệu, cơ chế lưu trữ bề
     concept, source_ids, misconception_hint`); q09/q10/q11 dùng
     `source_ids` giả (`T99-…`) hoặc concept không tồn tại để gài sẵn đường
     đi `low_confidence`/`no_grounding` cho demo.
-  - `golden-set.json` — 14 case đánh giá hồi quy (`expect_path`,
+  - `golden-set.json` — 20 case đánh giá hồi quy (`expect_path`,
     `expected_concepts`, `expected_source_ids_any`, `expect_fallback`).
 - **`codebase/backend/.runtime/events.jsonl`** — append-only, tạo tự động
   khi cần, gitignored (`codebase/.gitignore`). Mỗi dòng một JSON
@@ -20,6 +20,10 @@ Tài liệu thiết kế về cấu trúc dữ liệu, cơ chế lưu trữ bề
   `POST /api/correction` và `POST /api/ta-ticket` trong `main.py`.
 - **Không có DB** — toàn bộ state của một lượt làm bài sống trong request/
   response (stateless) + state phía trình duyệt (`frontend/app.js`).
+- **`validation/user-validation-template.md`** — mẫu nhật ký CP5 điền thủ
+  công sau khi người ngoài nhóm dùng thử; chỉ lưu mã/biệt danh đã đồng ý,
+  task, điểm kẹt, quote nguyên văn và quyết định. Không được dùng làm input
+  cho backend hay thay thế dữ liệu đo tự động.
 
 ## 2. Schema & Data Flow
 ```

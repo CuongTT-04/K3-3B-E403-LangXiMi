@@ -20,6 +20,8 @@ Khi nhận nhiệm vụ, Agent tra cứu bảng này để đọc **chính xác*
 | **Lịch sử cập nhật** | [`changelog.md`](changelog.md) | Lịch sử Semantic Releases (vX.Y.Z). |
 | **Tài liệu kỹ thuật module** | [`docs/`](../docs/) | Thư mục chứa tài liệu chuyên trách 1-1 cho từng module. |
 | **Backend Quiz Remediation MVP** | [`docs/backend.md`](../docs/backend.md) | API table, schema `RemediationItem.path` (4 đường đi), env, cách bật Gemini thật. |
+| **AI Spec CP4 & quality bar** | [`spec.md`](../spec.md) | Decision log §1–§9; ngưỡng khóa 16/20, zero invalid citation, 100% fallback ngoài phạm vi; tự khai coverage còn thiếu. |
+| **Validation CP5** | [`validation/user-validation-template.md`](../validation/user-validation-template.md) | Mẫu trống cho 5 người ngoài nhóm: task, path, điểm kẹt, quote nguyên văn và quyết định. |
 
 ---
 
@@ -54,9 +56,11 @@ project-root/
 ├── .agents/skills/                   # [WORKSPACE SKILLS] Kỹ năng chuyên dụng cục bộ dự án
 ├── docs/                             # [MODULE DOCS] Tài liệu kỹ thuật chi tiết
 │   └── backend.md                    # API table, schema RemediationItem.path, env, cách bật Gemini
+├── validation/                       # [CP5] Nhật ký đánh giá người ngoài nhóm (điền sau khi test thật)
+│   └── user-validation-template.md    # Mẫu trống R6, không chứa dữ liệu giả
 └── codebase/                         # [MÃ NGUỒN SẢN PHẨM] Quiz Remediation MVP (Python 3.13 FastAPI + vanilla JS)
     ├── backend/app/                  # main.py, schemas.py, data.py, retriever.py, llm.py, validator.py, service.py
-    ├── backend/tests/ + backend/eval/ # pytest + run_eval.py (golden-set, in 1 dòng báo cáo)
+    ├── backend/tests/ + backend/eval/ # pytest + run_eval.py (golden-set 20 case, in 1 dòng báo cáo)
     ├── mock-data/                    # lessons.json, quiz-day01.json, golden-set.json (toàn bộ MOCK)
     └── frontend/                     # index.html/app.js/style.css thuần, không build step
 ```

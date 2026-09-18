@@ -49,3 +49,28 @@
   - `run_eval.py`: 14/14 pass, 3/3 fallback_ok, 2/2 low_conf_ok, 0 invalid citations.
   - 4 đường trải nghiệm (Happy path, Low confidence, No grounding, Đính chính) hoạt động mượt mà.
 - **Sẵn sàng nộp CP2:** Đã có flowchart + prototype tương tác + tài liệu spec.md.
+
+---
+
+## 🏁 Phiên 2026-09-18 (19:46) — CP4 AI Spec & quality bar
+
+## 🎯 Thành tựu:
+- Hoàn thiện `spec.md` theo đủ §1–§9: evidence/impact, nghiên cứu flow tương
+  tự, thiết kế conditional, 4 lớp rủi ro, 4 path, eval, phân công và validation plan.
+- Khóa chuẩn CP4: `P/20 ≥ 80%` (P≥16) **và** `citations_invalid=0` **và**
+  `outside_scope_safe=100%`; tự khai gap D1–D4 semantic/tone, OOS metric,
+  retry 429 và validation R6.
+- Đo lại: `pytest backend -q` → 39 pass, 0 skip (1 warning);
+  `LLM_MODE=mock python backend/eval/run_eval.py` → 20/20, fallback 5/5,
+  low_confidence 2/2, citations_invalid 0. Với provider thật hiện có: 18/20
+  do HTTP 429 tại q08, pipeline rơi fallback an toàn.
+
+---
+
+## 🏁 Phiên 2026-09-18 — Chuẩn bị validation CP5
+
+- Tạo `validation/user-validation-template.md` trống: 5 người ngoài nhóm,
+  trong đó ≥2 willing users CP1; task thống nhất, path, thời gian, điểm kẹt,
+  quote nguyên văn, quyết định và 4 dòng tổng kết.
+- Quy tắc bất biến: không điền dữ liệu/quote giả; validation là artefact thủ
+  công CP5, không đi vào runtime hoặc input của backend.
