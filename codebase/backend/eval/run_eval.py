@@ -1,5 +1,6 @@
-"""Runs golden-set.json through the real retriever + MockLLM + validator
-pipeline (service.remediate) and prints exactly one summary line:
+"""Runs golden-set.json through the real retriever + LLM (Mock or Gemini,
+per LLM_MODE) + validator pipeline (service.remediate) and prints exactly
+one summary line:
 
     eval pass=N/M fallback_ok=K/L low_conf_ok=P/Q citations_invalid=0
 
@@ -7,20 +8,30 @@ With ``--verbose``, prints one extra line per case before the summary:
 
     case-XX expect=<path> got=<path1,path2,...> passed=<True/False>
 
-Usage: python backend/eval/run_eval.py [--verbose]  (run from the codebase/
-directory, or anywhere -- the backend/ folder is added to sys.path below).
+With ``--llm-stats``, resets ``app.llm.STATS`` before the run and prints one
+extra line right before the summary:
+
+    llm gemini=<n> cache=<n> mock_fallback=<n> model=<last_model or "-">
+
+``--sleep <seconds>`` (default 0) sleeps between golden-set cases -- useful
+with LLM_MODE=gemini to stay under the API's requests-per-minute limit.
+
+Usage: python backend/eval/run_eval.py [--verbose] [--llm-stats]
+[--sleep SECONDS]  (run from the codebase/ directory, or anywhere -- the
+backend/ folder is added to sys.path below).
 """
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
-from app import data, service  # noqa: E402
+from app import data, llm, service, validator  # noqa: E402
 
 
 def _check_case(case: dict, quiz: dict, lessons_by_id: dict) -> dict:
@@ -48,7 +59,9 @@ def _check_case(case: dict, quiz: dict, lessons_by_id: dict) -> dict:
     for item in items:
         for citation in item["citations"]:
             chunk = lessons_by_id.get(citation["id"])
-            if chunk is None or citation["quote"] not in chunk["text"]:
+            if chunk is None or not validator.quote_matches(
+                citation["quote"], chunk["text"]
+            ):
                 citations_invalid += 1
 
     expect_path = case["expect_path"]
@@ -122,7 +135,7 @@ def _check_case(case: dict, quiz: dict, lessons_by_id: dict) -> dict:
     }
 
 
-def run_golden_set() -> dict:
+def run_golden_set(sleep_seconds: float = 0.0) -> dict:
     golden = data.load_golden_set()
     quiz = data.load_quiz("day01")
     lessons_by_id = data.index_lessons_by_id(data.load_lessons())
@@ -135,7 +148,7 @@ def run_golden_set() -> dict:
     citations_invalid_total = 0
     case_results = []
 
-    for case in golden:
+    for case_index, case in enumerate(golden):
         outcome = _check_case(case, quiz, lessons_by_id)
         citations_invalid_total += outcome["citations_invalid"]
         if outcome["passed"]:
@@ -171,6 +184,9 @@ def run_golden_set() -> dict:
             }
         )
 
+        if sleep_seconds and case_index < len(golden) - 1:
+            time.sleep(sleep_seconds)
+
     return {
         "pass_count": pass_count,
         "total_cases": len(golden),
@@ -199,12 +215,35 @@ def format_case_line(case_result: dict) -> str:
     )
 
 
-def format_report(result: dict, verbose: bool = False) -> str:
+def format_llm_stats_line(stats: Dict[str, int], last_model: Optional[str]) -> str:
+    return (
+        f"llm gemini={stats['gemini']} cache={stats['cache']} "
+        f"mock_fallback={stats['mock_fallback']} model={last_model or '-'}"
+    )
+
+
+def format_report(
+    result: dict, verbose: bool = False, llm_stats_line: Optional[str] = None
+) -> str:
     lines = []
     if verbose:
         lines.extend(format_case_line(case_result) for case_result in result["cases"])
+    if llm_stats_line is not None:
+        lines.append(llm_stats_line)
     lines.append(format_summary(result))
     return "\n".join(lines)
+
+
+def _parse_sleep(argv: List[str]) -> float:
+    if "--sleep" not in argv:
+        return 0.0
+    idx = argv.index("--sleep")
+    if idx + 1 >= len(argv):
+        return 0.0
+    try:
+        return float(argv[idx + 1])
+    except ValueError:
+        return 0.0
 
 
 def main(argv: Optional[List[str]] = None) -> dict:
@@ -219,9 +258,18 @@ def main(argv: Optional[List[str]] = None) -> dict:
     if argv is None:
         argv = sys.argv[1:]
     verbose = "--verbose" in argv
+    llm_stats = "--llm-stats" in argv
+    sleep_seconds = _parse_sleep(argv)
 
-    result = run_golden_set()
-    print(format_report(result, verbose=verbose))
+    if llm_stats:
+        llm.reset_stats()
+
+    result = run_golden_set(sleep_seconds=sleep_seconds)
+
+    llm_stats_line = (
+        format_llm_stats_line(llm.STATS, llm.LAST_MODEL) if llm_stats else None
+    )
+    print(format_report(result, verbose=verbose, llm_stats_line=llm_stats_line))
     return result
 
 

@@ -45,6 +45,13 @@ xem `.env.example`):
 
 `validator.py` vẫn là chốt cứng cuối: bất kỳ citation bịa hoặc câu củng cố
 không trỏ về citation đã duyệt → hạ về `no_grounding` (an toàn hơn là bịa).
+So khớp `quote` bỏ qua dấu tiếng Việt và hoa/thường (`validator._fold`:
+chuẩn hoá khoảng trắng → NFD → bỏ ký tự category `Mn` → `đ/Đ`→`d` → lower)
+vì `lessons.json` không có dấu nhưng LLM hay thêm dấu vào trích dẫn; đổi hẳn
+một TỪ vẫn bị từ chối, chỉ dấu/hoa-thường/khoảng trắng được bỏ qua.
+`eval/run_eval.py` dùng lại đúng logic này (`validator.quote_matches`) khi
+tự đếm `citations_invalid`, để không báo sai một trích dẫn hợp lệ (theo
+validator) là "invalid".
 
 Mock-data cố ý gài 3 câu hỏi để demo bấm ra đủ 3 đường đi:
 - `q09`, `q11` (`quiz-day01.json`) dùng `source_ids` giả (`T99-…`, không có
@@ -87,25 +94,85 @@ tĩnh khi LLM không trả field đó (ví dụ item fallback).
 
 ## Env (`.env.example`)
 
-`LLM_MODE=mock|real|gemini` · `GEMINI_API_KEY` · `GEMINI_MODEL` (mặc định
-`gemini-2.5-flash`) · `HIGH_CONF_MIN` (mặc định `0.75`) · `LOW_CONF_MIN`
-(mặc định `0.4`) · `DATA_DIR` (mặc định `../mock-data`, tính từ `backend/`).
+`LLM_MODE=mock|real|gemini` · `GEMINI_API_KEY` · `GEMINI_MODEL` (legacy,
+optional: khi đặt thì được đưa lên đầu danh sách xoay vòng) · `GEMINI_MODELS`
+(danh sách phẩy, xem bên dưới) · `LLM_CACHE` (`off` để tắt cache đĩa) ·
+`LLM_CACHE_PATH` (đè đường dẫn file cache, test dùng `tmp_path`) ·
+`HIGH_CONF_MIN` (mặc định `0.75`) · `LOW_CONF_MIN` (mặc định `0.4`) ·
+`DATA_DIR` (mặc định `../mock-data`, tính từ `backend/`).
 
 ## Bật Gemini thật (`LLM_MODE=gemini`)
 
 `app/llm.py`'s `GeminiLLM` gọi REST
 `https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent`
-qua `httpx.Client`, parse JSON từ `candidates[0].content.parts[0].text`
-(tự gỡ fence ```` ```json ```` nếu có). Thiếu `GEMINI_API_KEY` →
-`logging.warning` rồi tự rơi về `MockLLM`, không bao giờ crash demo.
+qua `httpx.Client`, parse JSON từ phần tử của `candidates[0].content.parts`
+có key `text` (Gemini 3.x xen `thoughtSignature` trước phần trả lời, nên
+không thể lấy cứng `parts[0]`), tự gỡ fence ```` ```json ```` nếu có. Thiếu
+`GEMINI_API_KEY` → `logging.warning` rồi tự rơi về `MockLLM`, không bao giờ
+crash demo.
 
-`GeminiLLM.generate` không bao giờ raise: lỗi mạng/HTTP/parse (`httpx.HTTPError`,
-`ValueError`, `KeyError`, `IndexError`, `TypeError`) đều bị bắt. Nếu lỗi là
-`httpx.TimeoutException` hoặc status 429/5xx thì **retry đúng 1 lần**; nếu
-lần 2 vẫn lỗi (hoặc lỗi ban đầu không thuộc diện retry) thì `logger.warning`
-rồi rơi về `MockLLM().generate(...)` với cùng input (kể cả `chosen`), để demo
-không bao giờ trả 500. Test (`tests/test_llm_gemini.py`) monkeypatch
-`httpx.Client.post`, không gọi mạng thật.
+### Xoay model khi hết quota (20 request/ngày/model)
+
+Gói Gemini miễn phí giới hạn **20 request/NGÀY cho MỖI model**. `GeminiLLM`
+nhận một **danh sách** model (`GEMINI_MODELS`, mặc định
+`gemini-3.5-flash,gemini-3.6-flash,gemini-3.5-flash-lite,gemini-3.7-flash,
+gemini-3.8-flash,gemini-3.1-flash-lite`; nếu đặt `GEMINI_MODEL` thì model đó
+được đưa lên đầu danh sách, bỏ trùng) và thử từng model theo thứ tự trong
+`generate()`:
+
+- 429 / 404 / 503 / lỗi HTTP khác / JSON trả về không parse được → chuyển
+  sang model kế tiếp NGAY, không retry lại cùng model.
+- `httpx.TimeoutException` → retry đúng 1 lần trên CÙNG model, nếu vẫn lỗi
+  mới chuyển model kế tiếp.
+- Hết cả danh sách vẫn lỗi → rơi về `MockLLM().generate(...)` với cùng input
+  (kể cả `chosen`); demo không bao giờ trả 500 hay raise.
+- Model gọi thành công được đưa lên đầu danh sách của **instance** đó, nên
+  lần `generate()` kế tiếp trên cùng instance ưu tiên thử lại model vừa
+  thành công trước.
+
+`logger.warning` được ghi mỗi lần chuyển model hoặc rơi về mock. Test
+(`tests/test_llm_gemini.py`) monkeypatch `httpx.Client.post`, không gọi
+mạng thật.
+
+### Cache LLM trên đĩa
+
+Mỗi câu trả lời THẬT (không phải mock fallback) từ Gemini được cache vào
+`backend/.runtime/llm-cache.json` (dict; thư mục đã gitignored), khoá là
+sha1 của `{"v": PROMPT_VERSION, "qid": question["id"], "chosen": chosen,
+"chunks": sorted(chunk ids)}` (`PROMPT_VERSION` là hằng số trong `llm.py`,
+tăng khi đổi nội dung prompt để tránh trả lời cũ theo prompt cũ). Cache hit
+→ không gọi mạng, trả bản sao dict đã lưu. Đặt `LLM_CACHE=off` để tắt hẳn
+cache (mọi lần gọi đều ra mạng); `LLM_CACHE_PATH` đè đường dẫn file (test
+luôn trỏ vào `tmp_path`). Kết quả rơi về `MockLLM` KHÔNG bao giờ được cache.
+
+Trước demo, "warm" cache bằng cách chạy 1 lần với dữ liệu thật:
+
+```bash
+cd codebase
+LLM_MODE=gemini python backend/eval/run_eval.py --llm-stats --verbose --sleep 2
+```
+
+Lần chạy tiếp theo (kể cả lúc demo, kể cả mất mạng) sẽ đọc từ cache thay vì
+gọi lại Gemini, miễn `backend/.runtime/llm-cache.json` không bị xoá.
+
+### Đếm provider (`llm.STATS`) và `run_eval.py --llm-stats`
+
+`app/llm.py` giữ biến module-level `STATS = {"gemini": 0, "cache": 0,
+"mock_fallback": 0}` (tăng đúng nhánh trong `GeminiLLM.generate`) và
+`LAST_MODEL` (model thật gần nhất gọi thành công); `llm.reset_stats()` đặt
+lại cả hai về 0/`None`. KHÔNG field nào trong số này lộ ra schema
+`RemediationItem`.
+
+`eval/run_eval.py --llm-stats` gọi `reset_stats()` trước khi chạy golden-set
+rồi in thêm một dòng NGAY TRƯỚC dòng tổng:
+
+```
+llm gemini=<n> cache=<n> mock_fallback=<n> model=<last_model hoặc "-">
+eval pass=N/M fallback_ok=K/L low_conf_ok=P/Q citations_invalid=0
+```
+
+`--sleep <giây>` (mặc định `0`) nghỉ giữa các case của golden-set để tránh
+vượt giới hạn request/phút khi chạy với `LLM_MODE=gemini`.
 
 ## Sự kiện (`backend/.runtime/events.jsonl`)
 

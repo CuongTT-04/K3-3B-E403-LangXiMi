@@ -5,6 +5,7 @@ citation or an orphan reinforcement question.
 """
 from __future__ import annotations
 
+import unicodedata
 from typing import Dict
 
 
@@ -13,11 +14,37 @@ def _norm(s: str) -> str:
     return " ".join(s.split())
 
 
+def _fold(s: str) -> str:
+    """Diacritic- and case-insensitive form of ``s`` for quote comparison.
+
+    ``lessons.json`` is written WITHOUT Vietnamese diacritics, but the LLM
+    tends to add them back into its ``quote`` field (and vice versa). This
+    still rejects a quote that changes a WORD (see
+    ``test_validator_rejects_quote_with_changed_word_even_after_normalizing``
+    and its diacritic-variant sibling) -- it only ignores accents/case, never
+    fuzzy-matches content.
+    """
+    normalized = _norm(s)
+    decomposed = unicodedata.normalize("NFD", normalized)
+    without_marks = "".join(
+        ch for ch in decomposed if unicodedata.category(ch) != "Mn"
+    )
+    without_dd = without_marks.replace("đ", "d").replace("Đ", "D")
+    return without_dd.lower()
+
+
+def quote_matches(quote: str, text: str) -> bool:
+    """True if ``quote`` is a (diacritic/case/whitespace-insensitive)
+    substring of ``text``. Shared with eval/run_eval.py's own citation
+    check so both agree on what counts as a valid citation."""
+    return _fold(quote) in _fold(text)
+
+
 def _citation_is_valid(citation: dict, lessons_by_id: Dict[str, dict]) -> bool:
     chunk = lessons_by_id.get(citation.get("id"))
     if chunk is None:
         return False
-    return _norm(citation.get("quote", "")) in _norm(chunk["text"])
+    return quote_matches(citation.get("quote", ""), chunk["text"])
 
 
 def _fallback_item(question: dict) -> dict:

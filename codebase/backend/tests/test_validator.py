@@ -123,3 +123,53 @@ def test_validator_rejects_quote_with_changed_word_even_after_normalizing():
     }
     item = validator.validate(QUESTION, raw, LESSONS_BY_ID)
     assert item["fallback"] is True
+
+
+_DIACRITIC_LESSONS_BY_ID = {
+    "T99-001": {
+        "id": "T99-001",
+        "text": "Khai niem nay rat quan trong trong bai hoc ve prompt engineering.",
+    }
+}
+_DIACRITIC_QUESTION = {
+    "id": "q99",
+    "concept": "prompt_engineering",
+    "source_ids": ["T99-001"],
+    "misconception_hint": None,
+}
+
+
+def test_validator_accepts_diacritic_quote_of_undiacritized_chunk():
+    """lessons.json has no diacritics; the LLM tends to add them back into
+    ``quote`` -- that should still be accepted as long as the WORDS match."""
+    raw = {
+        "explanation": "ok",
+        "citations": [
+            {
+                "id": "T99-001",
+                "quote": "Khái niệm này rất quan trọng trong bài học về prompt engineering.",
+            }
+        ],
+        "reinforcement": [],
+        "confidence": 0.9,
+    }
+    item = validator.validate(_DIACRITIC_QUESTION, raw, _DIACRITIC_LESSONS_BY_ID)
+    assert item["fallback"] is False
+    assert item["citations"] == raw["citations"]
+
+
+def test_validator_rejects_diacritic_quote_with_changed_word():
+    """Folding away diacritics must never let a changed WORD slip through."""
+    raw = {
+        "explanation": "ok",
+        "citations": [
+            {
+                "id": "T99-001",
+                "quote": "Khái niệm kia rất quan trọng trong bài học về prompt engineering.",
+            }
+        ],
+        "reinforcement": [],
+        "confidence": 0.9,
+    }
+    item = validator.validate(_DIACRITIC_QUESTION, raw, _DIACRITIC_LESSONS_BY_ID)
+    assert item["fallback"] is True
