@@ -51,3 +51,4 @@ Tổng hợp các lỗi khó, các lưu ý dị biệt hoặc cách workaround �
   `run_eval.py --llm-stats` với `LLM_MODE=groq` (hay `gemini`/`chain`) nên
   luôn kèm `--sleep 1` để không vượt giới hạn request/phút giữa các case
   (hồ sơ #04).
+- **`codebase/flowchart.md` không còn tồn tại** (nhóm trưởng xoá trên `main`, commit `bb575cc`, 17/9). spec.md §9 dòng CP2 và handoff hồ sơ #03 vẫn nhắc tên file này như bằng chứng lịch sử — đọc qua `git show 7d3d8a3:codebase/flowchart.md`, đừng tìm trên đĩa.

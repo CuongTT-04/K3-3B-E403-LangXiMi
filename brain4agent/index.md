@@ -75,5 +75,5 @@ project-root/
     ├── mock-data/                    # lessons.json, quiz-day01.json, golden-set.json (21 case, toàn bộ MOCK)
     ├── frontend/                     # index.html/app.js/style.css thuần, không build step — sản phẩm thật đang dùng
     ├── index.html                    # [PROTOTYPE CP2] bản clickable gốc của nhóm, KHÔNG sửa (nguồn port UI)
-    └── flowchart.md                  # Sơ đồ luồng 4 đường đi gốc của nhóm (CP2)
+    └── (flowchart.md đã bị xoá trên main ngày 17/9 bởi nhóm trưởng; sơ đồ 4 đường đi giữ trong lịch sử git commit 7d3d8a3)
 ```
