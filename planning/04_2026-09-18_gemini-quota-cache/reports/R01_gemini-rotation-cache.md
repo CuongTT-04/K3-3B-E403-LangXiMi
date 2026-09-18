@@ -4,7 +4,7 @@ Vai: worker (vai-thi-cong) · loại: THI CÔNG · họ/model: Claude Sonnet 5 �
 
 Handoff: `planning/04_2026-09-18_gemini-quota-cache/handoffs/H01_gemini-rotation-cache.md`
 Base: a33e73f
-Head: (xem SHA sau commit ở mục 3)
+Head: 2057b772eee354533b5aaa322b27deb11dc684d8
 
 ## 1. Lệnh + exit code
 
@@ -38,7 +38,7 @@ python backend/eval/run_eval.py --llm-stats --verbose --sleep 2   (LLM_MODE=gemi
  8 files changed, 694 insertions(+), 71 deletions(-)
 ```
 
-Plus `planning/04_2026-09-18_gemini-quota-cache/evidence/wp1/{pytest.txt,eval-gemini.txt}` (mới) và report này. Commit 1 lần, message tiếng Anh (`feat(llm): rotate gemini models on quota, cache responses on disk, diacritic-insensitive citation check`); SHA điền ở dòng "Head" phía trên sau khi lệnh `git commit` chạy xong.
+Plus `planning/04_2026-09-18_gemini-quota-cache/evidence/wp1/{pytest.txt,eval-gemini.txt}` (mới) và report này. Commit chính `2057b77` (`feat(llm): rotate gemini models on quota, cache responses on disk, diacritic-insensitive citation check`), 11 file, `+865/-71`. Một commit thứ 2 chỉ sửa dòng "Head" của chính report này (không thể biết SHA trước khi commit đầu tồn tại — theo đúng tiền lệ `R02_golden-set-20.md` trong repo).
 
 ## 4. Bảng phân công
 
