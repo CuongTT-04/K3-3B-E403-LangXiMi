@@ -27,7 +27,7 @@
 | WP3 | Điền số thật vào spec §7 + đồng bộ não + bump v0.2.2 | 🟢 | tay SO / worker | `--check` exit 0 |
 
 ## 4. Checklist thực thi
-- [ ] WP1 · [ ] WP2 · [ ] WP3
+- [x] WP1 (R01 ✅, 63 test, Gemini thật 18/21) · [x] WP2 (video Chrome 23,4s + 8 ảnh: `evidence/demo/`) · [ ] WP3
 
 ## 5. Câu hỏi mở (cần người)
 - Key Gemini đã dán vào chat ⇒ nên xoay key sau hackathon.
