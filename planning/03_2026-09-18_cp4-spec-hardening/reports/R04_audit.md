@@ -69,3 +69,5 @@ Tổng: 5 cách phá (≥3 theo yêu cầu), gồm đúng 1 cách bắt buộc (
 Chờ phán quyết SO.
 
 ✅ DUYỆT
+
+✅ DUYỆT (phán quyết SO 2026-09-18) — đã đối chiếu evidence/wp4/13 (`pass=16/21` trên dữ liệu hỏng qua DATA_DIR, repo sạch) và 02 (49 passed/0 skip). WP1+WP2 qua cổng 🟠.
