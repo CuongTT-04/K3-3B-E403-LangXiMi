@@ -4,7 +4,7 @@ Vai: worker (vai-thi-cong) · loại: THI CÔNG · họ/model: Claude Sonnet 5 �
 
 Handoff: `planning/04_2026-09-18_gemini-quota-cache/handoffs/H03_stats-spec-brain.md`
 Base: a7c9158
-Head: (điền ở mục 3 sau khi `git commit` chạy xong — không thể biết trước SHA của commit chứa chính report này, theo đúng tiền lệ R01/R02 của hồ sơ này)
+Head: 400ae14
 
 ## 1. Lệnh + exit code
 
@@ -53,7 +53,7 @@ eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0
  16 files changed, 223 insertions(+), 39 deletions(-)
 ```
 
-Cộng report này. Commit 1 lần, message `chore(release): v0.2.2 -- groq stats line, real eval numbers in spec, brain sync` (đúng luật §4 của H03), 16 file như trên; SHA điền ở dòng "Head" phía trên sau khi `git commit` chạy xong.
+Commit chính `400ae14` (`chore(release): v0.2.2 -- groq stats line, real eval numbers in spec, brain sync`, đúng luật §4 của H03), 17 file (16 ở trên + report này), `+311/-39`. Một commit thứ 2 (nhỏ) chỉ sửa dòng "Head" của chính report này — không thể biết SHA trước khi commit đầu tồn tại, theo đúng tiền lệ R01/R02 của hồ sơ này.
 
 ## 4. Bảng phân công
 
