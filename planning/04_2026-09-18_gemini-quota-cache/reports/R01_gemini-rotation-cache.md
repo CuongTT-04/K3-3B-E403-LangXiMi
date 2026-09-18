@@ -100,3 +100,5 @@ Không có sub-agent nào được giao việc; toàn bộ code/test/docs do wor
 Tổng: `pass=18/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0`; `llm gemini=10 cache=21 mock_fallback=0 model=gemini-3.6-flash`; `backend/.runtime/llm-cache.json` có 10 entry, giữ nguyên cho demo.
 
 Chờ phán quyết SO.
+
+✅ DUYỆT — SO đo lại 2026-09-18: 63 passed/0 skip · eval mock 21/21 · eval Gemini thật `pass=18/21 citations_invalid=0` (chấp nhận, KHÔNG rerun — quota) · diff đúng phạm vi, schemas/service/mock-data/frontend nguyên vẹn · không lộ key trong file tracked. Trả lời câu hỏi mở: (1) chấp nhận số thật, không rerun; (2) cách đọc đúng: no_grounding do validator chặn là hành vi an toàn, không phải regression; (3) đã ghi nhận, cache giữ nguyên cho demo.
