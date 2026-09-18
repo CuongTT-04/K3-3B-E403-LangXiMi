@@ -58,3 +58,5 @@ Base: `374230d` · Head (commit chứa nội dung): `5587e6b`. Report này (`R03
 4. WP4 (thẩm định) nên đối chiếu lại §5 sau khi golden set mở rộng ≥20 case, phòng khi case tham chiếu (`q09`–`q11`, case-10…14) đổi số thứ tự.
 
 Chờ phán quyết SO.
+
+✅ DUYỆT — SO đo lại 2026-09-18: `git show --stat 5587e6b 539cc1c` chỉ spec.md + report; §4/§4b/§6 identical với 374230d; `grep -nE "^- .*:\s*$" spec.md` rỗng; ⏳=7 (đều thiếu nguồn trong repo). Lưu ý: sự cố commit gom file WP2 đã tự gỡ bằng reset --soft, không tổn hại.
