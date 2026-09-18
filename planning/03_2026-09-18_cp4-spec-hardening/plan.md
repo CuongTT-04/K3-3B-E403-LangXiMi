@@ -1,7 +1,7 @@
 # Kế hoạch #03 — CP4: chốt spec.md + gia cố chẩn đoán/Gemini + golden set ≥20
 
 ## 1. Metadata
-- Trạng thái: 🚀 ĐANG PHÓNG (2026-09-18) · Loại: PATCH v0.2.1 (ngoại lệ §3.2.5: chỉ `plan.md`)
+- Trạng thái: ✅ ĐÃ HOÀN THÀNH (2026-09-18 10:30:28) · Loại: PATCH v0.2.1 (ngoại lệ §3.2.5: chỉ `plan.md`)
 - SO: super orchestrator (Fable) · Worker: 🟠 Sonnet ×3 song song · Thẩm định: auditor (Sonnet, cô lập)
 - Base: `374230d` (nhánh `lenq`) · Hạn cứng: CP3 16:00 · CP4 21:00 · CP5 22:30 (18/9)
 - Phạm vi: `codebase/backend/**` · `codebase/mock-data/golden-set.json` · `spec.md` · `docs/backend.md` · `planning/03_*` · `brain4agent/**` (đồng bộ cuối)
@@ -32,8 +32,8 @@
 | WP5 | Đồng bộ não 6 điểm + gotchas + xoay today.md + bump v0.2.1 | 🟢 | tay SO | `init_brain.js --check` exit 0 |
 
 ## 4. Checklist thực thi
-- [ ] WP1 · [ ] WP2 · [ ] WP3 · [ ] WP4 · [ ] WP5
-- [ ] Cổng nghiệm thu: `python -m pytest backend -q` exit 0/0 skip · `run_eval.py` một dòng · spec.md không còn mục trống · `init_brain.js --check` exit 0
+- [x] WP1 (✅ DUYỆT R01) · [x] WP2 (✅ DUYỆT R02) · [x] WP3 (✅ DUYỆT R03) · [x] WP4 (✅ DUYỆT R04) · [x] WP5 (đồng bộ não, report R05)
+- [x] Cổng nghiệm thu: `python -m pytest backend -q` → 49 passed/0 fail/0 skip, exit 0 · `run_eval.py` → `eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0`, một dòng · `spec.md` không còn mục trống (5 dòng `⏳` còn lại đều có nguồn ngoài repo, đã liệt kê ở R03/R05) · `init_brain.js --check` exit 0
 
 ## 5. Câu hỏi mở (cần người)
 - `GEMINI_API_KEY` (tiền/tài khoản) — chưa có ⇒ số đo CP3 vẫn là mock.

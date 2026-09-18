@@ -94,14 +94,14 @@ Loại: [x] Tối ưu tính năng có sẵn (Màn hình kết quả Quiz VLearn)
   - **Trích dẫn nguyên văn** — `citations[].quote` khớp nguyên văn đoạn transcript gốc trong `lessons.json` (validator so sau khi chuẩn hoá khoảng trắng), không bị diễn giải lại.
   - **Câu củng cố trỏ về trích dẫn** — mỗi `reinforcement[].source_id` phải nằm trong danh sách citation đã duyệt của item đó, không lệch sang nguồn khác.
   - **Không bịa khi thiếu căn cứ** — khi `confidence < LOW_CONF_MIN`, `chunks=[]`, hoặc citation không hợp lệ ⇒ bắt buộc path `no_grounding`, `citations=[]`, `reinforcement=[]` (không được vẫn hiện trích dẫn/câu hỏi).
-- Golden set (≥20 case theo cơ cấu trong guide §2.6, file trong eval/): đường dẫn `codebase/mock-data/golden-set.json`, chạy bằng `python backend/eval/run_eval.py`. Cơ cấu hiện tại (17/9): 14 case — 8 `happy`, 2 `low_confidence`, 4 `no_grounding` (xem file). ⏳ N case (đang mở rộng ≥20 — WP2 hồ sơ #03, hai worker khác đang làm song song).
+- Golden set (≥20 case theo cơ cấu trong guide §2.6, file trong eval/): đường dẫn `codebase/mock-data/golden-set.json`, chạy bằng `python backend/eval/run_eval.py`. 21 case (10 happy · 3 low_confidence · 4 no_grounding · 4 mixed) — `codebase/mock-data/golden-set.json`.
 - Quality bar (chốt từ hạn chốt spec của khoá, giữ nguyên sau đó): "Đạt khi ≥90% case golden set đúng path, `citations_invalid=0`, và 0 item `no_grounding` có trích dẫn"
 - Kết quả các lượt chạy (bảng % — cập nhật đến trước CP6), xem bảng dưới đây.
 
 | Ngày | Điều kiện | Kết quả |
 |---|---|---|
 | 17/9 | `pytest` (39 pass, 0 skip) + `run_eval.py`, `LLM_MODE=mock`, golden set 14 case | `eval pass=14/14 fallback_ok=3/3 low_conf_ok=2/2 citations_invalid=0` |
-| ⏳ 18/9 sau hồ sơ #03 | `LLM_MODE=mock`, golden set ≥20 case (WP2 hồ sơ #03) | ⏳ chờ WP2 chạy xong, SO điền số cuối |
+| 18/9 · mock · 21/21 pass · fallback_ok 7/7 · low_conf_ok 7/7 · citations_invalid 0 | `LLM_MODE=mock`, golden set 21 case (hồ sơ #03) | `eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0` |
 | ⏳ Gemini thật (chưa có key) | `LLM_MODE=gemini` | ⏳ chưa đo được — thiếu `GEMINI_API_KEY` (câu hỏi mở ở `plan.md` §5) |
 
 ## §8. Phân công & kế hoạch

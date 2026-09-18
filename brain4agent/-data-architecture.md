@@ -12,8 +12,11 @@ Tài liệu thiết kế về cấu trúc dữ liệu, cơ chế lưu trữ bề
     concept, source_ids, misconception_hint`); q09/q10/q11 dùng
     `source_ids` giả (`T99-…`) hoặc concept không tồn tại để gài sẵn đường
     đi `low_confidence`/`no_grounding` cho demo.
-  - `golden-set.json` — 14 case đánh giá hồi quy (`expect_path`,
-    `expected_concepts`, `expected_source_ids_any`, `expect_fallback`).
+  - `golden-set.json` — 21 case đánh giá hồi quy (10 `happy`, 3
+    `low_confidence`, 4 `no_grounding`, 4 `mixed`): `expect_path`
+    (case đơn) hoặc `expect_paths` (map qid→path, case nhiều câu kỳ vọng
+    khác nhau), `expected_concepts`, `expected_source_ids_any`,
+    `expect_fallback`.
 - **`codebase/backend/.runtime/events.jsonl`** — append-only, tạo tự động
   khi cần, gitignored (`codebase/.gitignore`). Mỗi dòng một JSON
   `{"ts", "type": "correction"|"ta_ticket", ...body request}`, ghi bởi
@@ -26,13 +29,17 @@ Tài liệu thiết kế về cấu trúc dữ liệu, cơ chế lưu trữ bề
 mock-data/*.json --data.py--> main.py (FastAPI)
   GET /api/quiz/{id}            -> QuizOut (không lộ answer/concept)
   POST /api/quiz/{id}/submit    -> chấm điểm -> service.remediate()
-                                    cho mỗi câu sai:
+                                    cho mỗi câu sai (luồn kèm chosen = phương
+                                    án học viên đã chọn):
                                       retriever.retrieve_with_confidence()
                                         -> (chunks, confidence)
                                       confidence < LOW_CONF_MIN hoặc
                                         chunks=[] -> path=no_grounding
                                         (validator.fallback_item)
-                                      else -> llm.generate() -> validator.validate()
+                                      else -> llm.generate(..., chosen=chosen)
+                                        -> validator.validate() (so
+                                        citations[].quote NGUYÊN VĂN chunk
+                                        sau khi chuẩn hoá khoảng trắng)
                                         validate() reject -> path=no_grounding
                                         confidence >= HIGH_CONF_MIN -> path=happy
                                         else -> path=low_confidence (+2 hypotheses,

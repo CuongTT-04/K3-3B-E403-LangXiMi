@@ -13,7 +13,7 @@
 <project_foundation>
 - Tech Stack: Backend Python 3.13 + FastAPI + Pydantic v2 (`codebase/backend/`); Frontend vanilla JS/HTML/CSS không build step (`codebase/frontend/`); LLM provider Mock/Gemini (httpx REST) qua `LLM_MODE` env.
 - Data/State: `codebase/mock-data/*.json` (lessons/quiz/golden-set, đọc qua `data.py`, `DATA_DIR` env); `codebase/backend/.runtime/events.jsonl` (append-only, gitignored) cho `/api/correction` + `/api/ta-ticket`.
-- Planning & RFCs: Thư mục `planning/` lưu trữ các bản kế hoạch theo định dạng `[STT]_[YYYY-MM-DD]_[Ten-Ngan]` (25-35 ký tự, cố định path). Hồ sơ #01 Done, #02 Done (người dùng nghiệm thu trực tiếp), sẵn sàng nộp CP2 và quay clip CP3.
+- Planning & RFCs: Thư mục `planning/` lưu trữ các bản kế hoạch theo định dạng `[STT]_[YYYY-MM-DD]_[Ten-Ngan]` (25-35 ký tự, cố định path). Hồ sơ #01 Done, #02 Done (người dùng nghiệm thu trực tiếp), #03 Done (2026-09-18, CP4 spec hardening): chẩn đoán chuyển sang dựa trên `chosen`, `GeminiLLM` không bao giờ raise (retry 1 lần rồi rơi MockLLM), golden set 21 case, contract API (`RemediationItem`/`SubmitOut`) không đổi. Số đo cuối: `pytest backend -q` 49 passed/0 skip; `run_eval.py` `pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0`. Còn quay clip CP3, chốt CP4/CP5.
 </project_foundation>
 
 <brain_file_roles>
