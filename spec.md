@@ -86,12 +86,12 @@ Loại: [x] Tối ưu tính năng có sẵn (Màn hình kết quả Quiz VLearn)
   - **Đạt khi $\ge 80\%$ (16/20 case)** vượt qua toàn bộ 4 chiều chất lượng.
   - **$100\%$ (20/20 case)** đạt tiêu chuẩn **Citation Groundedness** (Tuyệt đối không bịa số hiệu trích dẫn).
   - **$100\%$ case ngoài phạm vi** từ chối thành công và giữ đúng vai trò sư phạm.
-- **Kết quả các lượt chạy:**
+- **Kết quả các lượt chạy (Chi tiết tại [`codebase/eval/first_eval_report.md`](codebase/eval/first_eval_report.md)):**
 
 | Lượt chạy | Ngày đo | Mô hình / Phiên bản | Tỷ lệ Đạt tổng | Grounded Citation | Ghi chú / Nguyên nhân chính |
 |---|---|---|---|---|---|
-| Lượt 1 (Baseline CP3) | 18/9 | Gemini 1.5 Flash (Prompt v1) | *Đang cập nhật tại CP3* | *Đang cập nhật* | Baseline đo lường đầu tiên |
-| Lượt 2 | 18/9 | Prompt v2 + RAG reranking | *Chạy sau khi tối ưu* | *Đang cập nhật* | Cải thiện các case lớp ② và ④ |
+| Lượt 1 (Baseline CP3) | 18/9 - 15:49 | GPT-4o-mini (OpenRouter API) + RAG Pipeline | **20/20 (100.0%)** | **100% (0 bịa đặt)** | Đạt Quality Bar ($\ge 80\%$). Fallback chuẩn 5/5, Low-confidence 2/2, ghi vết tại `eval_run_1789721355.json` |
+| Lượt 2 (CP4 Freeze) | 18/9 - 16:00 | GPT-4o-mini + Parallel ThreadPool | **20/20 (100.0%)** | **100% (0 bịa đặt)** | Khóa cứng Quality Bar, độ trễ tối ưu ~3.5s - 4.5s cho luồng nhiều câu sai |
 
 ## §8. Phân công & kế hoạch
 - Phân công có tên: spec / evidence / prompt / code / demo

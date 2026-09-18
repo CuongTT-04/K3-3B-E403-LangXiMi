@@ -408,3 +408,139 @@ QUY TẮC BẮT BUỘC:
 }
 ================================================================================
 
+================================================================================
+[2026-09-18 15:49:35] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.9}
+================================================================================
+
+================================================================================
+[2026-09-18 15:49:36] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+```json
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.5}
+```
+================================================================================
+
+================================================================================
+[2026-09-18 15:51:42] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.9}
+================================================================================
+
+================================================================================
+[2026-09-18 15:51:43] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+```json
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.5}
+```
+================================================================================
+

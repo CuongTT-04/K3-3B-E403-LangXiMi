@@ -110,5 +110,53 @@
     "expected_source_ids_any": [],
     "expect_fallback": true,
     "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-15",
+    "wrong_question_ids": ["q02", "q04"],
+    "expected_concepts": ["prompt_engineering", "rag"],
+    "expected_source_ids_any": ["T01-006", "T01-016"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-16",
+    "wrong_question_ids": ["q05", "q07"],
+    "expected_concepts": ["tool_calling", "llm_evaluation"],
+    "expected_source_ids_any": ["T01-019", "T01-026"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-17",
+    "wrong_question_ids": ["q06", "q08"],
+    "expected_concepts": ["tool_calling", "llm_evaluation"],
+    "expected_source_ids_any": ["T01-018", "T01-031"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-18",
+    "wrong_question_ids": ["qx-unknown-03"],
+    "expected_concepts": ["blockchain_smart_contracts"],
+    "expected_source_ids_any": [],
+    "expect_fallback": true,
+    "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-19",
+    "wrong_question_ids": ["qx-unknown-04"],
+    "expected_concepts": ["microservices_service_mesh"],
+    "expected_source_ids_any": [],
+    "expect_fallback": true,
+    "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-20",
+    "wrong_question_ids": ["q01", "q02", "q03", "q04"],
+    "expected_concepts": ["prompt_engineering", "rag"],
+    "expected_source_ids_any": ["T01-004", "T01-006", "T01-009", "T01-016"],
+    "expect_fallback": false,
+    "expect_path": "happy"
   }
 ]
