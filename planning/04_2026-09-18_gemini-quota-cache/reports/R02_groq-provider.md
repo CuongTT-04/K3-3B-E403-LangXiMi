@@ -97,3 +97,5 @@ Không có sub-agent nào được giao việc.
 Tổng: `pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0`; `llm.STATS = {"gemini": 0, "groq": 10, "cache": 21, "mock_fallback": 0}`; `LAST_MODEL = "openai/gpt-oss-20b"`; `backend/.runtime/llm-cache-groq.json` có 10 entry (tách biệt hoàn toàn khỏi `llm-cache.json` của Gemini).
 
 Chờ phán quyết SO.
+
+✅ DUYỆT — SO đo lại 2026-09-18: 75 passed/0 skip · eval Groq thật `pass=21/21 citations_invalid=0` · diff đúng phạm vi, schemas/service/validator/run_eval/mock-data/frontend nguyên vẹn · không lộ key. Trả lời: (1) mục 3 CHƯA làm là do handoff SO tự mâu thuẫn — mở khoá ở H03; (2) đúng, mốc "≥40" của SO sai quy mô, chấp nhận groq+cache=31; (3) đúng, 3 entry cache Gemini mới là do SO warm cache cho demo.
