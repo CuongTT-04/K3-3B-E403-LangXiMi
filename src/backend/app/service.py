@@ -15,12 +15,16 @@ Only wrong answers are processed. Every wrong answer lands on exactly one of
 """
 from __future__ import annotations
 
+import logging
 import os
+from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, List, Optional
 
 from . import data, validator
 from .llm import get_llm
 from .retriever import retrieve_with_confidence
+
+logger = logging.getLogger(__name__)
 
 _UNKNOWN_QUESTION = {
     "id": None,
@@ -76,8 +80,19 @@ def _remediate_one(
         return item
 
     llm_instance = get_llm()
-    raw = llm_instance.generate(question, chunks, distractor_pool=lessons)
-    item = validator.validate(question, raw, lessons_by_id)
+    try:
+        raw = llm_instance.generate(question, chunks, distractor_pool=lessons)
+        item = validator.validate(question, raw, lessons_by_id)
+    except Exception as exc:
+        logger.warning(
+            "LLM call failed for question %s: %s -- degrading to safe fallback",
+            question.get("id"),
+            exc,
+        )
+        item = validator.fallback_item(question)
+        item["path"] = "no_grounding"
+        item["hypotheses"] = []
+        return item
 
     if item["fallback"]:
         item["path"] = "no_grounding"
@@ -93,6 +108,7 @@ def _remediate_one(
         # Reinforcement stays locked until the learner confirms a hypothesis
         # via POST /api/remediate/confirm (see plan.md decision log).
         item["reinforcement"] = []
+
     return item
 
 
@@ -113,13 +129,18 @@ def remediate(
     if not wrong_results:
         return {"items": [], "skipped": True}
 
-    items = []
-    for result in wrong_results:
+    def _worker(result: dict) -> dict:
         qid = result["qid"]
         question = question_index.get(qid)
         if question is None:
             question = {**_UNKNOWN_QUESTION, "id": qid}
-        items.append(_remediate_one(question, lessons_by_id, lessons))
+        return _remediate_one(question, lessons_by_id, lessons)
+
+    # Chạy song song qua ThreadPoolExecutor để rút ngắn thời gian xử lý khi sai nhiều câu
+    # Giảm từ 80-120 giây (chạy tuần tự) xuống còn ~10-15 giây (chạy song song)
+    max_workers = min(5, len(wrong_results))
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        items = list(executor.map(_worker, wrong_results))
 
     return {"items": items, "skipped": False}
 

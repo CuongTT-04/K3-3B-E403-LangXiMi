@@ -1,0 +1,392 @@
+{
+  "q01:1.0:0.4:0.75": {
+    "question_id": "q01",
+    "concept": "prompt_engineering",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'prompt_engineering'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'prompt_engineering'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'prompt_engineering'. Goi y: Học viên dễ nhầm chain-of-thought (yêu cầu suy luận từng bước) với few-shot prompting (cho ví dụ mẫu).",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q01": {
+    "question_id": "q01",
+    "concept": "prompt_engineering",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'prompt_engineering'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'prompt_engineering'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'prompt_engineering'. Goi y: Học viên dễ nhầm chain-of-thought (yêu cầu suy luận từng bước) với few-shot prompting (cho ví dụ mẫu).",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q02:1.0:0.4:0.75": {
+    "question_id": "q02",
+    "concept": "prompt_engineering",
+    "misconception": "Nhầm prompt injection (rủi ro do dữ liệu ghi đè chỉ dẫn) với hallucination (mô hình tự bịa thông tin).",
+    "explanation": "Lỗi hiểu nhầm của học viên là nhầm lẫn giữa prompt injection và hallucination. Prompt injection là rủi ro khi nội dung từ người dùng hoặc dữ liệu bên ngoài chứa chỉ dẫn có gang ghi đè lên system prompt gốc, trong khi hallucination là tình trạng mô hình tự bịa thông tin. Sự nhầm lẫn này có thể dẫn đến việc không hiểu rõ cách giảm rủi ro và kiểm soát đầu vào cho mô hình.",
+    "citations": [
+      {
+        "id": "T01-006",
+        "quote": "Prompt injection la rui ro khi noi dung do nguoi dung hoac du lieu ben ngoai chua chi dan co gang ghi de len system prompt goc."
+      }
+    ],
+    "reinforcement": [
+      {
+        "stem": "Để giảm rủi ro prompt injection, cần thực hiện việc nào sau đây?",
+        "options": {
+          "A": "Trộn dữ liệu người dùng với system prompt",
+          "B": "Tách rời vùng dữ liệu và vùng chỉ dẫn trong prompt",
+          "C": "Cho phép mô hình tự học từ dữ liệu người dùng",
+          "D": "Không kiểm tra đầu vào trước khi đưa vào mô hình"
+        },
+        "answer": "B",
+        "source_id": "T01-006"
+      }
+    ],
+    "confidence": 0.95,
+    "fallback": false,
+    "fallback_note": null,
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q02": {
+    "question_id": "q02",
+    "concept": "prompt_engineering",
+    "misconception": "Nhầm prompt injection (rủi ro do dữ liệu ghi đè chỉ dẫn) với hallucination (mô hình tự bịa thông tin).",
+    "explanation": "Lỗi hiểu nhầm của học viên là nhầm lẫn giữa prompt injection và hallucination. Prompt injection là rủi ro khi nội dung từ người dùng hoặc dữ liệu bên ngoài chứa chỉ dẫn có gang ghi đè lên system prompt gốc, trong khi hallucination là tình trạng mô hình tự bịa thông tin. Sự nhầm lẫn này có thể dẫn đến việc không hiểu rõ cách giảm rủi ro và kiểm soát đầu vào cho mô hình.",
+    "citations": [
+      {
+        "id": "T01-006",
+        "quote": "Prompt injection la rui ro khi noi dung do nguoi dung hoac du lieu ben ngoai chua chi dan co gang ghi de len system prompt goc."
+      }
+    ],
+    "reinforcement": [
+      {
+        "stem": "Để giảm rủi ro prompt injection, cần thực hiện việc nào sau đây?",
+        "options": {
+          "A": "Trộn dữ liệu người dùng với system prompt",
+          "B": "Tách rời vùng dữ liệu và vùng chỉ dẫn trong prompt",
+          "C": "Cho phép mô hình tự học từ dữ liệu người dùng",
+          "D": "Không kiểm tra đầu vào trước khi đưa vào mô hình"
+        },
+        "answer": "B",
+        "source_id": "T01-006"
+      }
+    ],
+    "confidence": 0.95,
+    "fallback": false,
+    "fallback_note": null,
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q03:1.0:0.4:0.75": {
+    "question_id": "q03",
+    "concept": "rag",
+    "misconception": "Học viên nhầm RAG là kỹ thuật giảm chi phí/tham số mô hình, thực chất RAG là truy xuất tài liệu để giảm bịa đặt thông tin.",
+    "explanation": "Học viên hiểu nhầm về khái niệm 'RAG' vì họ nghĩ rằng nó là một kỹ thuật dùng để giảm chi phí hoặc tham số của mô hình, trong khi thực chất RAG là một kỹ thuật truy xuất tài liệu để giảm thiểu hiện tượng bịa đặt thông tin. Điều này có nghĩa là RAG kết hợp việc truy xuất tài liệu liên quan với khả năng sinh văn bản của mô hình ngôn ngữ, giúp cung cấp thông tin chính xác hơn và giảm thiểu sự phụ thuộc vào kiến thức đã được huấn luyện sẵn.",
+    "citations": [
+      {
+        "id": "T01-009",
+        "quote": "RAG la viet tat cua Retrieval-Augmented Generation, ket hop viec truy xuat tai lieu lien quan voi kha nang sinh van ban cua mo hinh ngon ngu."
+      }
+    ],
+    "reinforcement": [
+      {
+        "stem": "RAG là một kỹ thuật dùng để làm gì?",
+        "options": {
+          "A": "Giảm chi phí của mô hình",
+          "B": "Tăng cường khả năng sinh văn bản của mô hình",
+          "C": "Truy xuất tài liệu để giảm thiểu hiện tượng bịa đặt thông tin",
+          "D": "Cải thiện độ chính xác của mô hình"
+        },
+        "answer": "C",
+        "source_id": "T01-009"
+      }
+    ],
+    "confidence": 0.95,
+    "fallback": false,
+    "fallback_note": null,
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q03": {
+    "question_id": "q03",
+    "concept": "rag",
+    "misconception": "Học viên nhầm RAG là kỹ thuật giảm chi phí/tham số mô hình, thực chất RAG là truy xuất tài liệu để giảm bịa đặt thông tin.",
+    "explanation": "Học viên hiểu nhầm về khái niệm 'RAG' vì họ nghĩ rằng nó là một kỹ thuật dùng để giảm chi phí hoặc tham số của mô hình, trong khi thực chất RAG là một kỹ thuật truy xuất tài liệu để giảm thiểu hiện tượng bịa đặt thông tin. Điều này có nghĩa là RAG kết hợp việc truy xuất tài liệu liên quan với khả năng sinh văn bản của mô hình ngôn ngữ, giúp cung cấp thông tin chính xác hơn và giảm thiểu sự phụ thuộc vào kiến thức đã được huấn luyện sẵn.",
+    "citations": [
+      {
+        "id": "T01-009",
+        "quote": "RAG la viet tat cua Retrieval-Augmented Generation, ket hop viec truy xuat tai lieu lien quan voi kha nang sinh van ban cua mo hinh ngon ngu."
+      }
+    ],
+    "reinforcement": [
+      {
+        "stem": "RAG là một kỹ thuật dùng để làm gì?",
+        "options": {
+          "A": "Giảm chi phí của mô hình",
+          "B": "Tăng cường khả năng sinh văn bản của mô hình",
+          "C": "Truy xuất tài liệu để giảm thiểu hiện tượng bịa đặt thông tin",
+          "D": "Cải thiện độ chính xác của mô hình"
+        },
+        "answer": "C",
+        "source_id": "T01-009"
+      }
+    ],
+    "confidence": 0.95,
+    "fallback": false,
+    "fallback_note": null,
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q04:1.0:0.4:0.75": {
+    "question_id": "q04",
+    "concept": "rag",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'rag'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'rag'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'rag'. Goi y: Học viên nghĩ mô hình nên cố trả lời bằng mọi giá, thay vì áp dụng chiến lược fallback có kiểm soát khi thiếu căn cứ.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q04": {
+    "question_id": "q04",
+    "concept": "rag",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'rag'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'rag'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'rag'. Goi y: Học viên nghĩ mô hình nên cố trả lời bằng mọi giá, thay vì áp dụng chiến lược fallback có kiểm soát khi thiếu căn cứ.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q05:1.0:0.4:0.75": {
+    "question_id": "q05",
+    "concept": "tool_calling",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'tool_calling'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'tool_calling'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'tool_calling'. Goi y: Học viên nhầm lẫn tool calling với RAG, nghĩ kết quả công cụ được lưu thành embedding thay vì đưa lại vào hội thoại.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q05": {
+    "question_id": "q05",
+    "concept": "tool_calling",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'tool_calling'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'tool_calling'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'tool_calling'. Goi y: Học viên nhầm lẫn tool calling với RAG, nghĩ kết quả công cụ được lưu thành embedding thay vì đưa lại vào hội thoại.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q06:1.0:0.4:0.75": {
+    "question_id": "q06",
+    "concept": "tool_calling",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'tool_calling'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'tool_calling'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'tool_calling'. Goi y: Nhầm việc khai báo schema công cụ với các khái niệm đánh giá như golden set.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q06": {
+    "question_id": "q06",
+    "concept": "tool_calling",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'tool_calling'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'tool_calling'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'tool_calling'. Goi y: Nhầm việc khai báo schema công cụ với các khái niệm đánh giá như golden set.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q07:1.0:0.4:0.75": {
+    "question_id": "q07",
+    "concept": "llm_evaluation",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'llm_evaluation'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'llm_evaluation'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'llm_evaluation'. Goi y: Nhầm golden set (chuẩn đánh giá) với vector store dùng trong RAG.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q07": {
+    "question_id": "q07",
+    "concept": "llm_evaluation",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'llm_evaluation'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'llm_evaluation'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'llm_evaluation'. Goi y: Nhầm golden set (chuẩn đánh giá) với vector store dùng trong RAG.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q08:1.0:0.4:0.75": {
+    "question_id": "q08",
+    "concept": "llm_evaluation",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'llm_evaluation'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'llm_evaluation'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'llm_evaluation'. Goi y: Nhầm vai trò validator (kiểm tra & fallback) với retriever (chia chunk) hoặc tool calling.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q08": {
+    "question_id": "q08",
+    "concept": "llm_evaluation",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'llm_evaluation'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'llm_evaluation'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'llm_evaluation'. Goi y: Nhầm vai trò validator (kiểm tra & fallback) với retriever (chia chunk) hoặc tool calling.",
+    "path": "happy",
+    "hypotheses": []
+  },
+  "q09:0.667:0.4:0.75": {
+    "question_id": "q09",
+    "concept": "vector_embedding_scaling",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'vector_embedding_scaling'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'vector_embedding_scaling'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'vector_embedding_scaling'. Goi y: Học viên có thể nhầm lẫn bước tạo embedding với bước chia chunk hoặc re-ranking.",
+    "path": "low_confidence",
+    "hypotheses": [
+      {
+        "id": "h1",
+        "label": "Chưa phân biệt rõ bản chất của khái niệm 'vector_embedding_scaling' với khái niệm liên quan gần nhất."
+      },
+      {
+        "id": "h2",
+        "label": "Đọc lướt và bỏ sót từ khoá quan trọng trong câu hỏi về 'vector_embedding_scaling'."
+      }
+    ]
+  },
+  "q09": {
+    "question_id": "q09",
+    "concept": "vector_embedding_scaling",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'vector_embedding_scaling'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'vector_embedding_scaling'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'vector_embedding_scaling'. Goi y: Học viên có thể nhầm lẫn bước tạo embedding với bước chia chunk hoặc re-ranking.",
+    "path": "low_confidence",
+    "hypotheses": [
+      {
+        "id": "h1",
+        "label": "Chưa phân biệt rõ bản chất của khái niệm 'vector_embedding_scaling' với khái niệm liên quan gần nhất."
+      },
+      {
+        "id": "h2",
+        "label": "Đọc lướt và bỏ sót từ khoá quan trọng trong câu hỏi về 'vector_embedding_scaling'."
+      }
+    ]
+  },
+  "q10:0.0:0.4:0.75": {
+    "question_id": "q10",
+    "concept": "kubernetes_deployment_pipeline",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'kubernetes_deployment_pipeline'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'kubernetes_deployment_pipeline'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'kubernetes_deployment_pipeline'. Goi y: Khái niệm này không có trong bài giảng Day 01 -- dùng để minh hoạ đường đi no_grounding.",
+    "path": "no_grounding",
+    "hypotheses": []
+  },
+  "q10": {
+    "question_id": "q10",
+    "concept": "kubernetes_deployment_pipeline",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'kubernetes_deployment_pipeline'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'kubernetes_deployment_pipeline'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'kubernetes_deployment_pipeline'. Goi y: Khái niệm này không có trong bài giảng Day 01 -- dùng để minh hoạ đường đi no_grounding.",
+    "path": "no_grounding",
+    "hypotheses": []
+  },
+  "q11:0.667:0.4:0.75": {
+    "question_id": "q11",
+    "concept": "hybrid_search_optimization",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'hybrid_search_optimization'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'hybrid_search_optimization'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'hybrid_search_optimization'. Goi y: Học viên có thể nhầm hybrid search (kết hợp vector + từ khoá) với các kỹ thuật tối ưu khác không liên quan đến truy xuất.",
+    "path": "low_confidence",
+    "hypotheses": [
+      {
+        "id": "h1",
+        "label": "Chưa phân biệt rõ bản chất của khái niệm 'hybrid_search_optimization' với khái niệm liên quan gần nhất."
+      },
+      {
+        "id": "h2",
+        "label": "Đọc lướt và bỏ sót từ khoá quan trọng trong câu hỏi về 'hybrid_search_optimization'."
+      }
+    ]
+  },
+  "q11": {
+    "question_id": "q11",
+    "concept": "hybrid_search_optimization",
+    "misconception": "Chua du can cu de chan doan chinh xac hieu nham ve 'hybrid_search_optimization'.",
+    "explanation": "He thong chua tim duoc doan tai lieu du tin cay cho cau hoi nay. Hay xem lai phan bai giang lien quan den khai niem 'hybrid_search_optimization'.",
+    "citations": [],
+    "reinforcement": [],
+    "confidence": 0.0,
+    "fallback": true,
+    "fallback_note": "Chua du can cu trong bai giang cho 'hybrid_search_optimization'. Goi y: Học viên có thể nhầm hybrid search (kết hợp vector + từ khoá) với các kỹ thuật tối ưu khác không liên quan đến truy xuất.",
+    "path": "low_confidence",
+    "hypotheses": [
+      {
+        "id": "h1",
+        "label": "Chưa phân biệt rõ bản chất của khái niệm 'hybrid_search_optimization' với khái niệm liên quan gần nhất."
+      },
+      {
+        "id": "h2",
+        "label": "Đọc lướt và bỏ sót từ khoá quan trọng trong câu hỏi về 'hybrid_search_optimization'."
+      }
+    ]
+  }
+}

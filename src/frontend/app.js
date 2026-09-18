@@ -149,14 +149,29 @@
   }
 
   async function submitQuiz() {
-    const resp = await fetch("/api/quiz/" + QUIZ_ID + "/submit", {
-      method: "POST",
-      headers: JSON_HEADERS,
-      body: JSON.stringify({ answers: state.answers }),
-    });
-    state.lastSubmit = await asJson(resp);
-    renderResult();
-    showScreen("result");
+    const btn = document.getElementById("btn-submit");
+    const origText = btn ? btn.textContent : "";
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "⏳ Đang chấm bài & AI đang phân tích lỗi sai...";
+    }
+    try {
+      const resp = await fetch("/api/quiz/" + QUIZ_ID + "/submit", {
+        method: "POST",
+        headers: JSON_HEADERS,
+        body: JSON.stringify({ answers: state.answers }),
+      });
+      state.lastSubmit = await asJson(resp);
+      renderResult();
+      showScreen("result");
+    } catch (err) {
+      alert("Lỗi khi nộp bài: " + (err && err.message ? err.message : err));
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = origText;
+      }
+    }
   }
 
   // ---------- Man 2: Ket qua ----------

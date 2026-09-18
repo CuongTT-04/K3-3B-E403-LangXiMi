@@ -13,6 +13,10 @@ __pycache__/
 .env
 .env.local
 
+# Runtime & logs
+.runtime/
+eval/run_results/eval_run_*.json
+
 # IDE & OS files
 .DS_Store
 Thumbs.db

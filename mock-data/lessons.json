@@ -1,0 +1,194 @@
+[
+  {
+    "id": "T01-001",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Prompt engineering là kỹ thuật thiết kế câu lệnh đầu vào để hướng dẫn mô hình ngôn ngữ lớn tạo ra kết quả mong muốn. Một prompt tốt cần rõ ngữ cảnh, vai trò và định dạng đầu ra. Việc thử nghiệm nhiều cách diễn đạt khác nhau giúp tìm ra prompt hiệu quả nhất."
+  },
+  {
+    "id": "T01-002",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Kỹ thuật few-shot prompting cung cấp một vài ví dụ mẫu trong prompt để mô hình học theo mẫu đó. Số lượng ví dụ thường từ 2 đến 5 tùy độ phức tạp của tác vụ. Few-shot giúp mô hình hiểu đúng định dạng mà không cần huấn luyện lại."
+  },
+  {
+    "id": "T01-003",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Zero-shot prompting là khi ta yêu cầu mô hình thực hiện tác vụ mà không cung cấp ví dụ nào. Cách này phù hợp với các tác vụ đơn giản mà mô hình đã được huấn luyện sẵn. Nếu kết quả không tốt, người dùng nên chuyển sang few-shot hoặc bổ sung ngữ cảnh."
+  },
+  {
+    "id": "T01-004",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Chain-of-thought là kỹ thuật yêu cầu mô hình trình bày từng bước suy luận trước khi đưa ra câu trả lời cuối cùng. Kỹ thuật này đặc biệt hữu ích với các bài toán logic hoặc tính toán nhiều bước. Việc thêm câu hãy suy nghĩ từng bước vào prompt thường cải thiện độ chính xác."
+  },
+  {
+    "id": "T01-005",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Vai trò hệ thống system role trong prompt dùng để định nghĩa tính cách, phạm vi và giới hạn hành vi của trợ lý AI. System prompt thường được đặt cố định và không thay đổi theo từng lượt hội thoại. Đặt system prompt rõ ràng giúp giảm tình trạng mô hình trả lời lạc đề."
+  },
+  {
+    "id": "T01-006",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Prompt injection là rủi ro khi nội dung do người dùng hoặc dữ liệu bên ngoài chứa chỉ dẫn cố gắng ghi đè lên system prompt gốc. Để giảm rủi ro, cần tách rõ vùng dữ liệu và vùng chỉ dẫn trong prompt. Ngoài ra nên kiểm tra và lọc đầu vào trước khi đưa vào mô hình."
+  },
+  {
+    "id": "T01-007",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Temperature là tham số điều chỉnh mức độ ngẫu nhiên khi mô hình sinh văn bản. Temperature thấp gần 0 cho kết quả ổn định và lặp lại, còn temperature cao tạo ra câu trả lời đa dạng và sáng tạo hơn. Với các tác vụ cần độ chính xác cao như trả lời câu hỏi, nên đặt temperature thấp."
+  },
+  {
+    "id": "T01-008",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "prompt_engineering",
+    "text": "Việc chia nhỏ một prompt phức tạp thành nhiều bước nhỏ, gọi là prompt chaining, giúp mô hình xử lý từng phần dễ dàng hơn. Kết quả của bước trước có thể được dùng làm đầu vào cho bước sau. Cách này giúp giảm lỗi so với việc yêu cầu mô hình làm tất cả trong một lần."
+  },
+  {
+    "id": "T01-009",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "RAG là viết tắt của Retrieval-Augmented Generation, kết hợp việc truy xuất tài liệu liên quan với khả năng sinh văn bản của mô hình ngôn ngữ. Thay vì chỉ dựa vào kiến thức đã huấn luyện, mô hình được cung cấp thêm đoạn văn bản liên quan tại thời điểm trả lời. Cách này giúp giảm hiện tượng bịa đặt thông tin."
+  },
+  {
+    "id": "T01-010",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Bước đầu tiên của một hệ thống RAG là chia tài liệu gốc thành các đoạn nhỏ gọi là chunk. Kích thước chunk thường dao động từ vài chục đến vài trăm từ để vừa đủ ngữ cảnh vừa không quá dài. Mỗi chunk nên giữ được ý nghĩa tương đối độc lập."
+  },
+  {
+    "id": "T01-011",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Sau khi chia chunk, hệ thống chuyển mỗi đoạn văn bản thành một vector số học gọi là embedding. Các đoạn có nội dung tương tự nhau sẽ có vector gần nhau trong không gian nhiều chiều. Việc lưu trữ các vector này thường dùng cơ sở dữ liệu vector chuyên dụng."
+  },
+  {
+    "id": "T01-012",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Khi có câu hỏi mới, hệ thống RAG chuyển câu hỏi thành vector rồi tìm các chunk có vector gần nhất, gọi là truy xuất ngữ nghĩa. Ngoài tìm kiếm theo vector, có thể kết hợp tìm kiếm theo từ khóa để tăng độ chính xác. Kỹ thuật kết hợp hai cách này gọi là hybrid search."
+  },
+  {
+    "id": "T01-013",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Các đoạn chunk truy xuất được sẽ được chèn vào prompt cùng với câu hỏi của người dùng trước khi gửi cho mô hình ngôn ngữ. Mô hình sau đó sinh câu trả lời dựa trên nội dung của các chunk này. Việc trích dẫn rõ nguồn chunk giúp người dùng kiểm tra lại thông tin."
+  },
+  {
+    "id": "T01-014",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Một vấn đề thường gặp trong RAG là truy xuất nhiễu, tức là các chunk được lấy về không thực sự liên quan đến câu hỏi. Điều này có thể khiến mô hình trả lời sai hoặc lạc đề. Việc đặt ngưỡng độ tương đồng tối thiểu giúp lọc bớt các chunk không phù hợp."
+  },
+  {
+    "id": "T01-015",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Re-ranking là bước bổ sung sau khi truy xuất ban đầu, dùng một mô hình khác để sắp xếp lại thứ tự ưu tiên của các chunk theo mức độ liên quan thực sự. Re-ranking thường chính xác hơn nhưng tốn thêm thời gian xử lý. Hệ thống có thể chỉ áp dụng re-ranking cho một số lượng nhỏ chunk hàng đầu."
+  },
+  {
+    "id": "T01-016",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "rag",
+    "text": "Khi hệ thống RAG không tìm được chunk nào liên quan đủ tin cậy, cách xử lý an toàn là trả lời rằng chưa có căn cứ trong tài liệu, thay vì tự bịa ra thông tin. Đây gọi là chiến lược fallback có kiểm soát. Nguyên tắc này giúp tránh hiện tượng ảo giác gây hiểu sai kiến thức."
+  },
+  {
+    "id": "T01-017",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Tool calling là khả năng của mô hình ngôn ngữ gọi các hàm hoặc công cụ bên ngoài để lấy thông tin hoặc thực hiện hành động thay vì tự sinh câu trả lời. Mô hình sẽ chọn công cụ phù hợp và điền tham số dựa trên yêu cầu của người dùng. Kết quả trả về từ công cụ sau đó được đưa lại vào cuộc hội thoại."
+  },
+  {
+    "id": "T01-018",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Để mô hình có thể gọi công cụ, hệ thống cần khai báo schema của từng công cụ, bao gồm tên, mô tả và danh sách tham số kèm kiểu dữ liệu. Mô tả công cụ rõ ràng giúp mô hình chọn đúng công cụ trong nhiều lựa chọn. Tham số nên có ví dụ minh họa để giảm lỗi định dạng."
+  },
+  {
+    "id": "T01-019",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Một vòng lặp gọi công cụ điển hình gồm các bước: mô hình quyết định gọi công cụ, hệ thống thực thi công cụ, kết quả được trả lại cho mô hình, và mô hình tiếp tục sinh câu trả lời hoặc gọi công cụ khác. Vòng lặp này có thể lặp lại nhiều lần cho đến khi hoàn thành tác vụ. Cần đặt giới hạn số lần lặp để tránh lặp vô hạn."
+  },
+  {
+    "id": "T01-020",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Function calling là một dạng cụ thể của tool calling, trong đó mô hình trả về một đối tượng JSON chứa tên hàm và tham số tương ứng để hệ thống thực thi. Định dạng JSON có cấu trúc giúp lập trình viên dễ dàng phân tích và gọi hàm thực. Nhiều nhà cung cấp mô hình hỗ trợ sẵn cơ chế function calling."
+  },
+  {
+    "id": "T01-021",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Khi thiết kế công cụ cho mô hình, nên giữ mỗi công cụ đơn giản và chỉ làm một việc rõ ràng, tương tự nguyên tắc single responsibility trong lập trình. Công cụ quá phức tạp với nhiều tham số dễ khiến mô hình gọi sai. Việc chia nhỏ công cụ giúp mô hình kết hợp chúng linh hoạt hơn."
+  },
+  {
+    "id": "T01-022",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Xử lý lỗi khi gọi công cụ là phần quan trọng trong hệ thống tool calling, vì công cụ có thể trả về lỗi mạng, dữ liệu không hợp lệ hoặc hết thời gian chờ. Hệ thống nên trả thông báo lỗi rõ ràng lại cho mô hình để mô hình có thể thử cách khác. Nếu không xử lý tốt, mô hình có thể lặp lại lỗi liên tục."
+  },
+  {
+    "id": "T01-023",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Một số hệ thống cho phép mô hình gọi nhiều công cụ song song trong một lượt để tăng tốc độ xử lý, gọi là parallel tool calling. Cách này phù hợp khi các công cụ độc lập với nhau và không cần kết quả của công cụ trước. Nếu công cụ sau phụ thuộc công cụ trước, cần gọi tuần tự."
+  },
+  {
+    "id": "T01-024",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "tool_calling",
+    "text": "Agent là một hệ thống sử dụng mô hình ngôn ngữ kết hợp tool calling để tự lập kế hoạch và thực hiện nhiều bước nhằm hoàn thành một mục tiêu phức tạp. Agent thường có bộ nhớ ngắn hạn để lưu lại tiến trình các bước đã làm. Việc giám sát và giới hạn quyền của agent là cần thiết để tránh hành động ngoài ý muốn."
+  },
+  {
+    "id": "T01-025",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Đánh giá mô hình ngôn ngữ lớn là quá trình đo lường chất lượng câu trả lời của mô hình theo các tiêu chí như độ chính xác, độ liên quan và độ an toàn. Việc đánh giá có thể thực hiện tự động bằng script hoặc thủ công bằng con người. Kết quả đánh giá giúp so sánh giữa các phiên bản mô hình hoặc prompt khác nhau."
+  },
+  {
+    "id": "T01-026",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Golden set là một tập dữ liệu mẫu gồm các câu hỏi và câu trả lời đúng đã được xác nhận trước, dùng làm chuẩn để so sánh với đầu ra của mô hình. Golden set cần đủ đa dạng để phản ánh các tình huống thực tế. Mỗi lần thay đổi prompt hoặc mô hình, golden set nên được chạy lại để kiểm tra hồi quy."
+  },
+  {
+    "id": "T01-027",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "LLM-as-judge là kỹ thuật dùng một mô hình ngôn ngữ khác để chấm điểm hoặc so sánh chất lượng câu trả lời của mô hình đang được đánh giá. Cách này giúp tự động hóa việc đánh giá ở quy mô lớn thay vì cần con người chấm từng câu. Tuy nhiên LLM-as-judge cũng có thể mắc sai lầm nên cần kiểm tra chéo định kỳ."
+  },
+  {
+    "id": "T01-028",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Độ chính xác của trích dẫn, tức citation, là một tiêu chí quan trọng khi đánh giá hệ thống RAG, đo xem mô hình có trích đúng nguồn tài liệu tồn tại và đúng nội dung hay không. Một trích dẫn bịa ra nguồn không tồn tại được coi là lỗi nghiêm trọng. Bộ kiểm định tự động có thể kiểm tra citation bằng cách so khớp với dữ liệu gốc."
+  },
+  {
+    "id": "T01-029",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Hiện tượng hallucination, hay ảo giác của mô hình, xảy ra khi mô hình tạo ra thông tin nghe có vẻ hợp lý nhưng không đúng sự thật hoặc không có căn cứ. Đánh giá tỷ lệ hallucination thường dựa trên việc so sánh câu trả lời với nguồn tài liệu gốc. Giảm hallucination là một trong những mục tiêu quan trọng khi xây dựng hệ thống dựa trên LLM."
+  },
+  {
+    "id": "T01-030",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Chỉ số confidence, hay độ tin cậy, thể hiện mức độ chắc chắn của hệ thống đối với một câu trả lời hoặc một lần truy xuất tài liệu. Khi confidence thấp, hệ thống nên chọn phương án an toàn như trả lời chung hoặc yêu cầu thêm thông tin thay vì đưa ra câu trả lời chi tiết có thể sai. Ngưỡng confidence cụ thể thường được xác định qua thử nghiệm."
+  },
+  {
+    "id": "T01-031",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Kiểm định tự động, gọi là validator, là bước kiểm tra đầu ra của mô hình theo các quy tắc cứng trước khi trả về cho người dùng, ví dụ kiểm tra định dạng JSON hoặc kiểm tra trích dẫn có tồn tại hay không. Nếu đầu ra không đạt quy tắc, hệ thống có thể yêu cầu mô hình sinh lại hoặc chuyển sang phương án dự phòng. Validator giúp tăng độ tin cậy của hệ thống trong môi trường sản phẩm thực tế."
+  },
+  {
+    "id": "T01-032",
+    "lesson": "Bài 01 - Nhập môn AI ứng dụng",
+    "concept": "llm_evaluation",
+    "text": "Đánh giá liên tục, continuous evaluation, nghĩa là chạy lại bộ golden set và các chỉ số chất lượng mỗi khi có thay đổi về prompt, dữ liệu hoặc mô hình. Việc này giúp phát hiện sớm các trường hợp chất lượng bị giảm trước khi triển khai cho người dùng thực. Một báo cáo đánh giá tốt nên in ra số liệu tổng hợp dễ đọc ở cuối."
+  }
+]

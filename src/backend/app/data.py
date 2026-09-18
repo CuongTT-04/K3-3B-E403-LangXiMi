@@ -14,17 +14,32 @@ from typing import Dict, List
 
 from dotenv import load_dotenv
 
+BACKEND_DIR = Path(__file__).resolve().parent.parent  # src/backend
 load_dotenv()
-
-BACKEND_DIR = Path(__file__).resolve().parent.parent  # codebase/backend
+load_dotenv(BACKEND_DIR / ".env")
 
 
 def _data_dir() -> Path:
-    raw = os.environ.get("DATA_DIR", "../mock-data")
-    path = Path(raw)
-    if not path.is_absolute():
-        path = (BACKEND_DIR / path).resolve()
-    return path
+    raw = os.environ.get("DATA_DIR")
+    if raw:
+        path = Path(raw)
+        if path.is_absolute() and path.exists():
+            return path
+        for base in [BACKEND_DIR, BACKEND_DIR.parent.parent]:
+            if (base / path).resolve().exists():
+                return (base / path).resolve()
+    
+    # Ưu tiên thư mục mock-data/ ở root của repository (dữ liệu giả lập an toàn)
+    root_mock_data = (BACKEND_DIR.parent.parent / "mock-data").resolve()
+    if root_mock_data.exists():
+        return root_mock_data
+
+    # Fallback các vị trí khác nếu có
+    for candidate in [BACKEND_DIR.parent.parent / "data", BACKEND_DIR / "../mock-data", BACKEND_DIR / "mock-data"]:
+        if candidate.resolve().exists():
+            return candidate.resolve()
+            
+    return root_mock_data
 
 
 def _load_json(filename: str):
