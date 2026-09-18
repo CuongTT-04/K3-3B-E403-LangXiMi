@@ -49,11 +49,12 @@ def test_quiz_schema_valid():
 
 def test_golden_set_schema_valid():
     golden = data.load_golden_set()
-    assert len(golden) >= 10
+    assert len(golden) >= 20
 
     fallback_cases = [c for c in golden if c["expect_fallback"]]
     assert len(fallback_cases) >= 2
 
+    valid_paths = {"happy", "low_confidence", "no_grounding"}
     for case in golden:
         assert case["case_id"]
         assert isinstance(case["wrong_question_ids"], list) and case["wrong_question_ids"]
@@ -61,13 +62,32 @@ def test_golden_set_schema_valid():
         assert isinstance(case["expected_source_ids_any"], list)
         assert isinstance(case["expect_fallback"], bool)
 
+        expect_paths = case.get("expect_paths")
+        if expect_paths:
+            # Mixed case: expect_path is the literal "mixed" marker, and
+            # expect_paths carries the real per-question expectation.
+            assert case["expect_path"] == "mixed"
+            assert isinstance(expect_paths, dict)
+            assert set(expect_paths.keys()) == set(case["wrong_question_ids"])
+            assert all(p in valid_paths for p in expect_paths.values())
+        else:
+            assert case["expect_path"] in valid_paths
+
 
 def test_golden_set_expect_path_consistent_with_fallback():
     golden = data.load_golden_set()
-    valid_paths = {"happy", "low_confidence", "no_grounding"}
+    valid_paths = {"happy", "low_confidence", "no_grounding", "mixed"}
     low_conf_cases = [c for c in golden if c["expect_path"] == "low_confidence"]
     assert len(low_conf_cases) >= 2
 
+    mixed_cases = [c for c in golden if c.get("expect_paths")]
+    assert len(mixed_cases) >= 3
+
     for case in golden:
         assert case["expect_path"] in valid_paths
-        assert case["expect_fallback"] == (case["expect_path"] == "no_grounding")
+        if case.get("expect_paths"):
+            assert case["expect_fallback"] == any(
+                p == "no_grounding" for p in case["expect_paths"].values()
+            )
+        else:
+            assert case["expect_fallback"] == (case["expect_path"] == "no_grounding")

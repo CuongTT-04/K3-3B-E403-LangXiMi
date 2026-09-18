@@ -110,5 +110,99 @@
     "expected_source_ids_any": [],
     "expect_fallback": true,
     "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-15",
+    "wrong_question_ids": ["q04", "q06"],
+    "expected_concepts": ["rag", "tool_calling"],
+    "expected_source_ids_any": ["T01-016", "T01-014", "T01-018", "T01-020"],
+    "expect_fallback": false,
+    "expect_path": "happy"
+  },
+  {
+    "case_id": "case-16",
+    "wrong_question_ids": ["q09", "q11"],
+    "expected_concepts": ["vector_embedding_scaling", "hybrid_search_optimization"],
+    "expected_source_ids_any": ["T01-011", "T01-012"],
+    "expect_fallback": false,
+    "expect_path": "low_confidence"
+  },
+  {
+    "case_id": "case-17",
+    "wrong_question_ids": ["qx-unknown-03"],
+    "expected_concepts": ["distributed_systems_consensus"],
+    "expected_source_ids_any": [],
+    "expect_fallback": true,
+    "expect_path": "no_grounding"
+  },
+  {
+    "case_id": "case-18",
+    "wrong_question_ids": ["q01", "q10"],
+    "expected_concepts": ["prompt_engineering", "kubernetes_deployment_pipeline"],
+    "expected_source_ids_any": ["T01-004", "T01-002"],
+    "expect_fallback": true,
+    "expect_path": "mixed",
+    "expect_paths": {
+      "q01": "happy",
+      "q10": "no_grounding"
+    }
+  },
+  {
+    "case_id": "case-19",
+    "wrong_question_ids": ["q09", "q03"],
+    "expected_concepts": ["vector_embedding_scaling", "rag"],
+    "expected_source_ids_any": ["T01-011", "T01-012", "T01-009", "T01-013"],
+    "expect_fallback": false,
+    "expect_path": "mixed",
+    "expect_paths": {
+      "q09": "low_confidence",
+      "q03": "happy"
+    }
+  },
+  {
+    "case_id": "case-20",
+    "wrong_question_ids": ["q02", "q10", "q11"],
+    "expected_concepts": ["prompt_engineering", "kubernetes_deployment_pipeline", "hybrid_search_optimization"],
+    "expected_source_ids_any": ["T01-006", "T01-005", "T01-012"],
+    "expect_fallback": true,
+    "expect_path": "mixed",
+    "expect_paths": {
+      "q02": "happy",
+      "q10": "no_grounding",
+      "q11": "low_confidence"
+    }
+  },
+  {
+    "case_id": "case-21",
+    "wrong_question_ids": ["q01", "q02", "q03", "q04", "q05", "q06", "q07", "q08", "q09", "q10", "q11"],
+    "expected_concepts": [
+      "prompt_engineering",
+      "rag",
+      "tool_calling",
+      "llm_evaluation",
+      "vector_embedding_scaling",
+      "kubernetes_deployment_pipeline",
+      "hybrid_search_optimization"
+    ],
+    "expected_source_ids_any": [
+      "T01-002", "T01-004", "T01-005", "T01-006", "T01-009", "T01-011",
+      "T01-012", "T01-013", "T01-014", "T01-016", "T01-017", "T01-018",
+      "T01-019", "T01-020", "T01-025", "T01-026", "T01-028", "T01-031"
+    ],
+    "expect_fallback": true,
+    "expect_path": "mixed",
+    "expect_paths": {
+      "q01": "happy",
+      "q02": "happy",
+      "q03": "happy",
+      "q04": "happy",
+      "q05": "happy",
+      "q06": "happy",
+      "q07": "happy",
+      "q08": "happy",
+      "q09": "low_confidence",
+      "q10": "no_grounding",
+      "q11": "low_confidence"
+    }
   }
 ]
