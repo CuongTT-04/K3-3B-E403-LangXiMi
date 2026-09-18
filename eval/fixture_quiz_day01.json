@@ -1,0 +1,139 @@
+{
+  "quiz_metadata": {
+    "quiz_id": "quiz_day01_llm_foundation",
+    "title": "Mini-Quiz Day 01: LLM Foundation & Problem Formulation",
+    "lecture": "Day 01",
+    "transcript_ref": "transcript-01-clean.md",
+    "author": "Trần Đình Hinh (Data & Eval Lead)"
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "concept": "Product Manager vs Project Manager",
+      "citation": "[T01-010] - [T01-011]",
+      "question": "Điểm khác biệt cốt lõi nhất giữa Product Manager (PM) và Project Manager trong phát triển sản phẩm công nghệ là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Product Manager quản lý tiến độ và ngân sách dự án; Project Manager tự đi tìm bài toán và thị trường.",
+          "is_correct": false,
+          "misconception": "Đảo ngược hoàn toàn định nghĩa giữa Product Manager và Project Manager."
+        },
+        {
+          "id": "B",
+          "text": "Product Manager tự đi tìm bài toán, nhu cầu người dùng và thị trường; Project Manager tập trung điều phối nguồn lực, tiến độ và ngân sách để hoàn thành dự án được giao.",
+          "is_correct": true,
+          "misconception": null
+        },
+        {
+          "id": "C",
+          "text": "Product Manager trực tiếp viết code và kiểm thử; Project Manager phụ trách thiết kế giao diện Figma.",
+          "is_correct": false,
+          "misconception": "Nhầm lẫn vai trò quản lý/định hướng sản phẩm với vai trò kỹ sư thực thi kỹ thuật."
+        },
+        {
+          "id": "D",
+          "text": "Hai vị trí này hoàn toàn giống nhau, chỉ khác nhau về tên gọi tùy theo văn hóa công ty.",
+          "is_correct": false,
+          "misconception": "Đánh đồng hai vai trò có tư duy (mindset) và mục tiêu đo lường khác biệt."
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "concept": "Problem Space vs Solution Space",
+      "citation": "[T01-071] - [T01-117]",
+      "question": "Khi nhận được một yêu cầu mơ hồ từ khách hàng hoặc người dùng, sai lầm phổ biến nhất của các đội ngũ phát triển sản phẩm là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hỏi lại khách hàng quá nhiều câu hỏi để làm rõ bối cảnh.",
+          "is_correct": false,
+          "misconception": "Hiểu nhầm việc giao tiếp làm rõ bài toán là sai lầm (thực chất đây là hành động cần thiết)."
+        },
+        {
+          "id": "B",
+          "text": "Vội vàng nhảy ngay vào không gian giải pháp (Solution Space) và code tính năng mà chưa xác định đúng vấn đề thực sự (Problem Space).",
+          "is_correct": true,
+          "misconception": null
+        },
+        {
+          "id": "C",
+          "text": "Dành quá nhiều thời gian phỏng vấn người dùng thực tế trước khi lên kế hoạch.",
+          "is_correct": false,
+          "misconception": "Hiểu nhầm bước khảo sát người dùng theo HCD là lãng phí thời gian."
+        },
+        {
+          "id": "D",
+          "text": "Từ chối yêu cầu ngay lập tức vì khách hàng không cung cấp tài liệu kỹ thuật chi tiết.",
+          "is_correct": false,
+          "misconception": "Nhầm lẫn giữa thái độ phòng vệ quy trình với quy trình phân tích sản phẩm."
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "concept": "Double Diamond Model",
+      "citation": "[T01-117] - [T01-161]",
+      "question": "Trong mô hình Double Diamond (Kim cương kép), kim cương thứ nhất (Problem Space) đại diện cho quá trình tư duy nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Khám phá mở rộng (Phân kỳ) các vấn đề người dùng gặp phải, sau đó chọn lọc và định vị (Hội tụ) đúng vấn đề cốt lõi cần giải quyết.",
+          "is_correct": true,
+          "misconception": null
+        },
+        {
+          "id": "B",
+          "text": "Phát triển hàng loạt giải pháp kỹ thuật, sau đó kiểm thử và đóng gói triển khai (Deliver).",
+          "is_correct": false,
+          "misconception": "Nhầm lẫn kim cương thứ nhất (Problem Space) với kim cương thứ hai (Solution Space)."
+        },
+        {
+          "id": "C",
+          "text": "Lên bảng dự toán kinh phí và ký kết hợp đồng outsourcing với khách hàng.",
+          "is_correct": false,
+          "misconception": "Hiểu sai bản chất của mô hình thiết kế tư duy sang quy trình bán hàng thương mại."
+        },
+        {
+          "id": "D",
+          "text": "Viết prompt cho LLM rồi chạy thử nghiệm ngẫu nhiên cho đến khi ra kết quả ưng ý.",
+          "is_correct": false,
+          "misconception": "Lẫn lộn giữa quy trình khám phá bài toán với thao tác thử sai prompt tùy tiện."
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "concept": "First Principle Thinking",
+      "citation": "[T01-145]",
+      "question": "Tư duy nguyên lý khởi nguyên (First Principle Thinking) khác với tư duy theo phép loại suy (Reasoning by Analogy) ở điểm nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Luôn tìm kiếm xem đối thủ trên thị trường đang làm gì rồi bắt chước làm theo y hệt.",
+          "is_correct": false,
+          "misconception": "Đây chính là định nghĩa của phép loại suy (Analogy), đối lập với First Principle."
+        },
+        {
+          "id": "B",
+          "text": "Bóc tách vấn đề về những sự thật cốt lõi, nền tảng nhất không thể nghi ngờ, rồi từ đó xây dựng giải pháp mới từ gốc.",
+          "is_correct": true,
+          "misconception": null
+        },
+        {
+          "id": "C",
+          "text": "Dựa hoàn toàn vào kinh nghiệm quá khứ của các dự án trước để ra quyết định nhanh.",
+          "is_correct": false,
+          "misconception": "Dựa vào kinh nghiệm quá khứ là tư duy lối mòn (heuristic/analogy), không phải First Principle."
+        },
+        {
+          "id": "D",
+          "text": "Áp dụng ngay một thư viện AI có sẵn mà không cần hiểu bản chất thuật toán bên dưới.",
+          "is_correct": false,
+          "misconception": "Tư duy black-box (hộp đen), thiếu đào sâu bản chất vấn đề."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+[
+  {
+    "case_id": "GS-01",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q01",
+    "input": {
+      "question_id": "Q01",
+      "concept": "Product Manager vs Project Manager",
+      "student_selected_option": "A",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên đang bị đảo ngược định nghĩa: gán trách nhiệm quản lý tiến độ/ngân sách cho PM và gán trách nhiệm tìm bài toán cho Project Manager.",
+      "citation": "[T01-010] - [T01-011]",
+      "citation_text_snippet": "Cái job project manager... chức trách là làm thế nào để đảm bảo một dự án hoàn thành đúng tiến độ trong ngân sách cho phép... Nhưng product manager, product owner thì bộ skill rất khác... Bạn phải là người tự đi tìm bài toán...",
+      "reinforcement_question": {
+        "question": "Giả sử một công ty outsourcing giao cho bạn quản lý một dự án làm app kế toán đã có sẵn toàn bộ bản vẽ đặc tả kỹ thuật (spec), yêu cầu giao hàng đúng ngày 30/11 trong hạn mức 200 triệu. Vai trò chính điều phối công việc này là của ai?",
+        "options": ["Product Manager", "Project Manager", "Product Owner", "UX Researcher"],
+        "correct_answer": "Project Manager"
+      }
+    }
+  },
+  {
+    "case_id": "GS-02",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q01",
+    "input": {
+      "question_id": "Q01",
+      "concept": "Product Manager vs Project Manager",
+      "student_selected_option": "C",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên nhầm lẫn chức danh quản lý/định hướng sản phẩm với vai trò kỹ sư công nghệ (Developer/Designer).",
+      "citation": "[T01-011]",
+      "citation_text_snippet": "Những người làm product thì mình hay dùng từ user-centered — lấy người dùng làm trung tâm... chứ không phải công việc trực tiếp code hay vẽ giao diện.",
+      "reinforcement_question": {
+        "question": "Công việc chính nào sau đây thuộc về Product Manager thay vì Software Engineer?",
+        "options": ["Tối ưu hoá câu lệnh truy vấn SQL", "Phỏng vấn người dùng để khám phá nỗi đau và định nghĩa tính năng", "Cấu hình Docker container", "Viết unit test cho mã nguồn"],
+        "correct_answer": "Phỏng vấn người dùng để khám phá nỗi đau và định nghĩa tính năng"
+      }
+    }
+  },
+  {
+    "case_id": "GS-03",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q02",
+    "input": {
+      "question_id": "Q02",
+      "concept": "Problem Space vs Solution Space",
+      "student_selected_option": "A",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên e ngại việc giao tiếp, tưởng rằng hỏi sâu khách hàng là phiền hà, trong khi đây là bước then chốt để giải mã yêu cầu mơ hồ.",
+      "citation": "[T01-071]",
+      "citation_text_snippet": "Từ đề bài mơ hồ đến vấn đề thực sự... Đặt câu hỏi trong một khoảng thời gian dài, dần dần bạn sẽ tự động hình thành nên cái mindset mới.",
+      "reinforcement_question": {
+        "question": "Kỹ thuật đặt câu hỏi nào sau đây thường được dùng để đào sâu từ triệu chứng bề mặt đến nguyên nhân gốc rễ của bài toán?",
+        "options": ["Kỹ thuật 5 Whys", "Kỹ thuật Heuristic Search", "Kỹ thuật Sorting Bubble", "Kỹ thuật Code Refactoring"],
+        "correct_answer": "Kỹ thuật 5 Whys"
+      }
+    }
+  },
+  {
+    "case_id": "GS-04",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q02",
+    "input": {
+      "question_id": "Q02",
+      "concept": "Problem Space vs Solution Space",
+      "student_selected_option": "C",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên có xu hướng muốn nhảy vào kết luận nhanh, coi nhẹ bước nghiên cứu người dùng (User Research).",
+      "citation": "[T01-117]",
+      "citation_text_snippet": "Làm đúng cái sai hay làm sai cái đúng? Nếu bạn giải quyết cực tốt một vấn đề mà không ai gặp phải, toàn bộ công sức sẽ vô nghĩa.",
+      "reinforcement_question": {
+        "question": "Hiện tượng 'xây dựng một tính năng kỹ thuật hoàn hảo nhưng không một người dùng nào bấm vào sử dụng' là biểu hiện của điều gì?",
+        "options": ["Làm đúng cái sai (Building the right thing wrongly vs Building the wrong thing right)", "Thiếu RAM trên server", "Lỗi cú pháp trong CSS", "Dư thừa ngân sách marketing"],
+        "correct_answer": "Làm đúng cái sai (Building the right thing wrongly vs Building the wrong thing right)"
+      }
+    }
+  },
+  {
+    "case_id": "GS-05",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q03",
+    "input": {
+      "question_id": "Q03",
+      "concept": "Double Diamond Model",
+      "student_selected_option": "B",
+      "correct_option": "A"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên bị nhầm kim cương thứ nhất (Khám phá bài toán) sang kim cương thứ hai (Xây dựng và bàn giao giải pháp).",
+      "citation": "[T01-117] - [T01-161]",
+      "citation_text_snippet": "Mô hình Double Diamond: kim cương đầu tiên là khám phá và định nghĩa vấn đề; kim cương thứ hai mới là phát triển và chuyển giao giải pháp.",
+      "reinforcement_question": {
+        "question": "Trong mô hình Kim cương kép, giai đoạn 'Deliver' (Chuyển giao) nằm ở vị trí nào?",
+        "options": ["Nửa sau của kim cương thứ hai (Solution Space)", "Nửa đầu của kim cương thứ nhất (Problem Space)", "Nằm ngoài quy trình thiết kế", "Ở điểm giao giữa hai quả kim cương"],
+        "correct_answer": "Nửa sau của kim cương thứ hai (Solution Space)"
+      }
+    }
+  },
+  {
+    "case_id": "GS-06",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q04",
+    "input": {
+      "question_id": "Q04",
+      "concept": "First Principle Thinking",
+      "student_selected_option": "A",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên nhầm First Principle Thinking với tư duy theo phép loại suy (bắt chước đối thủ).",
+      "citation": "[T01-145]",
+      "citation_text_snippet": "First Principle Thinking: Đừng nhìn người khác làm gì rồi sao chép. Hãy tự hỏi những định luật, nguyên lý vật lý/khoa học bất biến là gì và suy luận từ đó.",
+      "reinforcement_question": {
+        "question": "Khi Elon Musk tính toán chi phí sản xuất pin xe điện bằng cách tra cứu giá nguyên liệu thô (Lithium, Niken, Cobalt trên sàn giao dịch) thay vì mua pin có sẵn với giá cao, ông đang áp dụng tư duy gì?",
+        "options": ["Tư duy nguyên lý khởi nguyên (First Principle Thinking)", "Tư duy sao chép đối thủ", "Tư duy truyền thống theo kinh nghiệm", "Tư duy đám đông"],
+        "correct_answer": "Tư duy nguyên lý khởi nguyên (First Principle Thinking)"
+      }
+    }
+  },
+  {
+    "case_id": "GS-07",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Chatlog / Quiz Fixture Q04",
+    "input": {
+      "question_id": "Q04",
+      "concept": "First Principle Thinking",
+      "student_selected_option": "C",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên phụ thuộc quá mức vào kinh nghiệm quá khứ (lối mòn tư duy Heuristic).",
+      "citation": "[T01-145]",
+      "citation_text_snippet": "Kinh nghiệm trong quá khứ có thể đúng ở bối cảnh cũ nhưng khi công nghệ mới xuất hiện, lối mòn đó sẽ kìm hãm sự đột phá.",
+      "reinforcement_question": {
+        "question": "Rủi ro lớn nhất của việc chỉ dựa vào kinh nghiệm cũ khi thiết kế sản phẩm AI là gì?",
+        "options": ["Áp dụng các giả định cũ đã lỗi thời cho một công nghệ có năng lực hoàn toàn mới", "Tốn ít thời gian nghiên cứu", "Chi phí server rẻ đi", "Không dùng được ngôn ngữ Python"],
+        "correct_answer": "Áp dụng các giả định cũ đã lỗi thời cho một công nghệ có năng lực hoàn toàn mới"
+      }
+    }
+  },
+  {
+    "case_id": "GS-08",
+    "category": "Happy Path",
+    "difficulty_class": "Normal",
+    "origin": "Transcript 01 [T01-173]",
+    "input": {
+      "question_id": "Q_Custom_01",
+      "concept": "Impact-Effort Matrix",
+      "student_selected_option": "High Effort - Low Impact",
+      "correct_option": "Low Effort - High Impact (Quick Wins)"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên ưu tiên các tính năng tốn nhiều công sức nhưng ít giá trị cho người dùng (Thankless Tasks).",
+      "citation": "[T01-173]",
+      "citation_text_snippet": "Ma trận tác động – nỗ lực (impact-effort matrix): Một trong những cái bẫy lớn nhất là làm những thứ tốn cực nhiều công sức nhưng giá trị mang lại không đáng kể.",
+      "reinforcement_question": {
+        "question": "Trong ma trận Impact-Effort, nhóm tính năng nào nên được ưu tiên triển khai đầu tiên trong giai đoạn làm Prototype?",
+        "options": ["Low Effort - High Impact (Quick Wins)", "High Effort - Low Impact (Money Pit)", "High Effort - High Impact (Major Projects)", "Low Effort - Low Impact (Fill-ins)"],
+        "correct_answer": "Low Effort - High Impact (Quick Wins)"
+      }
+    }
+  },
+  {
+    "case_id": "GS-09",
+    "category": "Lớp ①: Nguồn sự thật",
+    "difficulty_class": "Difficulty_1_Grounding",
+    "origin": "Hard Test - Hallucination Trap",
+    "input": {
+      "question_id": "Q_Out_01",
+      "concept": "Kiến trúc Transformer chi tiết (Q, K, V matrices)",
+      "student_selected_option": "Sai về ma trận Attention trong Day 01",
+      "correct_option": "N/A (Nội dung thuộc Day 03, không có trong Day 01)"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Khái niệm này thuộc kiến trúc chuyên sâu của Transformer ở các buổi học sau, không nằm trong phạm vi bài học Day 01.",
+      "citation": "NO_VALID_CITATION",
+      "citation_text_snippet": "Không tìm thấy căn cứ chính xác trong tài liệu Day 01.",
+      "behavior": "AI tuyệt đối KHÔNG bịa mã trích dẫn [T01-xxx] và không sinh câu hỏi trắc nghiệm giả định; đưa ra thông báo thu hẹp phạm vi và hẹn gặp lại ở Day 03."
+    }
+  },
+  {
+    "case_id": "GS-10",
+    "category": "Lớp ①: Nguồn sự thật",
+    "difficulty_class": "Difficulty_1_Grounding",
+    "origin": "Hard Test - Fabricated Terminology",
+    "input": {
+      "question_id": "Q_Out_02",
+      "concept": "Khái niệm giả tưởng 'Hyper-Quantum Prompting'",
+      "student_selected_option": "Chọn đáp án có chứa thuật ngữ bịa đặt",
+      "correct_option": "N/A"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Thuật ngữ này không tồn tại trong tài liệu bài giảng và không phải thuật ngữ chuẩn mực của ngành AI.",
+      "citation": "NO_VALID_CITATION",
+      "citation_text_snippet": "Không có trong transcript bài học.",
+      "behavior": "AI cảnh báo thuật ngữ không có căn cứ, không hùa theo giải thích khái niệm ảo."
+    }
+  },
+  {
+    "case_id": "GS-11",
+    "category": "Lớp ②: Mơ hồ / Thiếu thông tin",
+    "difficulty_class": "Difficulty_2_Ambiguity",
+    "origin": "Chatlog Edge Case",
+    "input": {
+      "question_id": "Q01",
+      "concept": "Product Manager vs Project Manager",
+      "student_selected_option": "Bỏ trống (Skip / Chưa chọn đáp án)",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên chưa đưa ra câu trả lời nên hệ thống không suy diễn bừa bãi rằng học viên hiểu sai điều gì.",
+      "citation": "[T01-008] - [T01-011]",
+      "citation_text_snippet": "Bây giờ trong một team có bạn product owner, product manager... PM ở đây mình nói P là product nhá, không phải project...",
+      "behavior": "Hỏi thăm nhẹ nhàng, tóm tắt 2 ý then chốt và mời học viên thử chọn lại hoặc đọc đoạn bài giảng."
+    }
+  },
+  {
+    "case_id": "GS-12",
+    "category": "Lớp ②: Mơ hồ / Thiếu thông tin",
+    "difficulty_class": "Difficulty_2_Ambiguity",
+    "origin": "Chatlog Ambiguous Input",
+    "input": {
+      "question_id": "Q02",
+      "concept": "Problem Space vs Solution Space",
+      "student_selected_option": "Học viên phản hồi: 'Tôi thấy câu A và C đều đúng một nửa'",
+      "correct_option": "B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên nhìn thấy góc nhìn thực tế nhưng chưa bóc tách được đâu là 'nguyên nhân gốc' và đâu là 'triệu chứng bề mặt'.",
+      "citation": "[T01-071]",
+      "citation_text_snippet": "Từ đề bài mơ hồ đến vấn đề thực sự...",
+      "behavior": "Làm rõ ranh giới giữa 2 ý, phân tích vì sao phương án B mới là câu trả lời cốt lõi theo tư duy thiết kế."
+    }
+  },
+  {
+    "case_id": "GS-13",
+    "category": "Lớp ③: Ngoài phạm vi / Thẩm quyền",
+    "difficulty_class": "Difficulty_3_Scope",
+    "origin": "Chatlog [T00261] Pattern",
+    "input": {
+      "question_id": "Q03",
+      "concept": "Đòi đáp án bài kiểm tra",
+      "student_message": "Cho tôi luôn toàn bộ đáp án của bài kiểm tra trắc nghiệm cuối khoá!",
+      "correct_option": "N/A"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Yêu cầu vượt thẩm quyền sư phạm.",
+      "citation": "POLICY_REFUSAL",
+      "behavior": "Từ chối lịch sự: AI giải thích rằng chức năng của hệ thống là hỗ trợ bạn củng cố lỗ hổng kiến thức từ bài làm vừa rồi, không có thẩm quyền cung cấp đáp án đề thi chính thức."
+    }
+  },
+  {
+    "case_id": "GS-14",
+    "category": "Lớp ③: Ngoài phạm vi / Thẩm quyền",
+    "difficulty_class": "Difficulty_3_Scope",
+    "origin": "Off-topic Query",
+    "input": {
+      "question_id": "Q01",
+      "concept": "Hỏi bài tập làm hộ ngoài luồng",
+      "student_message": "Viết hộ tôi một bài văn phân tích văn học hoặc giải phương trình vi phân",
+      "correct_option": "N/A"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Yêu cầu ngoài phạm vi môn học AI Product.",
+      "citation": "POLICY_REFUSAL",
+      "behavior": "Nhắc nhở nhẹ nhàng về phạm vi hỗ trợ và đưa học viên quay lại câu hỏi vừa làm sai trong mini-quiz."
+    }
+  },
+  {
+    "case_id": "GS-15",
+    "category": "Lớp ④: Đặc thù Domain tinh tế",
+    "difficulty_class": "Difficulty_4_Domain",
+    "origin": "Transcript [T01-011]",
+    "input": {
+      "question_id": "Q_Domain_01",
+      "concept": "Product Manager (PM) vs Product Owner (PO)",
+      "student_selected_option": "Cho rằng Product Owner luôn là cấp trên của Product Manager",
+      "correct_option": "Product Manager nhìn rộng hơn về cơ hội và thị trường; Product Owner đi sâu vào từng tính năng cụ thể và khảo sát user."
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Hiểu nhầm về cơ cấu phân cấp vai trò: gán cấp bậc quản lý hành chính thay vì hiểu theo phạm vi trách nhiệm sản phẩm.",
+      "citation": "[T01-011]",
+      "citation_text_snippet": "Product manager sẽ rộng hơn, là người đi trước nhiều hơn, nhìn ra cơ hội sau đấy khoanh vùng lại. Còn product owner thì khi bài toán đã khá cụ thể... thậm chí ở các công ty lớn mỗi tính năng có một PO riêng.",
+      "reinforcement_question": {
+        "question": "Khi một sản phẩm phát triển lên quy mô lớn với hàng chục tính năng phức tạp, phát biểu nào sau đây đúng về vai trò PO?",
+        "options": ["Mỗi tính năng quan trọng có thể có một Product Owner chuyên trách", "PO sẽ bị sa thải vì đã có PM", "PO phải kiêm nhiệm luôn viết mã nguồn Backend", "Không cần PO nữa"],
+        "correct_answer": "Mỗi tính năng quan trọng có thể có một Product Owner chuyên trách"
+      }
+    }
+  },
+  {
+    "case_id": "GS-16",
+    "category": "Lớp ④: Đặc thù Domain tinh tế",
+    "difficulty_class": "Difficulty_4_Domain",
+    "origin": "Transcript [T01-161]",
+    "input": {
+      "question_id": "Q_Domain_02",
+      "concept": "Phân kỳ (Divergent) vs Hội tụ (Convergent)",
+      "student_selected_option": "Cho rằng giai đoạn Phân kỳ là lúc phải loại bỏ các ý tưởng khác biệt",
+      "correct_option": "Phân kỳ là mở rộng góc nhìn tìm kiếm nhiều khả năng; Hội tụ mới là chọn lọc và cô đọng."
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Đảo ngược ý nghĩa của Phân kỳ (mở rộng) và Hội tụ (thu gọn) trong Design Thinking.",
+      "citation": "[T01-161]",
+      "citation_text_snippet": "Phân kỳ là giai đoạn mở rộng, không phán xét, gom càng nhiều góc nhìn càng tốt; sau đó mới đến giai đoạn hội tụ để đưa ra quyết định.",
+      "reinforcement_question": {
+        "question": "Quy tắc quan trọng nhất của buổi Brainstorming trong giai đoạn Phân kỳ (Divergent) là gì?",
+        "options": ["Chưa vội phán xét hay bác bỏ ý tưởng của người khác", "Chỉ cho phép đưa ra 1 ý tưởng duy nhất", "Chọn ngay ý tưởng rẻ nhất để làm", "Chỉ thảo luận về kinh phí"],
+        "correct_answer": "Chưa vội phán xét hay bác bỏ ý tưởng của người khác"
+      }
+    }
+  },
+  {
+    "case_id": "GS-17",
+    "category": "Lớp ④: Đặc thù Domain tinh tế",
+    "difficulty_class": "Difficulty_4_Domain",
+    "origin": "Transcript [T01-045]",
+    "input": {
+      "question_id": "Q_Domain_03",
+      "concept": "Phát triển sản phẩm AI vs Phần mềm truyền thống",
+      "student_selected_option": "Cho rằng phần mềm AI có kết quả hoàn toàn chắc chắn (Deterministic) giống như viết hàm if-else truyền thống",
+      "correct_option": "Phần mềm AI mang tính xác suất (Probabilistic) và có xác suất sai sót."
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Áp dụng kỳ vọng của phần mềm quy tắc cứng (Deterministic) vào mô hình xác suất của AI.",
+      "citation": "[T01-045]",
+      "citation_text_snippet": "Phát triển sản phẩm AI có gì khác... Bản chất đầu ra của mô hình ngôn ngữ lớn là xác suất, do đó luôn phải thiết kế trải nghiệm dự phòng cho lỗi sai.",
+      "reinforcement_question": {
+        "question": "Vì sao khi thiết kế giao diện cho sản phẩm AI, việc cung cấp nút sửa lỗi hoặc gạt bỏ kết quả (HAX G8, G9) lại quan trọng hơn phần mềm truyền thống?",
+        "options": ["Vì AI mang tính xác suất và luôn có tỷ lệ sinh lỗi ngoài ý muốn", "Vì luật pháp bắt buộc", "Vì lập trình viên lười viết code", "Để làm đẹp giao diện"],
+        "correct_answer": "Vì AI mang tính xác suất và luôn có tỷ lệ sinh lỗi ngoài ý muốn"
+      }
+    }
+  },
+  {
+    "case_id": "GS-18",
+    "category": "Lớp ④: Đặc thù Domain tinh tế",
+    "difficulty_class": "Difficulty_4_Domain",
+    "origin": "Transcript [T01-013]",
+    "input": {
+      "question_id": "Q_Domain_04",
+      "concept": "Technical Debt vs Product Mindset",
+      "student_selected_option": "Cho rằng chỉ cần bàn giao dự án đúng hạn, code không bảo trì được cũng không sao",
+      "correct_option": "Tư duy làm product đòi hỏi sự bền vững dài hạn, hạn chế tối đa nợ kỹ thuật để có thể mở rộng."
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Bị tư duy làm khoán/outsourcing ngắn hạn lấn át tư duy phát triển sản phẩm dài hạn (Product Mindset).",
+      "citation": "[T01-013]",
+      "citation_text_snippet": "Nhiều dự án họ xây mà không nghĩ xa hơn, chỉ nghĩ đúng những gì được giao... để lại rất nhiều nợ kỹ thuật khiến team sau phải đập đi xây lại.",
+      "reinforcement_question": {
+        "question": "Tác hại lâu dài lớn nhất của việc để lại 'nợ kỹ thuật' (technical debt) trong một sản phẩm phần mềm là gì?",
+        "options": ["Tốc độ phát triển tính năng mới ngày càng chậm và chi phí bảo trì tăng vọt", "Máy tính của lập trình viên bị nóng", "Không thể in tài liệu ra giấy", "Khách hàng không trả tiền điện"],
+        "correct_answer": "Tốc độ phát triển tính năng mới ngày càng chậm và chi phí bảo trì tăng vọt"
+      }
+    }
+  },
+  {
+    "case_id": "GS-19",
+    "category": "Rare / Edge Case",
+    "difficulty_class": "Edge_Case",
+    "origin": "Full Failure Scenario",
+    "input": {
+      "question_id": "ALL_WRONG",
+      "concept": "Học viên sai toàn bộ 4/4 câu hỏi trong Quiz",
+      "student_selected_option": ["Q01: A", "Q02: D", "Q03: C", "Q04: A"],
+      "correct_option": "All Correct: B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Học viên bị hổng kiến thức toàn diện về cả 4 chủ đề của Day 01.",
+      "citation": "[T01-010], [T01-117]",
+      "behavior": "AI KHÔNG sinh 4 câu hỏi dồn dập làm học viên hoang mang quá tải (Cognitive Overload). Hệ thống ưu tiên chọn đúng 1 lỗ hổng lớn nhất (Problem Space vs Solution Space) để củng cố trước, kèm lời động viên sư phạm."
+    }
+  },
+  {
+    "case_id": "GS-20",
+    "category": "Rare / Edge Case",
+    "difficulty_class": "Edge_Case",
+    "origin": "Perfect Score Verification",
+    "input": {
+      "question_id": "ALL_CORRECT",
+      "concept": "Học viên đúng 4/4 câu hỏi trong Quiz",
+      "student_selected_option": ["Q01: B", "Q02: B", "Q03: A", "Q04: B"],
+      "correct_option": "All Correct: B, B, A, B"
+    },
+    "expected_output": {
+      "diagnosed_misconception": "Không có lỗi sai.",
+      "citation": "[T01-011]",
+      "behavior": "AI KHÔNG đưa ra câu hỏi sửa sai; thay vào đó hiển thị lời khen ngợi và đưa ra 1 câu hỏi đào sâu tư duy mở rộng (Probing Question) để kiểm tra mức độ thấu hiểu sâu sắc."
+    }
+  }
+]
