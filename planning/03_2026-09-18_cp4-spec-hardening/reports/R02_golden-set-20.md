@@ -56,3 +56,5 @@ Base: `374230daa56ab45db532af3d044c434c4d8d2ccd` · Head (commit chứa việc c
 4. Không có việc tồn đọng nào trong phạm vi WP2.
 
 Chờ phán quyết SO.
+
+✅ DUYỆT — SO đo lại 2026-09-18: `pytest backend -q` 49 passed/0 skip exit 0 · `run_eval.py` → `eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0` exit 0 · `--verbose | wc -l` = 22 · `git diff --stat 374230d..HEAD` 4 file đúng phạm vi H02.
