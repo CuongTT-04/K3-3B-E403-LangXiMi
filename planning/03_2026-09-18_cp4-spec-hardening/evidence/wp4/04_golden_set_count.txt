@@ -1,0 +1,3 @@
+$ python -c "import json;g=json.load(open(...));print(len(g))"
+21
+EXIT:0

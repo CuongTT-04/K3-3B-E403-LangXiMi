@@ -1,0 +1,22 @@
+$ grep -n chosen backend/app/service.py backend/app/llm.py | wc -l
+19
+
+backend/app/service.py:66:    chosen: Optional[str] = None,
+backend/app/service.py:82:    raw = llm_instance.generate(question, chunks, distractor_pool=lessons, chosen=chosen)
+backend/app/service.py:127:                question, lessons_by_id, lessons, chosen=result.get("chosen")
+backend/app/llm.py:40:        chosen: Optional[str] = None,
+backend/app/llm.py:53:        chosen: Optional[str] = None,
+backend/app/llm.py:62:        if chosen and answer and chosen in options and answer in options and chosen != answer:
+backend/app/llm.py:64:                f"Bạn chọn {chosen} ('{options[chosen]}') nhưng đáp án đúng là "
+backend/app/llm.py:132:        chosen: Optional[str] = None,
+backend/app/llm.py:138:    question: dict, chunks: List[dict], chosen: Optional[str] = None
+backend/app/llm.py:146:    chosen_line = (
+backend/app/llm.py:147:        f"Phuong an hoc vien da chon: {chosen}\n" if chosen else ""
+backend/app/llm.py:153:        f"{chosen_line}"
+backend/app/llm.py:209:        self, question: dict, chunks: List[dict], chosen: Optional[str]
+backend/app/llm.py:211:        prompt = _build_prompt(question, chunks, chosen)
+backend/app/llm.py:229:        chosen: Optional[str] = None,
+backend/app/llm.py:232:            return self._call_once(question, chunks, chosen)
+backend/app/llm.py:236:                    return self._call_once(question, chunks, chosen)
+backend/app/llm.py:242:                        question, chunks, distractor_pool, chosen=chosen
+backend/app/llm.py:245:            return MockLLM().generate(question, chunks, distractor_pool, chosen=chosen)

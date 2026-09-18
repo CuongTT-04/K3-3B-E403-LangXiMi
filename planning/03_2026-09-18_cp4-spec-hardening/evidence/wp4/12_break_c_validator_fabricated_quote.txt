@@ -1,0 +1,5 @@
+$ python - <<EOF (break test c: validator.validate with fabricated quote, changed word + odd whitespace -> must still fallback)
+fallback: True
+citations: []
+OK: fabricated quote with extra whitespace + changed word still rejected -> fallback
+EXIT:0

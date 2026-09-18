@@ -1,0 +1,4 @@
+$ python -m pytest backend/tests/test_mockdata.py backend/tests/test_golden_set_eval.py -q
+........                                                                 [100%]
+8 passed in 0.36s
+EXIT:0

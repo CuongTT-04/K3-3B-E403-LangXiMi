@@ -1,0 +1,9 @@
+$ python - <<EOF  (break test a: chosen="Z" not in any options, submit all wrong via TestClient)
+status_code: 200
+score: 0 total: 11
+num items: 11
+items with empty misconception: []
+q01 -> Học viên dễ nhầm chain-of-thought (yêu cầu suy luận từng bước) với few-shot prompting (cho ví dụ mẫu).
+q02 -> Nhầm prompt injection (rủi ro do dữ liệu ghi đè chỉ dẫn) với hallucination (mô hình tự bịa thông tin).
+q03 -> Học viên nhầm RAG là kỹ thuật giảm chi phí/tham số mô hình, thực chất RAG là truy xuất tài liệu để giảm bịa đặt thông ti
+EXIT:0

@@ -1,0 +1,18 @@
+$ python -m pytest backend -q -k "test_misconception_mentions_chosen_option or test_validator_keeps_llm_misconception_when_present or test_validator_accepts_valid_item" -v
+============================= test session starts =============================
+platform win32 -- Python 3.13.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\mini-hackathon\K3-3B-E403-LangXiMi\codebase
+plugins: anyio-4.15.1
+collected 49 items / 46 deselected / 3 selected
+
+backend\tests\test_service.py .                                          [ 33%]
+backend\tests\test_validator.py ..                                       [100%]
+
+============================== warnings summary ===============================
+C:\Users\lenku\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\testclient.py:53
+  C:\Users\lenku\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 3 passed, 46 deselected, 1 warning in 0.65s =================
+EXIT:0

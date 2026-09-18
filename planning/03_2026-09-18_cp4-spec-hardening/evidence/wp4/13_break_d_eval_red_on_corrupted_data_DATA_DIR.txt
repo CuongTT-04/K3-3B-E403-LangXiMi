@@ -1,0 +1,49 @@
+# break test d: copy mock-data to temp dir (outside repo), corrupt golden-set.json
+# expect_path/expect_paths fields ONLY in the temp copy, run run_eval.py with
+# DATA_DIR pointing at the temp copy. NO file inside the repo is touched.
+
+Temp dir: /tmp/tmp.83nbPVBNC0/mock-data
+
+$ ls $TMPDIR_BASE/mock-data
+golden-set.json
+lessons.json
+quiz-day01.json
+
+Corruption applied (case_id[:qid] -> forced-wrong expected path):
+case-01, case-02, case-03 : expect_path happy -> no_grounding
+case-18:q01, case-19:q09  : expect_paths[qid] flipped
+
+$ DATA_DIR=$TMPDIR_BASE/mock-data python backend/eval/run_eval.py --verbose  (RED expected)
+case-01 expect=no_grounding got=happy passed=False
+case-02 expect=no_grounding got=happy passed=False
+case-03 expect=no_grounding got=happy passed=False
+case-04 expect=happy got=happy passed=True
+case-05 expect=happy got=happy passed=True
+case-06 expect=happy got=happy passed=True
+case-07 expect=happy got=happy passed=True
+case-08 expect=happy got=happy passed=True
+case-09 expect=happy got=happy,happy passed=True
+case-10 expect=no_grounding got=no_grounding passed=True
+case-11 expect=no_grounding got=no_grounding passed=True
+case-12 expect=low_confidence got=low_confidence passed=True
+case-13 expect=low_confidence got=low_confidence passed=True
+case-14 expect=no_grounding got=no_grounding passed=True
+case-15 expect=happy got=happy,happy passed=True
+case-16 expect=low_confidence got=low_confidence,low_confidence passed=True
+case-17 expect=no_grounding got=no_grounding passed=True
+case-18 expect=mixed got=happy,no_grounding passed=False
+case-19 expect=mixed got=low_confidence,happy passed=False
+case-20 expect=mixed got=happy,no_grounding,low_confidence passed=True
+case-21 expect=mixed got=happy,happy,happy,happy,happy,happy,happy,happy,low_confidence,no_grounding,low_confidence passed=True
+eval pass=16/21 fallback_ok=7/12 low_conf_ok=6/6 citations_invalid=0
+EXIT:0
+
+--- for comparison: real repo data (unmodified), no DATA_DIR override ---
+$ python backend/eval/run_eval.py
+eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0
+EXIT:0
+
+--- proof the repo's own golden-set.json was NEVER modified ---
+$ git -C /d/mini-hackathon/K3-3B-E403-LangXiMi status --short
+$ git -C /d/mini-hackathon/K3-3B-E403-LangXiMi diff --stat -- codebase/mock-data/golden-set.json
+(empty output above = no diff = repo file untouched)

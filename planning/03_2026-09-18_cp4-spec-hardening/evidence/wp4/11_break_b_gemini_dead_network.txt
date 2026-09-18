@@ -1,0 +1,16 @@
+$ LLM_MODE=gemini GEMINI_API_KEY=fake-key-123 HTTPS_PROXY=http://127.0.0.1:9 HTTP_PROXY=http://127.0.0.1:9 python - <<EOF (break test b: gemini mode + fake key + dead proxy -> submit must still be 200)
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+GeminiLLM.generate failed (no retry): [WinError 10061] No connection could be made because the target machine actively refused it
+LLM_MODE= gemini GEMINI_API_KEY= fake-key-123
+status_code: 200
+num items: 11
+items missing required keys: []
+EXIT:0

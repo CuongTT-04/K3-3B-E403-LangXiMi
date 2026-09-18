@@ -1,0 +1,5 @@
+$ python - <<EOF (break test f, own idea: unknown qid in submit answers + garbage hypothesis_id for every wrong question)
+submit with unknown qid in answers -> status: 200
+confirm_hypothesis with garbage id crashed on: []
+OK: unknown qid in submit answers + garbage hypothesis_id -> no crash, all 200
+EXIT:0

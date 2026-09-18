@@ -1,0 +1,34 @@
+$ git status --short
+?? planning/03_2026-09-18_cp4-spec-hardening/evidence/wp4/
+EXIT:0
+
+$ git rev-parse HEAD
+36b838f4bb499c7de0d048429bde93bb6840ed8c
+
+$ git diff --stat 374230d..HEAD
+ codebase/backend/app/llm.py                        | 124 ++++++++++++++++-----
+ codebase/backend/app/service.py                    |  29 ++++-
+ codebase/backend/app/validator.py                  |  18 ++-
+ codebase/backend/eval/run_eval.py                  | 117 ++++++++++++++++---
+ codebase/backend/tests/test_golden_set_eval.py     |  27 ++++-
+ codebase/backend/tests/test_llm_gemini.py          |  30 +++++
+ codebase/backend/tests/test_mockdata.py            |  26 ++++-
+ codebase/backend/tests/test_service.py             |  50 +++++++++
+ codebase/backend/tests/test_validator.py           |  40 +++++++
+ codebase/mock-data/golden-set.json                 |  94 ++++++++++++++++
+ docs/backend.md                                    |  20 +++-
+ .../evidence/wp1/eval.txt                          |   2 +
+ .../evidence/wp1/pytest.txt                        |   9 ++
+ .../evidence/wp2/eval.txt                          |  23 ++++
+ .../evidence/wp2/pytest.txt                        |   9 ++
+ .../handoffs/H01_backend-diagnosis.md              |  33 ++++++
+ .../handoffs/H02_golden-set-20.md                  |  33 ++++++
+ .../handoffs/H03_spec-fill.md                      |  30 +++++
+ .../handoffs/H04_audit.md                          |  26 +++++
+ planning/03_2026-09-18_cp4-spec-hardening/plan.md  |  41 +++++++
+ .../reports/R01_backend-diagnosis.md               |  59 ++++++++++
+ .../reports/R02_golden-set-20.md                   |  60 ++++++++++
+ .../reports/R03_spec-fill.md                       |  62 +++++++++++
+ spec.md                                            |  83 +++++++++++---
+ 24 files changed, 971 insertions(+), 74 deletions(-)
+EXIT:0

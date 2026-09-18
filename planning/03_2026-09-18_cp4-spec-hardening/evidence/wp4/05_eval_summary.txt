@@ -1,0 +1,3 @@
+$ python backend/eval/run_eval.py
+eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0
+EXIT:0
