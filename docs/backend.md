@@ -94,9 +94,12 @@ tĩnh khi LLM không trả field đó (ví dụ item fallback).
 
 ## Env (`.env.example`)
 
-`LLM_MODE=mock|real|gemini` · `GEMINI_API_KEY` · `GEMINI_MODEL` (legacy,
-optional: khi đặt thì được đưa lên đầu danh sách xoay vòng) · `GEMINI_MODELS`
-(danh sách phẩy, xem bên dưới) · `LLM_CACHE` (`off` để tắt cache đĩa) ·
+`LLM_MODE=mock|real|gemini|chain|groq` (`gemini`/`chain` = chuỗi Gemini→Groq→
+Mock đầy đủ, xem bên dưới; `groq` = chỉ Groq→Mock, bỏ qua Gemini) ·
+`GEMINI_API_KEY` · `GEMINI_MODEL` (legacy, optional: khi đặt thì được đưa
+lên đầu danh sách xoay vòng) · `GEMINI_MODELS` (danh sách phẩy, xem bên
+dưới) · `GROQ_API_KEY` · `GROQ_MODEL` (legacy, như `GEMINI_MODEL`) ·
+`GROQ_MODELS` (danh sách phẩy) · `LLM_CACHE` (`off` để tắt cache đĩa) ·
 `LLM_CACHE_PATH` (đè đường dẫn file cache, test dùng `tmp_path`) ·
 `HIGH_CONF_MIN` (mặc định `0.75`) · `LOW_CONF_MIN` (mặc định `0.4`) ·
 `DATA_DIR` (mặc định `../mock-data`, tính từ `backend/`).
@@ -155,13 +158,46 @@ LLM_MODE=gemini python backend/eval/run_eval.py --llm-stats --verbose --sleep 2
 Lần chạy tiếp theo (kể cả lúc demo, kể cả mất mạng) sẽ đọc từ cache thay vì
 gọi lại Gemini, miễn `backend/.runtime/llm-cache.json` không bị xoá.
 
+### Groq làm tầng dự phòng thứ hai (sau Gemini, trước Mock)
+
+Spec #4 chốt Gemini là AI lõi; khi quota Gemini cạn (hoặc thiếu key),
+`GroqLLM` (API kiểu OpenAI: `POST
+https://api.groq.com/openai/v1/chat/completions`, header `Authorization:
+Bearer <key>`, `choices[0].message.content` là chuỗi JSON) là tầng dự
+phòng thứ hai trước khi rơi về `MockLLM`. Giới hạn đo được: **1000
+request/NGÀY** (không tính theo từng model như Gemini) và **8000
+token/PHÚT**; model `llama-3.3-70b-versatile` KHÔNG dùng được trên tài
+khoản này. `GroqLLM` xoay `GROQ_MODELS` (mặc định
+`openai/gpt-oss-120b,qwen/qwen3.8-27b,openai/gpt-oss-20b`; `GROQ_MODEL` nếu
+đặt được đưa lên đầu) giống hệt cơ chế Gemini, NGOẠI TRỪ: mọi lỗi (kể cả
+timeout) chuyển model kế NGAY, không retry lại cùng model một lần nào.
+
+`get_llm()` build chuỗi provider theo `LLM_MODE`:
+
+| `LLM_MODE` | Chuỗi provider |
+|---|---|
+| `gemini` hoặc `chain` | `ChainLLM([GeminiLLM nếu có GEMINI_API_KEY, GroqLLM nếu có GROQ_API_KEY])` → hết chuỗi ⇒ `MockLLM` (thiếu cả 2 key ⇒ thẳng `MockLLM`) |
+| `groq` | `ChainLLM([GroqLLM])` nếu có `GROQ_API_KEY` (bỏ qua Gemini dù có key), ngược lại `MockLLM` |
+
+`ChainLLM.generate()` thử từng provider theo thứ tự qua `_rotate_or_raise`
+(rotate hết model riêng của provider đó rồi raise `ProviderExhausted` nội
+bộ nếu vẫn lỗi) và chỉ rơi về `MockLLM` khi CẢ chuỗi cạn; không bao giờ
+raise ra ngoài. `GeminiLLM.generate()` dùng standalone (không qua chain,
+như trước H02) vẫn tự rơi về `MockLLM` một mình như cũ (không hồi quy H01);
+`GroqLLM.generate()` thì raise `ProviderExhausted` thẳng — không có hợp
+đồng standalone cũ nào cần giữ.
+
+Cache đĩa của H01 (mục trên) áp dụng cho MỌI kết quả thật, không phân biệt
+Gemini hay Groq — khoá cache không chứa tên provider, nên một câu trả lời
+Groq cũng làm cache-hit cho một lần gọi Gemini-trước sau đó với cùng input.
+
 ### Đếm provider (`llm.STATS`) và `run_eval.py --llm-stats`
 
-`app/llm.py` giữ biến module-level `STATS = {"gemini": 0, "cache": 0,
-"mock_fallback": 0}` (tăng đúng nhánh trong `GeminiLLM.generate`) và
-`LAST_MODEL` (model thật gần nhất gọi thành công); `llm.reset_stats()` đặt
-lại cả hai về 0/`None`. KHÔNG field nào trong số này lộ ra schema
-`RemediationItem`.
+`app/llm.py` giữ biến module-level `STATS = {"gemini": 0, "groq": 0,
+"cache": 0, "mock_fallback": 0}` (tăng đúng nhánh trong
+`GeminiLLM`/`GroqLLM`/`ChainLLM`) và `LAST_MODEL` (model thật gần nhất gọi
+thành công, Gemini hoặc Groq); `llm.reset_stats()` đặt lại tất cả về
+0/`None`. KHÔNG field nào trong số này lộ ra schema `RemediationItem`.
 
 `eval/run_eval.py --llm-stats` gọi `reset_stats()` trước khi chạy golden-set
 rồi in thêm một dòng NGAY TRƯỚC dòng tổng:
@@ -171,8 +207,17 @@ llm gemini=<n> cache=<n> mock_fallback=<n> model=<last_model hoặc "-">
 eval pass=N/M fallback_ok=K/L low_conf_ok=P/Q citations_invalid=0
 ```
 
+**Lưu ý (H02):** dòng `llm …` ở trên CHƯA có `groq=<n>` — `run_eval.py` nằm
+trong danh sách CẤM chạm của handoff H02 (`test_golden_set_eval.py`, nơi
+test khớp đúng định dạng dòng này, cũng vậy), nên số liệu Groq thật của lần
+eval `LLM_MODE=groq` được lấy từ `llm.STATS["groq"]` trực tiếp (xem
+`planning/04_2026-09-18_gemini-quota-cache/reports/R02_groq-provider.md`),
+không phải từ dòng in của CLI. Xem "Câu hỏi cần người" trong report đó để
+SO quyết định có mở khoá 2 file trên cho một patch nhỏ sau này hay không.
+
 `--sleep <giây>` (mặc định `0`) nghỉ giữa các case của golden-set để tránh
-vượt giới hạn request/phút khi chạy với `LLM_MODE=gemini`.
+vượt giới hạn request/phút khi chạy với `LLM_MODE=gemini` hoặc
+`LLM_MODE=groq` (khuyến nghị `--sleep 1` cho Groq, `--sleep 2` cho Gemini).
 
 ## Sự kiện (`backend/.runtime/events.jsonl`)
 
@@ -188,9 +233,11 @@ Thư mục `.runtime/` được `codebase/.gitignore` bỏ qua, tự tạo nếu
   `golden-set.json` (14 case, có field `expect_path`).
 - `backend/app/` — `main.py` (endpoints + serve frontend tĩnh),
   `schemas.py`, `data.py`, `retriever.py` (chunk + confidence),
-  `llm.py` (Mock/Real/Gemini), `validator.py`, `service.py` (map path).
+  `llm.py` (Mock/Real/Gemini/Groq/Chain), `validator.py`, `service.py`
+  (map path).
 - `backend/tests/` — pytest cho schema, API, retriever, validator, service
-  (path mapping), llm gemini (mock httpx), golden-set.
+  (path mapping), llm gemini (`test_llm_gemini.py`, mock httpx), llm groq +
+  chain (`test_llm_groq.py`, mock httpx), golden-set.
 - `backend/eval/run_eval.py` — chạy golden-set, in báo cáo một dòng.
 - `frontend/` — HTML/JS/CSS thuần (port từ `codebase/index.html` của
   nhóm), không build step: quiz → kết quả → giải thích theo path → tóm tắt.

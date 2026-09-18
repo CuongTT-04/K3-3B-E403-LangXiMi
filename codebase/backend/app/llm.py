@@ -1,21 +1,33 @@
-"""LLM interface. ``generate`` never calls the network unless LLM_MODE=gemini.
+"""LLM interface. ``generate`` never calls the network unless LLM_MODE is
+``gemini``/``chain``/``groq``.
 
 MockLLM builds a deterministic explanation + reinforcement questions purely
-from the retrieved chunks (no API key needed). GeminiLLM calls the real
-Gemini REST API via ``httpx`` when ``LLM_MODE=gemini`` and ``GEMINI_API_KEY``
-is set; tests mock ``httpx.Client.post`` and never touch the network. If the
-key is missing, ``get_llm`` logs a warning and silently falls back to
-MockLLM so the demo never breaks for lack of a key. RealLLM is a documented
-stub kept for a future non-Gemini provider.
+from the retrieved chunks (no API key needed). GeminiLLM and GroqLLM call
+their real REST APIs via ``httpx``; tests mock ``httpx.Client.post`` and
+never touch the network. RealLLM is a documented stub kept for a future
+non-OpenAI-compatible provider.
 
-Google's free tier caps each Gemini model at 20 requests/day. ``GeminiLLM``
-therefore rotates across a list of models (``GEMINI_MODELS``, see
-``_resolve_gemini_models``) and only falls back to ``MockLLM`` once every
-model in the list has failed. Successful responses are cached on disk
+Spec #4 makes Gemini the primary AI provider, with Groq (an OpenAI-compatible
+chat completions API) as a SECOND fallback tier when Gemini's quota is
+exhausted, and MockLLM as the final safety net so the demo never 500s.
+``ChainLLM`` implements this: it tries each provider in order via that
+provider's ``_rotate_or_raise`` (which itself rotates across that provider's
+own model list -- see ``GEMINI_MODELS``/``GROQ_MODELS`` -- raising
+``ProviderExhausted`` once every model in ITS list has failed), and only
+falls back to ``MockLLM`` once every provider in the chain is exhausted.
+``GeminiLLM.generate()`` keeps its own H01 behavior of silently falling back
+to ``MockLLM`` by itself when used standalone (``_rotate_or_raise`` wrapped
+in a try/except) so existing standalone callers/tests are unaffected;
+``GroqLLM.generate()`` raises ``ProviderExhausted`` directly (it has no
+standalone legacy contract to preserve), which is exactly what ``ChainLLM``
+needs to move on to the next provider.
+
+Successful responses (Gemini OR Groq) are cached on disk
 (``backend/.runtime/llm-cache.json`` by default) keyed by prompt version +
-question id + chosen answer + retrieved chunk ids, so re-running the eval
+question id + chosen answer + retrieved chunk ids (no provider name in the
+key, so a cache entry satisfies either provider), so re-running the eval
 (or the demo) never re-spends quota on an input already answered for real.
-``STATS`` counts how many items were served by each path (gemini/cache/
+``STATS`` counts how many items were served by each path (gemini/groq/cache/
 mock_fallback) so ``eval/run_eval.py --llm-stats`` can report how many
 explanations in a run are backed by a real model call.
 """
@@ -53,20 +65,39 @@ DEFAULT_GEMINI_MODELS = [
     "gemini-3.1-flash-lite",
 ]
 
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+# Measured limits: 1000 requests/day, 8000 tokens/minute (shared across
+# models, unlike Gemini's per-model daily cap). ``llama-3.3-70b-versatile``
+# is NOT available; these three text models are. Override with GROQ_MODELS.
+DEFAULT_GROQ_MODELS = [
+    "openai/gpt-oss-120b",
+    "qwen/qwen3.8-27b",
+    "openai/gpt-oss-20b",
+]
+
 BACKEND_DIR = Path(__file__).resolve().parent.parent  # codebase/backend
 
 # Module-level counters so eval/run_eval.py --llm-stats can report how many
-# items in a run were answered by a real Gemini call vs. served from the
-# disk cache vs. fell all the way back to MockLLM. Never exposed on the
+# items in a run were answered by a real Gemini/Groq call vs. served from
+# the disk cache vs. fell all the way back to MockLLM. Never exposed on the
 # RemediationItem schema -- these are process-level stats only.
-STATS: Dict[str, int] = {"gemini": 0, "cache": 0, "mock_fallback": 0}
+STATS: Dict[str, int] = {"gemini": 0, "groq": 0, "cache": 0, "mock_fallback": 0}
 LAST_MODEL: Optional[str] = None
+
+
+class ProviderExhausted(Exception):
+    """Raised by a provider's ``_rotate_or_raise`` once every model in ITS
+    own rotation has failed. ``ChainLLM`` catches this to move on to the
+    next provider in the chain; it is never raised out of a provider's
+    public ``generate()`` except for ``GroqLLM`` (see module docstring)."""
 
 
 def reset_stats() -> None:
     """Zero the module-level provider counters (call at the top of a run)."""
     global LAST_MODEL
     STATS["gemini"] = 0
+    STATS["groq"] = 0
     STATS["cache"] = 0
     STATS["mock_fallback"] = 0
     LAST_MODEL = None
@@ -298,11 +329,13 @@ class GeminiLLM(LLM):
     order): a timeout retries the SAME model once before moving on; any
     other failure (429/404/503/other HTTP error, or a 200 with unparsable
     JSON) moves to the next model immediately -- no same-model retry. Once
-    every model has failed, ``generate`` falls back to ``MockLLM`` with the
-    same inputs so the demo never 500s. A model that succeeds is promoted to
-    the front of ``self.models`` so the next call on this same instance
-    tries it first. Successful (non-cached) results are cached on disk; see
-    module docstring. Test (``tests/test_llm_gemini.py``) monkeypatch
+    every model has failed, ``_rotate_or_raise`` raises ``ProviderExhausted``;
+    the public ``generate()`` catches that itself and falls back to
+    ``MockLLM`` with the same inputs so a standalone (non-chained) caller
+    never sees a 500. A model that succeeds is promoted to the front of
+    ``self.models`` so the next call on this same instance tries it first.
+    Successful (non-cached) results are cached on disk; see module
+    docstring. Test (``tests/test_llm_gemini.py``) monkeypatch
     ``httpx.Client.post``, never touching the network.
     """
 
@@ -359,13 +392,13 @@ class GeminiLLM(LLM):
             )
             return None
 
-    def generate(
-        self,
-        question: dict,
-        chunks: List[dict],
-        distractor_pool: Optional[List[dict]] = None,
-        chosen: Optional[str] = None,
+    def _rotate_or_raise(
+        self, question: dict, chunks: List[dict], chosen: Optional[str]
     ) -> dict:
+        """Cache check + full model rotation. Raises ``ProviderExhausted``
+        (never falls back to Mock itself) once every model has failed --
+        callers decide what "exhausted" means for them (see ``generate``
+        below and ``ChainLLM``)."""
         global LAST_MODEL
         cache_enabled = _cache_enabled()
         if cache_enabled:
@@ -389,10 +422,148 @@ class GeminiLLM(LLM):
                 _save_cache(cache)
             return result
 
-        logger.warning(
-            "GeminiLLM: all %d model(s) exhausted, falling back to MockLLM",
-            len(self.models),
+        raise ProviderExhausted(
+            f"All {len(self.models)} Gemini model(s) exhausted: {self.models}"
         )
+
+    def generate(
+        self,
+        question: dict,
+        chunks: List[dict],
+        distractor_pool: Optional[List[dict]] = None,
+        chosen: Optional[str] = None,
+    ) -> dict:
+        try:
+            return self._rotate_or_raise(question, chunks, chosen)
+        except ProviderExhausted as exc:
+            logger.warning("GeminiLLM: %s -- falling back to MockLLM", exc)
+            STATS["mock_fallback"] += 1
+            return MockLLM().generate(question, chunks, distractor_pool, chosen=chosen)
+
+
+class GroqLLM(LLM):
+    """Calls the Groq (OpenAI-compatible) chat completions API, rotating
+    across ``models`` on failure.
+
+    Unlike ``GeminiLLM``, ANY failure (429/404/5xx/other HTTP error/timeout/
+    a 200 with unparsable JSON) moves to the next model immediately -- no
+    same-model retry at all, not even for a timeout. Once every model has
+    failed, ``generate`` (== ``_rotate_or_raise``) RAISES ``ProviderExhausted``
+    instead of falling back to ``MockLLM`` itself -- Groq has no standalone
+    legacy contract to preserve, and ``ChainLLM`` is the only intended
+    caller, so it needs the raise to know to try the next provider. A model
+    that succeeds is promoted to the front of ``self.models``. Successful
+    (non-cached) results are cached on disk exactly like Gemini's (same
+    cache, same key shape -- no provider name in it). Test
+    (``tests/test_llm_groq.py``) monkeypatch ``httpx.Client.post``, never
+    touching the network.
+    """
+
+    _RECOVERABLE_ERRORS = (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError)
+
+    def __init__(self, api_key: str, models):
+        self.api_key = api_key
+        self.models: List[str] = [models] if isinstance(models, str) else list(models)
+        self.last_model: Optional[str] = None
+
+    def _promote(self, model: str) -> None:
+        self.models = [model] + [m for m in self.models if m != model]
+
+    def _call_once(
+        self, model: str, question: dict, chunks: List[dict], chosen: Optional[str]
+    ) -> dict:
+        prompt = _build_prompt(question, chunks, chosen)
+        payload = {
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "response_format": {"type": "json_object"},
+            "temperature": 0.2,
+        }
+        headers = {"Authorization": f"Bearer {self.api_key}"}
+        with httpx.Client(timeout=20.0) as client:
+            resp = client.post(GROQ_URL, headers=headers, json=payload)
+            resp.raise_for_status()
+            body = resp.json()
+        text = body["choices"][0]["message"]["content"]
+        return _parse_json_text(text)
+
+    def _rotate_or_raise(
+        self, question: dict, chunks: List[dict], chosen: Optional[str]
+    ) -> dict:
+        global LAST_MODEL
+        cache_enabled = _cache_enabled()
+        if cache_enabled:
+            key = _cache_key(question, chunks, chosen)
+            cache = _load_cache()
+            if key in cache:
+                STATS["cache"] += 1
+                return dict(cache[key])
+
+        for model in list(self.models):
+            try:
+                result = self._call_once(model, question, chunks, chosen)
+            except self._RECOVERABLE_ERRORS as exc:
+                logger.warning(
+                    "GroqLLM: model %s failed (%s), switching model", model, exc
+                )
+                continue
+            self.last_model = model
+            LAST_MODEL = model
+            self._promote(model)
+            STATS["groq"] += 1
+            if cache_enabled:
+                cache = _load_cache()
+                cache[key] = result
+                _save_cache(cache)
+            return result
+
+        raise ProviderExhausted(
+            f"All {len(self.models)} Groq model(s) exhausted: {self.models}"
+        )
+
+    def generate(
+        self,
+        question: dict,
+        chunks: List[dict],
+        distractor_pool: Optional[List[dict]] = None,
+        chosen: Optional[str] = None,
+    ) -> dict:
+        # No self-healing here on purpose -- see class docstring. Only
+        # ChainLLM (or a caller that wants this behavior) should call this.
+        return self._rotate_or_raise(question, chunks, chosen)
+
+
+class ChainLLM(LLM):
+    """Tries each provider in ``providers`` in order (each of which rotates
+    its own model list internally via ``_rotate_or_raise``); a provider that
+    raises ``ProviderExhausted`` is skipped in favor of the next one. Falls
+    back to ``MockLLM`` only once every provider in the chain has failed.
+    Never raises. This is what implements spec #4's "Gemini primary, Groq
+    fallback, Mock last resort" order.
+    """
+
+    def __init__(self, providers: List[LLM]):
+        self.providers = providers
+
+    def generate(
+        self,
+        question: dict,
+        chunks: List[dict],
+        distractor_pool: Optional[List[dict]] = None,
+        chosen: Optional[str] = None,
+    ) -> dict:
+        for provider in self.providers:
+            try:
+                return provider._rotate_or_raise(question, chunks, chosen)
+            except ProviderExhausted as exc:
+                logger.warning(
+                    "ChainLLM: %s exhausted (%s), trying next provider",
+                    type(provider).__name__,
+                    exc,
+                )
+                continue
+
+        logger.warning("ChainLLM: every provider exhausted, falling back to MockLLM")
         STATS["mock_fallback"] += 1
         return MockLLM().generate(question, chunks, distractor_pool, chosen=chosen)
 
@@ -420,18 +591,59 @@ def _resolve_gemini_models() -> List[str]:
     return ordered
 
 
+def _resolve_groq_models() -> List[str]:
+    """``GROQ_MODELS`` (comma-separated) or ``DEFAULT_GROQ_MODELS``; if
+    ``GROQ_MODEL`` is set it is moved to the front of the list, de-duping."""
+    raw = os.environ.get("GROQ_MODELS", "").strip()
+    if raw:
+        models = [m.strip() for m in raw.split(",") if m.strip()]
+    else:
+        models = list(DEFAULT_GROQ_MODELS)
+
+    single = os.environ.get("GROQ_MODEL", "").strip()
+    if single:
+        models = [single] + [m for m in models if m != single]
+
+    seen = set()
+    ordered = []
+    for m in models:
+        if m not in seen:
+            seen.add(m)
+            ordered.append(m)
+    return ordered
+
+
 def get_llm() -> LLM:
     mode = os.environ.get("LLM_MODE", "mock").lower()
     if mode == "mock":
         return MockLLM()
     if mode == "real":
         return RealLLM()
-    if mode == "gemini":
-        api_key = os.environ.get("GEMINI_API_KEY", "").strip()
-        if not api_key:
+    if mode in ("gemini", "chain"):
+        # "gemini" is the legacy mode name, kept for backward compatibility;
+        # it now means "the full provider chain" (spec #4: Gemini primary,
+        # Groq fallback, Mock last resort), not "Gemini only".
+        providers: List[LLM] = []
+        gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+        if gemini_key:
+            providers.append(GeminiLLM(gemini_key, _resolve_gemini_models()))
+        groq_key = os.environ.get("GROQ_API_KEY", "").strip()
+        if groq_key:
+            providers.append(GroqLLM(groq_key, _resolve_groq_models()))
+        if not providers:
             logging.warning(
-                "LLM_MODE=gemini nhung thieu GEMINI_API_KEY -- roi ve MockLLM."
+                "LLM_MODE=%s nhung khong co GEMINI_API_KEY/GROQ_API_KEY nao -- "
+                "roi ve MockLLM.",
+                mode,
             )
             return MockLLM()
-        return GeminiLLM(api_key, _resolve_gemini_models())
+        return ChainLLM(providers)
+    if mode == "groq":
+        groq_key = os.environ.get("GROQ_API_KEY", "").strip()
+        if not groq_key:
+            logging.warning(
+                "LLM_MODE=groq nhung thieu GROQ_API_KEY -- roi ve MockLLM."
+            )
+            return MockLLM()
+        return ChainLLM([GroqLLM(groq_key, _resolve_groq_models())])
     raise ValueError(f"Unknown LLM_MODE: {mode}")

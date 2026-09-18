@@ -1,0 +1,33 @@
+GroqLLM: model openai/gpt-oss-120b failed (Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429), switching model
+GroqLLM: model openai/gpt-oss-120b failed (Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429), switching model
+GroqLLM: model openai/gpt-oss-120b failed (Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429), switching model
+GroqLLM: model qwen/qwen3.8-27b failed (Client error '429 Too Many Requests' for url 'https://api.groq.com/openai/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429), switching model
+case-01 expect=happy got=happy passed=True
+case-02 expect=happy got=happy passed=True
+case-03 expect=happy got=happy passed=True
+case-04 expect=happy got=happy passed=True
+case-05 expect=happy got=happy passed=True
+case-06 expect=happy got=happy passed=True
+case-07 expect=happy got=happy passed=True
+case-08 expect=happy got=happy passed=True
+case-09 expect=happy got=happy,happy passed=True
+case-10 expect=no_grounding got=no_grounding passed=True
+case-11 expect=no_grounding got=no_grounding passed=True
+case-12 expect=low_confidence got=low_confidence passed=True
+case-13 expect=low_confidence got=low_confidence passed=True
+case-14 expect=no_grounding got=no_grounding passed=True
+case-15 expect=happy got=happy,happy passed=True
+case-16 expect=low_confidence got=low_confidence,low_confidence passed=True
+case-17 expect=no_grounding got=no_grounding passed=True
+case-18 expect=mixed got=happy,no_grounding passed=True
+case-19 expect=mixed got=low_confidence,happy passed=True
+case-20 expect=mixed got=happy,no_grounding,low_confidence passed=True
+case-21 expect=mixed got=happy,happy,happy,happy,happy,happy,happy,happy,low_confidence,no_grounding,low_confidence passed=True
+llm gemini=0 cache=21 mock_fallback=0 model=openai/gpt-oss-20b
+eval pass=21/21 fallback_ok=7/7 low_conf_ok=7/7 citations_invalid=0
+SUPPLEMENTARY_STATS_NOT_FROM_RUN_EVAL_PY {'gemini': 0, 'groq': 10, 'cache': 21, 'mock_fallback': 0} LAST_MODEL openai/gpt-oss-20b
+EXIT:0

@@ -17,8 +17,15 @@ CHUNKS = [{"id": "T01-009", "text": "RAG la ky thuat truy xuat.", "concept": "ra
 
 @pytest.fixture(autouse=True)
 def _isolate_llm_state(tmp_path, monkeypatch):
-    """Every test in this file gets its own disk-cache file and fresh STATS."""
+    """Every test in this file gets its own disk-cache file and fresh STATS.
+
+    Also strips GROQ_API_KEY so this file's Gemini-only tests never
+    accidentally pick up the real key from .env (dotenv loads it into
+    os.environ once at import time since it isn't set by the shell) and
+    build a 2-provider chain when a test only wants to exercise Gemini.
+    """
     monkeypatch.setenv("LLM_CACHE_PATH", str(tmp_path / "llm-cache.json"))
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
     llm_module.reset_stats()
     yield
 
@@ -63,9 +70,13 @@ def test_get_llm_gemini_with_key_returns_gemini_llm(monkeypatch):
     monkeypatch.delenv("GEMINI_MODELS", raising=False)
 
     instance = llm_module.get_llm()
-    assert isinstance(instance, llm_module.GeminiLLM)
+    # LLM_MODE=gemini now always builds the H02 provider chain; with no
+    # GROQ_API_KEY (stripped by the autouse fixture) it's a length-1 chain.
+    assert isinstance(instance, llm_module.ChainLLM)
+    assert len(instance.providers) == 1
+    assert isinstance(instance.providers[0], llm_module.GeminiLLM)
     # GEMINI_MODEL (legacy single-model env var) is promoted to the front.
-    assert instance.models[0] == "gemini-2.5-flash"
+    assert instance.providers[0].models[0] == "gemini-2.5-flash"
 
 
 def test_resolve_gemini_models_defaults_and_dedupes(monkeypatch):
@@ -177,7 +188,7 @@ def test_gemini_llm_rotates_models_on_429_then_503_then_succeeds(monkeypatch):
 
     assert result["explanation"] == "from model3"
     assert instance.last_model == "model3"
-    assert llm_module.STATS == {"gemini": 1, "cache": 0, "mock_fallback": 0}
+    assert llm_module.STATS == {"gemini": 1, "groq": 0, "cache": 0, "mock_fallback": 0}
 
 
 def test_gemini_llm_all_models_429_falls_back_to_mock_shape_without_raising(
@@ -192,7 +203,7 @@ def test_gemini_llm_all_models_429_falls_back_to_mock_shape_without_raising(
     result = instance.generate(QUESTION, CHUNKS)
 
     _assert_has_remediation_shape(result)
-    assert llm_module.STATS == {"gemini": 0, "cache": 0, "mock_fallback": 1}
+    assert llm_module.STATS == {"gemini": 0, "groq": 0, "cache": 0, "mock_fallback": 1}
 
 
 def test_gemini_llm_promotes_last_successful_model_to_front(monkeypatch):
@@ -241,7 +252,7 @@ def test_gemini_llm_caches_result_and_skips_network_on_second_call(monkeypatch):
 
     assert len(post_calls) == 1
     assert first == second
-    assert llm_module.STATS == {"gemini": 1, "cache": 1, "mock_fallback": 0}
+    assert llm_module.STATS == {"gemini": 1, "groq": 0, "cache": 1, "mock_fallback": 0}
 
 
 def test_gemini_llm_cache_off_calls_network_every_time(monkeypatch):
@@ -263,7 +274,7 @@ def test_gemini_llm_cache_off_calls_network_every_time(monkeypatch):
     instance.generate(QUESTION, CHUNKS)
 
     assert len(post_calls) == 2
-    assert llm_module.STATS == {"gemini": 2, "cache": 0, "mock_fallback": 0}
+    assert llm_module.STATS == {"gemini": 2, "groq": 0, "cache": 0, "mock_fallback": 0}
 
 
 def test_gemini_llm_never_caches_mock_fallback(monkeypatch):
@@ -295,5 +306,5 @@ def test_reset_stats_zeroes_counters_and_last_model(monkeypatch):
     assert llm_module.LAST_MODEL == "gemini-2.5-flash"
 
     llm_module.reset_stats()
-    assert llm_module.STATS == {"gemini": 0, "cache": 0, "mock_fallback": 0}
+    assert llm_module.STATS == {"gemini": 0, "groq": 0, "cache": 0, "mock_fallback": 0}
     assert llm_module.LAST_MODEL is None
