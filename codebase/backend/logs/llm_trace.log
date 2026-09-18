@@ -1,0 +1,410 @@
+================================================================================
+[2026-09-18 13:15:40] PROVIDER: openai-compatible | MODEL: openai/gpt-4o-mini | QID: q_test
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la...
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{
+  "explanation": "Học viên có thể đã hiểu nhầm khái niệm 'rag' do không nắm rõ định nghĩa chính xác của nó. 'Rag' thường được hiểu là một mảnh vải hoặc một loại giấy, nhưng trong ngữ cảnh bài giảng, nó có thể mang ý nghĩa khác hoặc được sử dụng trong một lĩnh vực cụ thể. Việc không phân biệt rõ ràng giữa các nghĩa khác nhau của từ này có thể dẫn đến sự nhầm lẫn trong việc áp dụng vào thực tế.",
+  "citations": [{"id": "T01-009", "quote": "RAG la..."}],
+  "reinforcement": [{
+    "stem": "Khái niệm 'rag' trong ngữ cảnh bài giảng được hiểu như thế nào?",
+    "options": {
+      "A": "Một loại vải hoặc giấy",
+      "B": "Một khái niệm trong lập trình",
+      "C": "Một thuật ngữ trong nghệ thuật",
+      "D": "Một loại thực phẩm"
+    },
+    "answer": "B",
+    "source_id": "T01-009"
+  }],
+  "confidence": 0.95
+}
+================================================================================
+
+================================================================================
+[2026-09-18 13:20:45] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.9}
+================================================================================
+
+================================================================================
+[2026-09-18 13:20:45] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+```json
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.5}
+```
+================================================================================
+
+================================================================================
+[2026-09-18 13:23:03] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.9}
+================================================================================
+
+================================================================================
+[2026-09-18 13:23:04] PROVIDER: gemini | MODEL: gemini-2.5-flash | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'rag' và sinh 1 câu hỏi củng cố.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-009] RAG la ky thuat truy xuat.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+```json
+{"explanation": "ok", "citations": [], "reinforcement": [], "confidence": 0.5}
+```
+================================================================================
+
+================================================================================
+[2026-09-18 13:23:48] PROVIDER: openai-compatible | MODEL: openai/gpt-4o-mini | QID: q01
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'prompt_engineering' và sinh 1 câu hỏi củng cố.
+
+Gợi ý hiểu nhầm của học viên: Học viên dễ nhầm chain-of-thought (yêu cầu suy luận từng bước) với few-shot prompting (cho ví dụ mẫu).
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-004] Chain-of-thought là kỹ thuật yêu cầu mô hình trình bày từng bước suy luận trước khi đưa ra câu trả lời cuối cùng. Kỹ thuật này đặc biệt hữu ích với các bài toán logic hoặc tính toán nhiều bước. Việc thêm câu hãy suy nghĩ từng bước vào prompt thường cải thiện độ chính xác.
+[T01-002] Kỹ thuật few-shot prompting cung cấp một vài ví dụ mẫu trong prompt để mô hình học theo mẫu đó. Số lượng ví dụ thường từ 2 đến 5 tùy độ phức tạp của tác vụ. Few-shot giúp mô hình hiểu đúng định dạng mà không cần huấn luyện lại.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{
+  "explanation": "Học viên dễ nhầm lẫn giữa chain-of-thought và few-shot prompting vì cả hai đều liên quan đến cách thức hướng dẫn mô hình trong việc xử lý thông tin. Chain-of-thought yêu cầu mô hình trình bày từng bước suy luận, trong khi few-shot prompting cung cấp ví dụ mẫu để mô hình học theo. Sự khác biệt chính là chain-of-thought tập trung vào quá trình suy luận, còn few-shot prompting tập trung vào việc cung cấp ví dụ để mô hình hiểu định dạng đầu vào.",
+  "citations": [
+    {
+      "id": "T01-004",
+      "quote": "Chain-of-thought là kỹ thuật yêu cầu mô hình trình bày từng bước suy luận trước khi đưa ra câu trả lời cuối cùng."
+    },
+    {
+      "id": "T01-002",
+      "quote": "Kỹ thuật few-shot prompting cung cấp một vài ví dụ mẫu trong prompt để mô hình học theo mẫu đó."
+    }
+  ],
+  "reinforcement": [{
+    "stem": "Kỹ thuật nào yêu cầu mô hình trình bày từng bước suy luận trước khi đưa ra câu trả lời cuối cùng?",
+    "options": {
+      "A": "Chain-of-thought",
+      "B": "Few-shot prompting",
+      "C": "Zero-shot prompting",
+      "D": "Prompt tuning"
+    },
+    "answer": "A",
+    "source_id": "T01-004"
+  }],
+  "confidence": 0.95
+}
+================================================================================
+
+================================================================================
+[2026-09-18 13:23:49] PROVIDER: openai-compatible | MODEL: openai/gpt-4o-mini | QID: q09
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'vector_embedding_scaling' và sinh 1 câu hỏi củng cố.
+
+Gợi ý hiểu nhầm của học viên: Học viên có thể nhầm lẫn bước tạo embedding với bước chia chunk hoặc re-ranking.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-011] Sau khi chia chunk, hệ thống chuyển mỗi đoạn văn bản thành một vector số học gọi là embedding. Các đoạn có nội dung tương tự nhau sẽ có vector gần nhau trong không gian nhiều chiều. Việc lưu trữ các vector này thường dùng cơ sở dữ liệu vector chuyên dụng.
+[T01-012] Khi có câu hỏi mới, hệ thống RAG chuyển câu hỏi thành vector rồi tìm các chunk có vector gần nhất, gọi là truy xuất ngữ nghĩa. Ngoài tìm kiếm theo vector, có thể kết hợp tìm kiếm theo từ khóa để tăng độ chính xác. Kỹ thuật kết hợp hai cách này gọi là hybrid search.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{
+  "explanation": "Học viên có thể nhầm lẫn giữa bước tạo embedding và bước chia chunk hoặc re-ranking vì cả ba bước này đều liên quan đến việc xử lý văn bản và vector hóa. Tuy nhiên, bước tạo embedding là quá trình chuyển đổi các đoạn văn bản đã được chia chunk thành các vector số học, trong khi chia chunk là bước trước đó để phân chia văn bản thành các đoạn nhỏ hơn. Re-ranking là bước sau khi đã truy xuất các chunk để sắp xếp lại thứ tự dựa trên độ liên quan. Do đó, cần phân biệt rõ ràng giữa các bước này để hiểu đúng quy trình.",
+  "citations": [
+    {
+      "id": "T01-011",
+      "quote": "Sau khi chia chunk, hệ thống chuyển mỗi đoạn văn bản thành một vector số học gọi là embedding."
+    }
+  ],
+  "reinforcement": [
+    {
+      "stem": "Bước nào trong quy trình xử lý văn bản là bước chuyển đổi đoạn văn bản thành vector số học?",
+      "options": {
+        "A": "Bước tạo embedding",
+        "B": "Bước chia chunk",
+        "C": "Bước re-ranking",
+        "D": "Bước truy xuất ngữ nghĩa"
+      },
+      "answer": "A",
+      "source_id": "T01-011"
+    }
+  ],
+  "confidence": 0.95
+}
+================================================================================
+
+================================================================================
+[2026-09-18 13:23:51] PROVIDER: openai-compatible | MODEL: openai/gpt-4o-mini | QID: q11
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'hybrid_search_optimization' và sinh 1 câu hỏi củng cố.
+
+Gợi ý hiểu nhầm của học viên: Học viên có thể nhầm hybrid search (kết hợp vector + từ khoá) với các kỹ thuật tối ưu khác không liên quan đến truy xuất.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-012] Khi có câu hỏi mới, hệ thống RAG chuyển câu hỏi thành vector rồi tìm các chunk có vector gần nhất, gọi là truy xuất ngữ nghĩa. Ngoài tìm kiếm theo vector, có thể kết hợp tìm kiếm theo từ khóa để tăng độ chính xác. Kỹ thuật kết hợp hai cách này gọi là hybrid search.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{
+  "explanation": "Học viên có thể nhầm lẫn giữa khái niệm hybrid search (kết hợp tìm kiếm vector và từ khóa) với các kỹ thuật tối ưu khác không liên quan đến truy xuất. Điều này xảy ra vì họ có thể không nhận ra rằng hybrid search chủ yếu tập trung vào việc cải thiện độ chính xác trong truy xuất thông tin, thay vì tối ưu hóa các quy trình khác. Việc hiểu sai này có thể dẫn đến việc áp dụng không đúng các kỹ thuật tìm kiếm trong các tình huống thực tế.",
+  "citations": [{"id": "T01-012", "quote": "Kỹ thuật kết hợp hai cách này gọi là hybrid search."}],
+  "reinforcement": [{
+    "stem": "Hybrid search là gì?",
+    "options": {
+      "A": "Kỹ thuật kết hợp tìm kiếm vector và từ khóa.",
+      "B": "Kỹ thuật tối ưu hóa quy trình sản xuất.",
+      "C": "Kỹ thuật phân tích dữ liệu lớn.",
+      "D": "Kỹ thuật lập trình ứng dụng di động."
+    },
+    "answer": "A",
+    "source_id": "T01-012"
+  }],
+  "confidence": 0.95
+}
+================================================================================
+
+================================================================================
+[2026-09-18 13:24:08] PROVIDER: openai-compatible | MODEL: openai/gpt-4o-mini | QID: q09
+-------------------------------- [PROMPT INPUT] --------------------------------
+Bạn là trợ giảng AI thông minh chấm bài trắc nghiệm. Dựa CHÍNH XÁC vào các đoạn trích dẫn bài giảng sau (không tự suy diễn hay bịa thêm thông tin ngoài bài giảng), hãy giải thích lỗi hiểu nhầm của học viên đối với khái niệm 'vector_embedding_scaling' và sinh 1 câu hỏi củng cố.
+
+Gợi ý hiểu nhầm của học viên: Học viên có thể nhầm lẫn bước tạo embedding với bước chia chunk hoặc re-ranking.
+
+Hãy trả về DUY NHẤT một JSON object hợp lệ (không kèm markdown ngoài JSON) theo đúng cấu trúc schema sau:
+{
+  "explanation": "Lời giải thích rõ ràng, ân cần, chỉ rõ vì sao hiểu nhầm, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH CHUẨN XÁC",
+  "citations": [{"id": "mã chunk (ví dụ T01-004)", "quote": "câu trích nguyên văn từ đoạn trích dẫn để hệ thống đối chiếu"}],
+  "reinforcement": [{
+    "stem": "Câu hỏi trắc nghiệm mới kiểm tra lại hiểu biết, VIẾT BẰNG TIẾNG VIỆT CÓ ĐẦY ĐỦ DẤU THANH",
+    "options": {
+      "A": "Đáp án A bằng tiếng Việt có dấu",
+      "B": "Đáp án B bằng tiếng Việt có dấu",
+      "C": "Đáp án C bằng tiếng Việt có dấu",
+      "D": "Đáp án D bằng tiếng Việt có dấu"
+    },
+    "answer": "A"|"B"|"C"|"D",
+    "source_id": "mã chunk tương ứng (phải có trong danh sách citations)"
+  }],
+  "confidence": 0.95
+}
+
+QUY TẮC BẮT BUỘC:
+1. NGÔN NGỮ: Toàn bộ nội dung trường 'explanation', 'stem' và 4 lựa chọn trong 'options' BẮT BUỘC PHẢI VIẾT BẰNG TIẾNG VIỆT CÓ DẤU ĐẦY ĐỦ VÀ CHUẨN XÁC (tuyệt đối không viết không dấu).
+2. KIỂM CHỨNG: Trường 'quote' trong 'citations' phải là một câu sao chép nguyên văn từ đoạn trích dẫn bên dưới để hệ thống kiểm duyệt.
+
+Đoạn trích dẫn bài giảng:
+[T01-011] Sau khi chia chunk, hệ thống chuyển mỗi đoạn văn bản thành một vector số học gọi là embedding. Các đoạn có nội dung tương tự nhau sẽ có vector gần nhau trong không gian nhiều chiều. Việc lưu trữ các vector này thường dùng cơ sở dữ liệu vector chuyên dụng.
+[T01-012] Khi có câu hỏi mới, hệ thống RAG chuyển câu hỏi thành vector rồi tìm các chunk có vector gần nhất, gọi là truy xuất ngữ nghĩa. Ngoài tìm kiếm theo vector, có thể kết hợp tìm kiếm theo từ khóa để tăng độ chính xác. Kỹ thuật kết hợp hai cách này gọi là hybrid search.
+------------------------------ [RAW RESPONSE THÔ] ------------------------------
+{
+  "explanation": "Học viên có thể nhầm lẫn giữa bước tạo embedding và bước chia chunk hoặc re-ranking vì cả ba bước này đều liên quan đến việc xử lý văn bản và chuyển đổi chúng thành dạng số học. Tuy nhiên, bước tạo embedding là quá trình chuyển đổi các đoạn văn bản đã được chia chunk thành các vector số học, trong khi chia chunk là bước trước đó để phân chia văn bản thành các phần nhỏ hơn. Re-ranking là bước sau khi đã tìm được các vector gần nhất để sắp xếp lại kết quả tìm kiếm. Do đó, việc hiểu rõ thứ tự và chức năng của từng bước là rất quan trọng.",
+  "citations": [
+    {
+      "id": "T01-011",
+      "quote": "Sau khi chia chunk, hệ thống chuyển mỗi đoạn văn bản thành một vector số học gọi là embedding."
+    }
+  ],
+  "reinforcement": [
+    {
+      "stem": "Bước nào sau đây là bước tạo embedding trong quy trình xử lý văn bản?",
+      "options": {
+        "A": "Chia văn bản thành các đoạn nhỏ hơn.",
+        "B": "Chuyển các đoạn văn bản thành vector số học.",
+        "C": "Sắp xếp lại các kết quả tìm kiếm.",
+        "D": "Tìm kiếm các đoạn văn bản tương tự."
+      },
+      "answer": "B",
+      "source_id": "T01-011"
+    }
+  ],
+  "confidence": 0.95
+}
+================================================================================
+

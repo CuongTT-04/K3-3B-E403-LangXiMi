@@ -25,21 +25,21 @@ def _data_dir() -> Path:
         path = Path(raw)
         if path.is_absolute() and path.exists():
             return path
-        for base in [BACKEND_DIR, BACKEND_DIR.parent.parent]:
+        for base in [BACKEND_DIR, BACKEND_DIR.parent, BACKEND_DIR.parent.parent]:
             if (base / path).resolve().exists():
                 return (base / path).resolve()
     
-    # Ưu tiên thư mục mock-data/ ở root của repository (dữ liệu giả lập an toàn)
-    root_mock_data = (BACKEND_DIR.parent.parent / "mock-data").resolve()
-    if root_mock_data.exists():
-        return root_mock_data
-
-    # Fallback các vị trí khác nếu có
-    for candidate in [BACKEND_DIR.parent.parent / "data", BACKEND_DIR / "../mock-data", BACKEND_DIR / "mock-data"]:
+    for candidate in [
+        BACKEND_DIR.parent / "mock-data",
+        BACKEND_DIR / "../mock-data",
+        BACKEND_DIR.parent.parent / "mock-data",
+        BACKEND_DIR / "mock-data",
+        BACKEND_DIR.parent.parent / "data",
+    ]:
         if candidate.resolve().exists():
             return candidate.resolve()
             
-    return root_mock_data
+    return (BACKEND_DIR.parent / "mock-data").resolve()
 
 
 def _load_json(filename: str):

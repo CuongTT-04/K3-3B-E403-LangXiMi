@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-09-18 11:51:32",
+  "pass_count": 14,
+  "total_cases": 14,
+  "pass_rate_percent": 100.0,
+  "fallback_ok": 3,
+  "fallback_total": 3,
+  "low_conf_ok": 2,
+  "low_conf_total": 2,
+  "citations_invalid": 0,
+  "quality_bar_passed": true,
+  "details": [
+    {
+      "case_id": "case-01",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-02",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-03",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-04",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-05",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-06",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-07",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-08",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-09",
+      "passed": true,
+      "expect_path": "happy",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-10",
+      "passed": true,
+      "expect_path": "no_grounding",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-11",
+      "passed": true,
+      "expect_path": "no_grounding",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-12",
+      "passed": true,
+      "expect_path": "low_confidence",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-13",
+      "passed": true,
+      "expect_path": "low_confidence",
+      "path_ok": true,
+      "citations_invalid": 0
+    },
+    {
+      "case_id": "case-14",
+      "passed": true,
+      "expect_path": "no_grounding",
+      "path_ok": true,
+      "citations_invalid": 0
+    }
+  ]
+}

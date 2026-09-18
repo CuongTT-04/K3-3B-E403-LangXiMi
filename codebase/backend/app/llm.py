@@ -14,6 +14,7 @@ import json
 import logging
 import os
 import re
+import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -28,6 +29,31 @@ logger = logging.getLogger(__name__)
 GEMINI_URL_TMPL = (
     "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 )
+
+
+def _log_llm_trace(
+    provider: str, model: str, question_id: str, prompt: str, raw_response: str
+) -> None:
+    """Logs prompt inputs and raw model responses for evaluation and audit trail."""
+    try:
+        logs_dir = Path(__file__).resolve().parent.parent / "logs"
+        logs_dir.mkdir(parents=True, exist_ok=True)
+        trace_file = logs_dir / "llm_trace.log"
+        now = time.strftime("%Y-%m-%d %H:%M:%S")
+        entry = (
+            f"================================================================================\n"
+            f"[{now}] PROVIDER: {provider} | MODEL: {model} | QID: {question_id}\n"
+            f"-------------------------------- [PROMPT INPUT] --------------------------------\n"
+            f"{prompt.strip()}\n"
+            f"------------------------------ [RAW RESPONSE THÔ] ------------------------------\n"
+            f"{raw_response.strip()}\n"
+            f"================================================================================\n\n"
+        )
+        with open(trace_file, "a", encoding="utf-8") as f:
+            f.write(entry)
+        logger.info("Logged LLM trace for %s to %s", question_id, trace_file)
+    except Exception as exc:
+        logger.warning("Could not write LLM trace log: %s", exc)
 
 
 def _first_sentence(text: str) -> str:
@@ -189,6 +215,7 @@ class GeminiLLM(LLM):
             resp.raise_for_status()
             body = resp.json()
         text = body["candidates"][0]["content"]["parts"][0]["text"]
+        _log_llm_trace("gemini", self.model, question.get("id", "unknown"), prompt, text)
         return _parse_json_text(text)
 
 
@@ -225,6 +252,7 @@ class OpenAICompatibleLLM(LLM):
             resp.raise_for_status()
             body = resp.json()
         text = body["choices"][0]["message"]["content"]
+        _log_llm_trace("openai-compatible", self.model, question.get("id", "unknown"), prompt, text)
         return _parse_json_text(text)
 
 

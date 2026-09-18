@@ -13,7 +13,9 @@ import time
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-BACKEND_DIR = ROOT_DIR / "src" / "backend"
+BACKEND_DIR = ROOT_DIR / "backend"
+if not BACKEND_DIR.exists():
+    BACKEND_DIR = ROOT_DIR / "src" / "backend"
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
