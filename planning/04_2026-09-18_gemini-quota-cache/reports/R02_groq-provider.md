@@ -4,7 +4,7 @@ Vai: worker (vai-thi-cong) · loại: THI CÔNG · họ/model: Claude Sonnet 5 �
 
 Handoff: `planning/04_2026-09-18_gemini-quota-cache/handoffs/H02_groq-provider.md`
 Base: c0c5b20
-Head: (SHA của commit chính — điền ở mục 3 sau khi `git commit` chạy xong, theo đúng tiền lệ R01/R02_golden-set-20)
+Head: 7ec1c90
 
 ## 1. Lệnh + exit code
 
@@ -36,7 +36,7 @@ LLM_MODE=groq LLM_CACHE_PATH=backend/.runtime/llm-cache-groq.json python backend
  7 files changed, 696 insertions(+), 69 deletions(-)
 ```
 
-Cộng report này. Commit chính 1 lần (`feat(llm): add groq provider chained after gemini with model rotation`), SHA điền ở dòng "Head" phía trên sau khi chạy `git commit` (không thể biết trước SHA của một commit đang chứa chính file này — theo đúng tiền lệ `R02_golden-set-20.md`/`R01_gemini-rotation-cache.md` trong repo, sẽ có commit thứ 2 chỉ sửa dòng Head nếu cần).
+Cộng report này. Commit chính `7ec1c90` (`feat(llm): add groq provider chained after gemini with model rotation`), 8 file, `+795/-69`. Một commit thứ 2 (nhỏ) chỉ sửa dòng "Head" của chính report này — không thể biết SHA trước khi commit đầu tồn tại, theo đúng tiền lệ `R01_gemini-rotation-cache.md`/`R02_golden-set-20.md` trong repo.
 
 ## 4. Bảng phân công
 
