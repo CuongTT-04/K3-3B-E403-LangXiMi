@@ -1,7 +1,7 @@
 # Kế hoạch #04 — Gemini thật cho CP3: xoay model khi hết quota, cache LLM, validator bỏ dấu, số đo thật
 
 ## 1. Metadata
-- Trạng thái: ✅ ĐÃ HOÀN THÀNH (2026-09-18 14:35:00) · Loại: PATCH v0.2.2 (ngoại lệ §3.2.5: chỉ `plan.md`)
+- Trạng thái: ✅ ĐÃ HOÀN THÀNH (2026-09-18 11:42:48) · Loại: PATCH v0.2.2 (ngoại lệ §3.2.5: chỉ `plan.md`)
 - SO: super orchestrator (Fable) · Worker: 🟠 Sonnet · Base: `a33e73f`
 - Phạm vi: `codebase/backend/app/{llm.py,validator.py}` · `codebase/backend/eval/run_eval.py` · `codebase/backend/tests/**` · `codebase/.env.example` · `docs/backend.md` · `spec.md` §7 (số đo) · `brain4agent/**` (đồng bộ cuối)
 - CẤM chạm: `schemas.py` · `codebase/mock-data/**` · `codebase/frontend/**` · `.env` (chứa key thật, gitignored)

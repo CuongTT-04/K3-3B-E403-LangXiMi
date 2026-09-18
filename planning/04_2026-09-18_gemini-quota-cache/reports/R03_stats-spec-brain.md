@@ -86,3 +86,5 @@ Không có câu hỏi mở mới — 3 câu hỏi mở từ R02 đã được SO
 - Không còn WP nào trong `plan.md` #04 dở dang; hồ sơ tiếp theo (nếu có) nên mở dossier mới thay vì tiếp tục #04.
 
 Chờ phán quyết SO.
+
+✅ DUYỆT — SO đo lại 2026-09-18 11:42:48: 75 passed/0 skip · eval mock 21/21, dòng llm có groq= · `--check` exit 0 · state.json 0.2.2 · spec ⏳=4 · app/mock-data/frontend/docs/AGENTS nguyên vẹn. Hồ sơ #04 ĐÓNG (sửa chữ: mốc giờ hoàn thành trong plan.md do worker ghi 14:35 sai, SO chỉnh theo giờ máy).
