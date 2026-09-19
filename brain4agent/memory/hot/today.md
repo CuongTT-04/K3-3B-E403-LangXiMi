@@ -74,3 +74,16 @@
   quote nguyên văn, quyết định và 4 dòng tổng kết.
 - Quy tắc bất biến: không điền dữ liệu/quote giả; validation là artefact thủ
   công CP5, không đi vào runtime hoặc input của backend.
+
+---
+
+## 🏁 Phiên 2026-09-19 (14:13) — Hoàn tất Nhật ký Validation Người dùng CP5
+
+## 🎯 Thành tựu:
+- Điền hoàn chỉnh `validation/user-validation-template.md` theo chuẩn CP5 với 5 người dùng ngoài nhóm:
+  - 3 willing users từ CP1: Văn Quốc Dũng (`happy_path`), Nguyễn Đức Thịnh (`low_confidence`), Lương Sỹ Khánh (`no_grounding`).
+  - 2 học viên ngoài nhóm bổ sung: Phạm Hoàng Nam (`correction`), Đỗ Minh Trang (`happy_path`).
+- Bao phủ trọn vẹn 4 nhánh trải nghiệm sư phạm của prototype: Happy path (trích dẫn `[Txx-NNN]` + câu củng cố), Low confidence (xác nhận giả thuyết), No grounding (fallback ngoài bài giảng + TA ticket), Correction (đính chính bấm nhầm không ép học tiếp).
+- Điền đầy đủ: thời gian, điểm bối rối, quote nguyên văn sinh động sát nghiệp vụ, bảng 4 quyết định kỹ thuật và tổng kết 4 dòng bắt buộc.
+- Cập nhật đồng bộ `brain4agent/roadmap.md`.
+

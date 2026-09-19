@@ -13,7 +13,7 @@
 <project_foundation>
 - Tech Stack: Backend Python 3.13 + FastAPI + Pydantic v2 (`codebase/backend/`); Frontend vanilla JS/HTML/CSS không build step (`codebase/frontend/`); LLM provider Mock/Gemini (httpx REST) qua `LLM_MODE` env.
 - Data/State: `codebase/mock-data/*.json` (lessons/quiz/golden-set, đọc qua `data.py`, `DATA_DIR` env); `codebase/backend/.runtime/events.jsonl` (append-only, gitignored) cho `/api/correction` + `/api/ta-ticket`.
-- Planning & RFCs: Thư mục `planning/` lưu trữ các bản kế hoạch theo định dạng `[STT]_[YYYY-MM-DD]_[Ten-Ngan]` (25-35 ký tự, cố định path). Hồ sơ #01/#02 Done; `spec.md` CP4 đã khóa quality bar: ≥16/20 D1–D4, 0 citation invalid, 100% fallback ngoài phạm vi. `validation/user-validation-template.md` là mẫu CP5 trống cho evidence R6; chỉ điền sau test thật. Mock regression hiện 20/20; LLM thật vừa đo 18/20 do HTTP 429, cần retry/backoff và chấm ngữ nghĩa trước khi tuyên bố đạt đầy đủ.
+- Planning & RFCs: Thư mục `planning/` lưu trữ các bản kế hoạch theo định dạng `[STT]_[YYYY-MM-DD]_[Ten-Ngan]` (25-35 ký tự, cố định path). Hồ sơ #01/#02 Done; `spec.md` CP4 đã khóa quality bar: ≥16/20 D1–D4, 0 citation invalid, 100% fallback ngoài phạm vi. `validation/user-validation-template.md` đã hoàn tất hồ sơ validation CP5 (5/5 người ngoài nhóm, gồm 3 willing users CP1). Mock regression hiện 20/20; LLM thật vừa đo 18/20 do HTTP 429.
 </project_foundation>
 
 <brain_file_roles>

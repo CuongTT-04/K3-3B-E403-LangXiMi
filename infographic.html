@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infographic — Dự Án Học Từ Lỗi Sai (LangXiMi)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-glow: rgba(37, 99, 235, 0.35);
+      --primary-light: #eff6ff;
+      --accent: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --dark-bg: #0b1329;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-line: #e2e8f0;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--text-main);
+      background: #f8fafc;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand-name {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header & Hero Section */
+    .hero {
+      background: radial-gradient(circle at 80% 20%, #1e1b4b 0%, #0f172a 100%);
+      color: #ffffff;
+      padding: 60px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #38bdf8;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-lead {
+      font-size: 18px;
+      color: #94a3b8;
+      max-width: 760px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    /* Analogy Box: Khám bệnh */
+    .analogy-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .analogy-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 10px 20px rgba(6, 182, 212, 0.3);
+    }
+
+    .analogy-text h4 {
+      color: #38bdf8;
+      font-size: 16px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .analogy-text p {
+      color: #cbd5e1;
+      font-size: 16px;
+    }
+
+    .analogy-text strong {
+      color: #ffffff;
+    }
+
+    /* Section Global */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    /* Section 1: The Problem (Nỗi đau) */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1px solid var(--border-line);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+
+    .stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-danger { color: #ef4444; }
+    .stat-warning { color: #f59e0b; }
+    .stat-primary { color: #2563eb; }
+
+    .stat-label {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Quotes Callout */
+    .quotes-box {
+      background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%);
+      border: 1px dashed #fca5a5;
+      border-radius: 16px;
+      padding: 24px 32px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .quotes-box .icon {
+      font-size: 36px;
+    }
+
+    .quotes-box p {
+      font-size: 15px;
+      color: #991b1b;
+      font-style: italic;
+    }
+
+    .quotes-box strong {
+      font-style: normal;
+      color: #7f1d1d;
+    }
+
+    /* Section 2: Comparison (Cũ vs Mới) */
+    .comparison-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .comparison-card {
+      border-radius: 24px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card-old {
+      background: #ffffff;
+      border: 2px solid #fed7aa;
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.06);
+    }
+
+    .card-new {
+      background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%);
+      border: 2px solid #38bdf8;
+      box-shadow: 0 20px 45px rgba(14, 165, 233, 0.15);
+    }
+
+    .card-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .badge-old {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .badge-new {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .comparison-card h3 {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 10px;
+      flex-grow: 1;
+    }
+
+    .flow-step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .step-num-old {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .step-num-new {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .step-content strong {
+      display: block;
+      font-size: 15px;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .step-content span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .card-outcome {
+      margin-top: 30px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .outcome-bad {
+      background: #fef2f2;
+      color: #b91c1c;
+      border-left: 4px solid #ef4444;
+    }
+
+    .outcome-good {
+      background: #f0fdf4;
+      color: #15803d;
+      border-left: 4px solid #22c55e;
+    }
+
+    /* Section 3: 3 Pillars of Solution (3 Trụ Cột) */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .pillar-card {
+      background: #ffffff;
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1);
+    }
+
+    .pillar-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    .icon-p1 { background: #eff6ff; color: #2563eb; }
+    .icon-p2 { background: #ecfeff; color: #0891b2; }
+    .icon-p3 { background: #f5f3ff; color: #7c3aed; }
+
+    .pillar-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #0f172a;
+    }
+
+    .pillar-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .pillar-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* Section 4: Interactive Demo Mockup (Mô phỏng thực tế) */
+    .demo-section {
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 32px;
+      padding: 50px 40px;
+      margin: 40px 0;
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.4);
+    }
+
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .demo-header h2 {
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .demo-header p {
+      color: #94a3b8;
+      font-size: 15px;
+    }
+
+    .demo-box {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .demo-question {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .demo-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .demo-opt {
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+    }
+
+    .demo-opt.wrong {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #fca5a5;
+    }
+
+    .demo-opt.right {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: #10b981;
+      color: #6ee7b7;
+    }
+
+    .demo-opt-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .opt-bad { background: #ef4444; color: #ffffff; }
+    .opt-good { background: #10b981; color: #ffffff; }
+
+    /* Remediation Card inside Demo */
+    .demo-remediation {
+      background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 100%);
+      border: 1px solid #6366f1;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rem-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #818cf8;
+      margin-bottom: 12px;
+    }
+
+    .rem-desc {
+      font-size: 14px;
+      color: #e2e8f0;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .rem-quote {
+      background: rgba(2, 132, 199, 0.15);
+      border-left: 3px solid #38bdf8;
+      padding: 12px 16px;
+      border-radius: 0 10px 10px 0;
+      font-size: 13px;
+      color: #bae6fd;
+      margin-bottom: 20px;
+    }
+
+    .rem-quote-tag {
+      font-weight: 800;
+      color: #38bdf8;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+    }
+
+    .rem-quiz {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .rem-quiz-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #34d399;
+      margin-bottom: 10px;
+    }
+
+    .rem-quiz-stem {
+      font-size: 13px;
+      color: #f1f5f9;
+      margin-bottom: 12px;
+    }
+
+    .rem-btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn-action {
+      background: #334155;
+      color: #cbd5e1;
+      border: 0;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-action:hover {
+      background: #475569;
+      color: #ffffff;
+    }
+
+    /* Section: Tech & AI Engineering (Dưới nắp capo) */
+    .tech-section {
+      background: #ffffff;
+      border-top: 1px solid var(--border-line);
+      border-bottom: 1px solid var(--border-line);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .tech-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .tech-card:hover {
+      background: #ffffff;
+      border-color: #3b82f6;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(59, 130, 246, 0.08);
+    }
+
+    .tech-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tech-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .icon-t1 { background: #eff6ff; color: #2563eb; }
+    .icon-t2 { background: #ecfeff; color: #0891b2; }
+    .icon-t3 { background: #fef2f2; color: #dc2626; }
+    .icon-t4 { background: #f0fdf4; color: #16a34a; }
+    .icon-t5 { background: #faf5ff; color: #9333ea; }
+    .icon-t6 { background: #fffbeb; color: #d97706; }
+
+    .tech-title-wrap h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .tech-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #2563eb;
+      background: #dbeafe;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .tech-analogy {
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: #334155;
+      line-height: 1.55;
+    }
+
+    .tech-analogy strong {
+      color: #0284c7;
+    }
+
+    .tech-how {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .tech-how strong {
+      color: #1e293b;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .tag-item {
+      font-size: 11px;
+      font-weight: 700;
+      background: #e2e8f0;
+      color: #334155;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* Section 5: Trust & Ethics (Zero Hallucination & HAX) */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .trust-card {
+      background: #ffffff;
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .trust-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .trust-card h4 {
+      font-size: 16px;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .trust-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-line);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .team-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      background: #f1f5f9;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .problem-grid, .comparison-wrapper, .pillars-grid, .trust-grid, .tech-grid {
+        grid-template-columns: 1fr;
+      }
+      .analogy-card {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        🚀 MINI HACKATHON AI · TRACK D2 · NHÓM LANGXIMI
+      </div>
+      <h1>HỌC TỪ LỖI SAI<br><span>(Adaptive Error Remediation)</span></h1>
+      <p class="hero-lead">
+        Biến mỗi câu trả lời sai thành một khoảnh khắc học sâu sắc: Tự động phát hiện hiểu nhầm, trích dẫn bài giảng gốc và giúp học viên khắc phục lỗ hổng kiến thức ngay lập tức!
+      </p>
+
+      <!-- Ví dụ đời thường (Analogy) -->
+      <div class="analogy-card">
+        <div class="analogy-icon">🩺</div>
+        <div class="analogy-text">
+          <h4>Hãy tưởng tượng khi bạn đi khám bệnh:</h4>
+          <p>
+            Bạn muốn bác sĩ chỉ nói cụt lủn: <em>"Bạn bị ốm rồi!"</em> rồi bỏ về? <strong>Hay bạn muốn bác sĩ chẩn đoán chính xác bạn bị viêm họng do đâu, mở hồ sơ y khoa chỉ rõ triệu chứng và kê đúng đơn thuốc để bạn uống khỏi ngay?</strong><br>
+            👉 <strong>LangXiMi chính là vị "Bác sĩ Gia sư AI" cho từng câu hỏi thi của bạn!</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: NỖI ĐAU CỦA NGƯỜI HỌC -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Nỗi đau có thật</span>
+        <h2>Điều gì đang xảy ra khi học viên nộp bài?</h2>
+        <p>Phân tích từ 13.494 lượt tương tác học tập thực tế trên nền tảng VLearn</p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="stat-card">
+          <div class="stat-number stat-danger">99.85%</div>
+          <div class="stat-label">Bị "Bỏ Rơi" Sau Khi Thi</div>
+          <p class="stat-desc">Hệ thống cũ chỉ báo điểm (4/10) và danh sách đúng/sai. 13.474 lượt tương tác không có bất kỳ phản hồi nào về việc học viên có thực sự hiểu bài hay không.</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number stat-warning">15 Phút</div>
+          <div class="stat-label">Tự Mò Slide Vô Vọng</div>
+          <p class="stat-desc">Để biết tại sao mình sai, học viên phải tự lật lại hàng trăm trang slide hoặc video dài 2 tiếng. Quá nản lòng, đa số chọn rời đi và tiếp tục lặp lại lỗi sai.</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number stat-primary">196 Lần</div>
+          <div class="stat-label">Học Viên Kêu Cứu</div>
+          <p class="stat-desc">Có tới 196 lượt học viên nhắn tin đòi làm bài tập ôn lại điểm yếu nhưng hệ thống cũ đành từ chối vì chưa có tính năng hỗ trợ.</p>
+        </div>
+      </div>
+
+      <div class="quotes-box">
+        <div class="icon">💬</div>
+        <div>
+          <p><strong>Lời học viên kêu cứu (Trích Turn T00804 & T04-092):</strong> <em>“TẠO QUIZ ĐỂ TÔI HIỂU RÕ VÀ ÔN LẠI TOÀN BỘ SLIDE NÀY... Cần tính năng ôn bài theo đúng điểm yếu, chứ làm sai xong trôi qua luôn không nhớ mình sai vì sao!”</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: SO SÁNH TRỰC QUAN CŨ VS MỚI -->
+  <section class="section" style="background: #ffffff; border-top: 1px solid var(--border-line); border-bottom: 1px solid var(--border-line);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">So sánh giải pháp</span>
+        <h2>Khác biệt một trời một vực</h2>
+        <p>Học viên sẽ không còn phải tự bơi trong biển tài liệu</p>
+      </div>
+
+      <div class="comparison-wrapper">
+        <!-- Cũ -->
+        <div class="comparison-card card-old">
+          <span class="card-badge badge-old">❌ Cách làm cũ (Màn hình truyền thống)</span>
+          <h3>Báo điểm rồi để mặc học viên</h3>
+          
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="step-num step-num-old">1</div>
+              <div class="step-content">
+                <strong>Học viên làm quiz & nộp bài</strong>
+                <span>Hệ thống chấm: Đúng 6 câu, Sai 4 câu.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="step-num step-num-old">2</div>
+              <div class="step-content">
+                <strong>Chỉ thấy gạch chéo đỏ khô khan</strong>
+                <span>Không có lời giải thích nào về lý do tại sao phương án mình chọn lại sai.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="step-num step-num-old">3</div>
+              <div class="step-content">
+                <strong>Tự lật tìm tài liệu hoặc bỏ cuộc</strong>
+                <span>Ngại mở 100 trang slide, học viên tắt màn hình đi ngủ.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-outcome outcome-bad">
+            ⚠️ Hậu quả: Lỗ hổng kiến thức vẫn còn nguyên, kỳ thi sau lại tiếp tục chọn sai câu đó!
+          </div>
+        </div>
+
+        <!-- Mới: LangXiMi -->
+        <div class="comparison-card card-new">
+          <span class="card-badge badge-new">✨ Cách làm của LangXiMi (Gia sư AI đồng hành)</span>
+          <h3>Bắt bệnh tận gốc & Luyện ngay tại chỗ</h3>
+          
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="step-num step-num-new">1</div>
+              <div class="step-content">
+                <strong>Chẩn đoán đúng quan niệm sai lầm</strong>
+                <span>AI chỉ rõ: "Bạn chọn C vì đang nhầm giữa kỹ thuật A và B..."</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="step-num step-num-new">2</div>
+              <div class="step-content">
+                <strong>Dẫn chứng bài giảng gốc [Txx-xxx]</strong>
+                <span>Trích dẫn nguyên văn slide của thầy cô. Bấm vào là đọc được đoạn gốc có thật 100%.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="step-num step-num-new">3</div>
+              <div class="step-content">
+                <strong>Làm ngay 1 câu củng cố tương ứng</strong>
+                <span>Luyện thử 1 câu tình huống mới để não bộ ghi nhớ kiến thức đúng ngay tức thì.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-outcome outcome-good">
+            🎉 Kết quả: Hiểu bản chất sau 1 phút, nhớ sâu và không bao giờ tái phạm lỗi sai!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: 3 BƯỚC HOẠT ĐỘNG CỦA AI -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Cơ chế thông minh</span>
+        <h2>3 Trụ Cột Đột Phá Của LangXiMi</h2>
+        <p>Quy trình khép kín giúp người học tiến bộ vượt bậc sau mỗi lỗi sai</p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon icon-p1">🎯</div>
+          <h3>1. Bắt Đúng Bệnh</h3>
+          <p>Không chỉ nói đáp án đúng là gì. AI phân tích sâu phương án học viên đã bấm để chỉ ra chính xác điểm học viên đang bị nhầm lẫn trong tư duy.</p>
+          <span class="pillar-tag">Misconception Diagnosis</span>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon icon-p2">📖</div>
+          <h3>2. Dẫn Chứng Xác Thực</h3>
+          <p>Nói có sách, mách có chứng. AI tự động tra cứu vào transcript bài giảng và trích đúng câu chữ gốc kèm số hiệu phút/slide [T01-004].</p>
+          <span class="pillar-tag">Zero-Hallucination Grounding</span>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon icon-p3">⚡</div>
+          <h3>3. Luyện Tập Khắc Sâu</h3>
+          <p>Học đi đôi với hành. Sinh ngay 1 câu hỏi trắc nghiệm mới bám sát kiến thức vừa hổng để học viên kiểm tra xem mình đã thực sự hiểu chưa.</p>
+          <span class="pillar-tag">Adaptive Reinforcement</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: MÔ PHỎNG THỰC TẾ (DEMO MOCKUP) -->
+  <section class="container">
+    <div class="demo-section">
+      <div class="demo-header">
+        <span class="hero-badge">TRẢI NGHIỆM TRỰC QUAN</span>
+        <h2>Thực tế trên màn hình trông như thế nào?</h2>
+        <p>Ví dụ một học viên làm sai câu hỏi về Trí tuệ nhân tạo (AI):</p>
+      </div>
+
+      <div class="demo-box">
+        <div class="demo-question">
+          ❓ Câu hỏi 1: Kỹ thuật nào yêu cầu mô hình trình bày các bước suy luận trước khi đưa ra câu trả lời cuối cùng?
+        </div>
+
+        <div class="demo-options">
+          <div class="demo-opt wrong">
+            <span class="demo-opt-badge opt-bad">C</span>
+            <span>Few-shot prompting (Bạn đã chọn câu này — SAI ❌)</span>
+          </div>
+          <div class="demo-opt right">
+            <span class="demo-opt-badge opt-good">B</span>
+            <span>Chain-of-thought (Đáp án đúng ✅)</span>
+          </div>
+        </div>
+
+        <!-- Khối AI Chẩn đoán hiện ra -->
+        <div class="demo-remediation">
+          <div class="rem-title">
+            <span>✨ AI Chẩn đoán & Củng cố kiến thức (LangXiMi)</span>
+          </div>
+          
+          <p class="rem-desc">
+            <strong>Có thể bạn đang hiểu nhầm:</strong> Bạn đang nhầm giữa <em>Chain-of-thought</em> (yêu cầu mô hình tự suy nghĩ từng bước) với <em>Few-shot prompting</em> (cung cấp một vài ví dụ mẫu để mô hình bắt chước). Hai kỹ thuật này hoàn toàn khác nhau về bản chất!
+          </p>
+
+          <div class="rem-quote">
+            <span class="rem-quote-tag">📖 CĂN CỨ TRÍCH DẪN BÀI GIẢNG [T01-004] (BẤM ĐỂ XEM SLIDE GỐC):</span>
+            "Chain-of-thought là kỹ thuật yêu cầu mô hình trình bày từng bước suy luận trước khi đưa ra câu trả lời cuối cùng. Kỹ thuật này đặc biệt hữu ích với các bài toán logic hoặc tính toán nhiều bước."
+          </div>
+
+          <div class="rem-quiz">
+            <div class="rem-quiz-title">🎯 Câu hỏi củng cố ngay (Kiểm tra lại xem bạn đã hiểu chưa?):</div>
+            <div class="rem-quiz-stem">Kỹ thuật nào sau đây cung cấp một vài ví dụ mẫu trong câu lệnh để mô hình học theo mẫu đó?</div>
+            <div style="display: grid; gap: 6px;">
+              <button class="btn-action" style="text-align: left;">A. Zero-shot prompting</button>
+              <button class="btn-action" style="text-align: left; background: #064e3b; color: #6ee7b7;">B. Few-shot prompting (Bấm vào đây để chọn thử)</button>
+              <button class="btn-action" style="text-align: left;">C. Fine-tuning</button>
+            </div>
+          </div>
+
+          <div class="rem-btn-group">
+            <button class="btn-action">Tôi chỉ bấm nhầm chuột</button>
+            <button class="btn-action">Bỏ qua câu củng cố này</button>
+            <button class="btn-action">Gửi câu hỏi cho Trợ giảng (TA)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4.5: CÔNG NGHỆ & KỸ THUẬT XỬ LÝ AI (UNDER THE HOOD) -->
+  <section class="section tech-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Dưới nắp capo công nghệ</span>
+        <h2>Hệ Thống Đã "Dạy" & "Kiểm Soát" AI Như Thế Nào Để Đạt Độ Chuẩn Tuyệt Đối?</h2>
+        <p>Kết hợp giữa mô hình ngôn ngữ lớn (LLM) hiện đại với cơ chế rào chắn kỹ thuật khắt khe — Đảm bảo AI thông minh nhưng không bao giờ bịa đặt</p>
+      </div>
+
+      <div class="tech-grid">
+        <!-- Tech Card 1 -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <div class="tech-icon icon-t1">📚</div>
+            <div class="tech-title-wrap">
+              <span class="tech-badge">Cốt Lõi Tri Thức</span>
+              <h3>Khai Thác Dữ Liệu Giáo Trình (RAG)</h3>
+            </div>
+          </div>
+          <div class="tech-analogy">
+            <strong>💡 Ví von đời thực:</strong> Giống như một kỳ thi <em>"Đề mở"</em> — AI chỉ được phép tra cứu đúng tài liệu giáo trình do giảng viên cung cấp để hướng dẫn học viên, tuyệt đối không được tự suy diễn kiến thức trôi nổi trên mạng.
+          </div>
+          <div class="tech-how">
+            <strong>⚙️ Cách thức kỹ thuật:</strong> Toàn bộ 32 bài giảng slide được băm nhỏ thành các phân đoạn chuẩn (chunks). Khi học viên làm sai, hệ thống định vị chính xác đoạn tài liệu sát nhất để nạp vào ngữ cảnh của AI làm bằng chứng trích dẫn.
+          </div>
+          <div class="tech-tags">
+            <span class="tag-item">RAG Architecture</span>
+            <span class="tag-item">32 Chunks Slide Data</span>
+            <span class="tag-item">Chống Bịa Đặt Từ Gốc</span>
+          </div>
+        </div>
+
+        <!-- Tech Card 2 -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <div class="tech-icon icon-t2">🔒</div>
+            <div class="tech-title-wrap">
+              <span class="tech-badge">Kỷ Luật Đầu Ra</span>
+              <h3>Nhiệt Độ Thấp & Khóa Cấu Trúc JSON</h3>
+            </div>
+          </div>
+          <div class="tech-analogy">
+            <strong>💡 Ví von đời thực:</strong> Như một <em>"Gia sư kỷ luật cao"</em> — Không cho phép AI bay bổng sáng tác hay nói lan man, mà bắt buộc phải đi thẳng vào trọng tâm: chẩn đoán vì sao sai và cách khắc phục.
+          </div>
+          <div class="tech-how">
+            <strong>⚙️ Cách thức kỹ thuật:</strong> Thiết lập <code>temperature = 0.2</code> (hạ tối đa độ ngẫu nhiên) cùng tính năng OpenAI Structured Outputs (<code>json_object</code>). AI buộc phải trả về đúng 5 trường thông tin chuẩn chỉ, loại bỏ hoàn toàn nguy cơ lỗi định dạng giao diện.
+          </div>
+          <div class="tech-tags">
+            <span class="tag-item">GPT-4o-mini</span>
+            <span class="tag-item">Temperature 0.2</span>
+            <span class="tag-item">JSON Schema Enforcement</span>
+          </div>
+        </div>
+
+        <!-- Tech Card 3 -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <div class="tech-icon icon-t3">🛡️</div>
+            <div class="tech-title-wrap">
+              <span class="tech-badge">Phòng Thủ Thép</span>
+              <h3>Cổng Kiểm Duyệt Trích Dẫn Tuyệt Đối</h3>
+            </div>
+          </div>
+          <div class="tech-analogy">
+            <strong>💡 Ví von đời thực:</strong> Như <em>"Máy soi an ninh sân bay"</em> — Mọi lời AI nói ra đều bị máy quét tự động rà soát từng chữ. Nếu phát hiện trích dẫn sai dù chỉ một dấu phẩy, hệ thống sẽ chặn ngay lập tức!
+          </div>
+          <div class="tech-how">
+            <strong>⚙️ Cách thức kỹ thuật:</strong> Bộ lọc độc lập <code>validator.py</code> kiểm tra chuỗi con nghiêm ngặt (Zero-Tolerance Substring Check). Nếu câu trích dẫn không khớp 100% nguyên văn trong slide bài giảng, câu chẩn đoán sẽ bị hủy và chuyển tự động tới Trợ giảng (TA).
+          </div>
+          <div class="tech-tags">
+            <span class="tag-item">Strict Substring Validator</span>
+            <span class="tag-item">Zero Tolerance</span>
+            <span class="tag-item">Auto-Fallback to TA</span>
+          </div>
+        </div>
+
+        <!-- Tech Card 4 -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <div class="tech-icon icon-t4">⚡</div>
+            <div class="tech-title-wrap">
+              <span class="tech-badge">Tối Ưu Hiệu Năng</span>
+              <h3>Xử Lý Đa Luồng Song Song (Concurrency)</h3>
+            </div>
+          </div>
+          <div class="tech-analogy">
+            <strong>💡 Ví von đời thực:</strong> Giống như siêu thị <em>"Mở cùng lúc 5 quầy tính tiền"</em> — Dù học viên có làm sai 3 hay 5 câu trong quiz, hệ thống vẫn xử lý đồng thời tất cả các câu cùng một tích tắc.
+          </div>
+          <div class="tech-how">
+            <strong>⚙️ Cách thức kỹ thuật:</strong> Triển khai <code>ThreadPoolExecutor(max_workers=5)</code> trong Python. Các câu hỏi sai được gọi song song tới AI, giúp giảm thời gian phản hồi toàn bài từ 20 giây xuống chỉ còn 3–4 giây, giữ trọn vẹn sự tập trung của người học.
+          </div>
+          <div class="tech-tags">
+            <span class="tag-item">Python Concurrency</span>
+            <span class="tag-item">Độ trễ 3-4s</span>
+            <span class="tag-item">ThreadPoolExecutor</span>
+          </div>
+        </div>
+
+        <!-- Tech Card 5 -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <div class="tech-icon icon-t5">🤝</div>
+            <div class="tech-title-wrap">
+              <span class="tech-badge">Đạo Đức Trải Nghiệm</span>
+              <h3>Nguyên Tắc Thiết Kế HAX & Google PAIR</h3>
+            </div>
+          </div>
+          <div class="tech-analogy">
+            <strong>💡 Ví von đời thực:</strong> Như một <em>"Người bạn đồng hành tinh tế"</em> — Không áp đặt, không làm người học cảm thấy xấu hổ vì làm sai, và luôn trao quyền kiểm soát cao nhất cho học viên.
+          </div>
+          <div class="tech-how">
+            <strong>⚙️ Cách thức kỹ thuật:</strong> Ứng dụng trọn vẹn bộ tiêu chuẩn Microsoft HAX Toolkit: Luôn giải thích rõ nguồn gốc kiến thức (G2), cung cấp nút 'Tôi chỉ bấm nhầm' để huỷ chẩn đoán (G9/G10), và có nút chuyển giao người thật (Human-in-the-loop).
+          </div>
+          <div class="tech-tags">
+            <span class="tag-item">Microsoft HAX Toolkit</span>
+            <span class="tag-item">Google PAIR Guidelines</span>
+            <span class="tag-item">Human-in-the-loop</span>
+          </div>
+        </div>
+
+        <!-- Tech Card 6 -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <div class="tech-icon icon-t6">📈</div>
+            <div class="tech-title-wrap">
+              <span class="tech-badge">Đo Lường & Giám Sát</span>
+              <h3>Golden Set 20 Ca & Hộp Đen Ghi Vết</h3>
+            </div>
+          </div>
+          <div class="tech-analogy">
+            <strong>💡 Ví von đời thực:</strong> Giống như <em>"Hộp đen máy bay"</em> — Mọi lời khuyên, căn cứ bài giảng và câu hỏi AI sinh ra đều được ghi lại minh bạch từng giây để giảng viên và ban giám khảo kiểm tra bất cứ lúc nào.
+          </div>
+          <div class="tech-how">
+            <strong>⚙️ Cách thức kỹ thuật:</strong> Toàn bộ truy vấn được ghi vào <code>llm_trace.log</code>. Hệ thống được kiểm thử tự động với bộ dữ liệu vàng 20 ca học sinh thực tế (Golden Set), kiểm soát 100% các tình huống khó, câu hỏi ngoài phạm vi và bẫy ngôn ngữ.
+          </div>
+          <div class="tech-tags">
+            <span class="tag-item">Golden Set 20/20 (100%)</span>
+            <span class="tag-item">Audit Trace Logging</span>
+            <span class="tag-item">Bằng Chứng Khoa Học</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: ĐẠO ĐỨC & ĐỘ TIN CẬY (TRUST & SAFETY) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Cam kết an toàn</span>
+        <h2>Tại sao Thầy Cô & Giám Khảo Hoàn Toàn Tin Tưởng?</h2>
+        <p>Thiết kế theo bộ tiêu chuẩn khắt khe Google PAIR & Microsoft HAX Toolkit</p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">🛡️</div>
+          <h4>Tuyệt Đối Không Bịa Đặt</h4>
+          <p>Zero-Hallucination: 100% trích dẫn phải tồn tại nguyên văn trong bài giảng. Nếu không tìm thấy, AI thật thà nhận là thiếu dữ liệu chứ không bịa.</p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">🤝</div>
+          <h4>Tôn Trọng Người Học</h4>
+          <p>Luôn có nút "Tôi chỉ bấm nhầm" và "Bỏ qua nếu đang vội". Không bao giờ cưỡng ép học viên phải làm bài nếu họ không muốn.</p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">⚡</div>
+          <h4>Tốc Độ Siêu Nhanh</h4>
+          <p>Phản hồi chỉ sau 3–4 giây nhờ mô hình AI thế hệ mới, giữ trọn vẹn sự tập trung và hào hứng của học viên.</p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">📊</div>
+          <h4>Đo Lường Định Lượng</h4>
+          <p>Đã kiểm thử tự động trên 20 kịch bản học sinh khó nhằn với tỷ lệ Đạt chuẩn 100%, có bằng chứng ghi vết minh bạch từng giây.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="team-badge">
+        👥 NHÓM LANGXIMI · CỤM C4 · PHÒNG E403 · LỚP 3B
+      </div>
+      <p style="margin-bottom: 8px;">
+        <strong>Thành viên nhóm:</strong> Trần Tuấn Cường (Lead) · Trần Đình Hinh · Lê Như Ý · Lê Thị Châm Anh
+      </p>
+      <p style="font-size: 12px; color: #94a3b8;">
+        Dự án tham dự Mini Hackathon AI — Batch 04 · Đề D2: Học từ lỗi trước
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
